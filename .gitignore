@@ -1,0 +1,23 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Large media & model weights
+video/
+*.mp4
+*.mov
+*.wav
+*.aif
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# Independent engineering sub-repositories
+project 1/
+project2/
+
+# Internal study / private mentoring notes
+导师与课程/
+作品集评估/
+p5_mission_control/
