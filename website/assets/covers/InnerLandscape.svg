@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Inner Landscape</title>
+  <desc id="desc">A quiet isometric room with a window, a vinyl record, and a small listening figure.</desc>
+  <rect width="1200" height="900" fill="#ecece9"/>
+  <path d="M190 250 600 100l410 150v390L600 790 190 640Z" fill="#f7f7f4" stroke="#171717" stroke-width="5"/>
+  <path d="M190 250 600 400l410-150M600 400v390" fill="none" stroke="#171717" stroke-width="4"/>
+  <path d="M280 280 490 358v-186l-210-78Z" fill="#d9d9d4" stroke="#171717" stroke-width="4"/>
+  <path d="M385 319v-186M280 280l210 78" stroke="#171717" stroke-width="3"/>
+  <circle cx="795" cy="315" r="105" fill="#171717"/>
+  <circle cx="795" cy="315" r="70" fill="none" stroke="#777" stroke-width="3"/>
+  <circle cx="795" cy="315" r="36" fill="none" stroke="#777" stroke-width="3"/>
+  <circle cx="795" cy="315" r="9" fill="#ecece9"/>
+  <path d="M705 513 894 443l68 28-190 76Z" fill="#d2d2cd" stroke="#171717" stroke-width="4"/>
+  <path d="M726 548v86M934 491v85" stroke="#171717" stroke-width="4"/>
+  <circle cx="542" cy="570" r="25" fill="#171717"/>
+  <path d="M542 595v100m0-67-47 38m47-38 45 22m-45 45-35 45m35-45 35 45" fill="none" stroke="#171717" stroke-width="12" stroke-linecap="round"/>
+  <path d="M380 750c86-40 164-32 230-4m-215 38c86-40 164-32 230-4" fill="none" stroke="#b8b8b1" stroke-width="3"/>
+  <text x="600" y="858" text-anchor="middle" fill="#171717" font-family="Arial, Helvetica, sans-serif" font-size="22" letter-spacing="7">A ROOM THAT GROWS FROM MUSIC</text>
+</svg>

@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eef0f0">
+  <title>Gallery — Rex Li</title>
+  <style>
+    :root { color-scheme:light; --ink:#181818; --muted:#8b8e8d; --paper:#eef0f0; --gutter:clamp(18px,2.2vw,42px); font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--paper); }
+
+    :root { --page-pad:max(14.2857vw, calc(50vw - 720px)); --brand-row-height:94px; }
+    .site-header,.site-footer { font-family:Arial,Helvetica,sans-serif; }
+    .site-header { --ink:#111; --muted:#686868; --line:#d7d7d7; --accent:#111; position:sticky; top:calc(-1 * var(--brand-row-height)); z-index:20; background:#fff; color:#111; }
+    .brand-row { height:94px; min-height:94px; overflow:hidden; padding:16px var(--page-pad) 10px; display:flex; align-items:center; justify-content:space-between; opacity:1; transition:height .32s ease,min-height .32s ease,padding .32s ease,opacity .22s ease,visibility .32s; }
+    .brand { display:inline-block; text-decoration:none; font-weight:800; font-size:clamp(42px,6vw,72px); line-height:.85; letter-spacing:-.085em; }
+    .nav-row { min-height:58px; padding:0 var(--page-pad); display:flex; align-items:center; gap:clamp(10px,2vw,28px); border-bottom:1px solid var(--line); }
+    .nav-trigger { min-height:58px; padding:0; border:0; border-bottom:3px solid transparent; background:transparent; cursor:pointer; font-family:inherit; font-size:clamp(16px,1.5vw,21px); font-weight:700; letter-spacing:-.045em; }
+    .nav-trigger:hover,.nav-trigger[aria-expanded="true"] { border-bottom-color:var(--ink); }
+    .search-wrap { width:40px; height:58px; flex:0 0 40px; margin-left:auto; position:relative; display:flex; align-items:center; justify-content:flex-end; border:0; }
+    .search-toggle { width:40px; height:40px; flex:0 0 auto; display:grid; place-items:center; padding:0; border:0; background:transparent; color:var(--ink); cursor:pointer; }
+    .search-icon { width:22px; height:22px; flex:0 0 auto; }
+    #siteSearch { display:none; width:100%; min-width:0; padding:11px 6px 10px 10px; border:0; outline:0; background:transparent; font-size:14px; }
+    .search-wrap.is-open { position:absolute; top:calc(100% + 12px); right:var(--page-pad); z-index:11; width:min(440px,calc(100vw - var(--page-pad) - var(--page-pad))); height:auto; padding:8px 12px; justify-content:flex-start; border:1px solid var(--line); background:#fff; box-shadow:0 14px 26px #00000014; }
+    .search-wrap.is-open #siteSearch { display:block; }
+    #siteSearch::placeholder { color:#777; }
+    .clear-search { border:0; padding:5px 0 5px 8px; background:transparent; color:var(--muted); cursor:pointer; font-size:18px; }
+    .search-results { position:absolute; top:calc(100% + 1px); right:0; z-index:10; width:min(440px,calc(100vw - var(--page-pad) - var(--page-pad))); padding:18px; border:1px solid var(--line); background:#fff; box-shadow:0 14px 26px #00000014; }
+    .search-results[hidden] { display:none; }
+    .search-caption { margin:0 0 10px; color:var(--muted); font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+    .search-result { display:block; padding:12px 0; border-top:1px solid var(--line); text-decoration:none; }
+    .search-result strong { display:block; font-size:18px; letter-spacing:-.035em; }
+    .search-result span { display:block; margin-top:4px; color:var(--muted); font-size:12px; line-height:1.45; }
+    .search-empty { color:var(--muted); font-size:13px; }
+    .mega-panel { position:absolute; top:100%; left:0; right:0; z-index:8; padding:28px var(--page-pad) 34px; background:#fff; box-shadow:0 22px 32px #0000001a; }
+    .mega-panel[hidden],.mega-inner[hidden],.year-content[hidden] { display:none; }
+    .mega-inner { display:grid; grid-template-columns:1fr; gap:24px; max-width:1440px; margin:0 auto; }
+    .year-list { border-top:1px solid var(--line); }
+    .year-group { border-bottom:1px solid var(--line); }
+    .year-trigger { width:100%; display:flex; justify-content:space-between; align-items:center; padding:13px 0; border:0; background:transparent; text-align:left; cursor:pointer; font-family:inherit; font-size:clamp(19px,2.1vw,27px); font-weight:700; letter-spacing:-.06em; }
+    .year-trigger span:last-child { font-size:18px; font-weight:400; transition:transform .2s; }
+    .year-trigger[aria-expanded="true"] span:last-child { transform:rotate(45deg); }
+    .year-content { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; padding:3px 0 20px; }
+    .menu-project { min-height:98px; padding:12px; border:1px solid var(--line); text-decoration:none; transition:background .2s,color .2s; }
+    .menu-project:hover { background:var(--ink); color:#fff; }
+    .menu-project small { display:block; margin-bottom:10px; color:var(--muted); font-size:9px; letter-spacing:.1em; text-transform:uppercase; }
+    .menu-project:hover small { color:#c9c9c9; }
+    .menu-project strong { display:block; font-size:20px; font-weight:700; line-height:1.05; letter-spacing:-.045em; }
+    .menu-links { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border-top:1px solid var(--line); }
+    .menu-link { padding:17px 8px 17px 0; border-bottom:1px solid var(--line); text-decoration:none; }
+    .menu-link:hover strong { color:var(--accent); }
+    .menu-link small { display:block; margin-bottom:6px; color:var(--muted); font-size:10px; letter-spacing:.1em; text-transform:uppercase; }
+    .menu-link strong { font-size:clamp(20px,2.3vw,29px); font-weight:700; line-height:1.05; letter-spacing:-.045em; }
+    .site-footer { padding:36px var(--page-pad) 22px; background:#444; color:#fff; }
+    .footer-main { min-height:170px; display:grid; grid-template-columns:1fr 1fr; gap:30px; align-content:space-between; }
+    .footer-brand { justify-self:start; color:#fff; font-size:clamp(38px,5vw,60px); font-weight:800; line-height:.9; letter-spacing:-.08em; text-decoration:none; }
+    .footer-nav { display:flex; flex-wrap:wrap; justify-content:flex-end; align-content:start; gap:10px 24px; }
+    .footer-nav a,.footer-bottom a { color:#fff; font-size:14px; font-weight:700; text-decoration:none; }
+    .footer-nav a:hover,.footer-bottom a:hover { text-decoration:underline; text-underline-offset:4px; }
+    .footer-tagline { margin:0; color:#fff; font-size:18px; font-weight:700; }
+    .footer-bottom { display:flex; justify-content:space-between; gap:16px; margin-top:36px; padding-top:18px; border-top:1px solid #777; color:#bbb; font-size:11px; }
+    @media(max-width:760px) {
+      :root { --brand-row-height:76px; }
+      .brand-row { height:76px; min-height:76px; }
+      .nav-row { min-height:54px; gap:0 clamp(5px,1.2vw,10px); overflow:visible; }
+      .nav-trigger { min-height:54px; font-size:clamp(12px,2.7vw,16px); }
+      .search-wrap { width:36px; height:54px; flex-basis:36px; margin:0 0 0 auto; padding:0; border:0; }
+      .search-toggle { width:36px; height:40px; }
+      #siteSearch { padding:8px 6px 8px 10px; }
+      .clear-search { display:block; }
+      .mega-panel { padding-top:22px; }
+      .year-content { grid-template-columns:1fr; gap:8px; }
+      .menu-project { min-height:0; }
+      .footer-main { min-height:230px; grid-template-columns:1fr; gap:24px; }
+      .footer-nav { justify-content:flex-start; }
+      .footer-bottom { flex-direction:column; }
+    }
+    @media(max-width:380px) {
+      .nav-row { gap:0 4px; }
+      .nav-trigger { font-size:11px; }
+      .search-wrap,.search-toggle { width:32px; flex-basis:32px; }
+      .search-icon { width:20px; height:20px; }
+    }
+    * { box-sizing:border-box; }
+    body { min-width:320px; min-height:100vh; margin:0; background:var(--paper); }
+    a,button { color:inherit; }
+    :focus-visible { outline:2px solid var(--ink); outline-offset:4px; }
+    .gallery-layout { display:grid; grid-template-columns:minmax(0, 1.6fr) minmax(0, 4fr); gap:clamp(22px,2.2vw,42px); min-height:100vh; padding:var(--gutter); }
+    .sidebar-column { position:sticky; top:calc(58px + var(--gutter)); align-self:start; height:calc(100vh - 58px - 2 * var(--gutter)); display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
+    .sidebar-content { width:fit-content; max-width:100%; margin-inline:auto; display:flex; flex-direction:column; gap:clamp(64px,11vh,140px); }
+    .country-title { display:inline-block; margin:0; font-size:clamp(42px,5.2vw,78px); font-weight:400; line-height:1.02; letter-spacing:-.055em; }
+    .albums-column { padding-top:0; }
+    .albums-title { margin:0 0 18px; color:var(--muted); font-size:14px; font-weight:400; }
+    .album-list { display:grid; justify-items:start; gap:11px; }
+    .album-button { padding:0; border:0; background:none; color:var(--muted); font:inherit; font-size:18px; line-height:1.4; text-align:left; cursor:pointer; }
+    .album-button[aria-pressed="true"],.album-button:hover { color:var(--ink); }
+    .album-button[aria-pressed="true"]::before { content:"• "; }
+    .photo-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(10px,1.1vw,22px); align-content:start; }
+    .photo-grid figure { margin:0; }
+    .photo-placeholder { display:block; width:100%; aspect-ratio:3/2; object-fit:cover; }
+    .photo-grid.is-flow { display:block; columns:2; column-gap:clamp(10px,1.1vw,22px); }
+    .photo-grid.is-flow figure { break-inside:avoid; margin:0 0 clamp(10px,1.1vw,22px); }
+    .photo-grid.is-flow .photo-placeholder { height:auto; aspect-ratio:auto; object-fit:contain; }
+    @media(max-width:760px) {
+      .gallery-layout { grid-template-columns:1fr; gap:18px; padding:18px; }
+      .sidebar-column { position:static; height:auto; min-height:36vh; }
+      .sidebar-content { gap:clamp(28px,8vh,64px); }
+      .photo-grid { grid-column:auto; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+      .country-title { font-size:clamp(32px,7vw,48px); }
+      .album-button { font-size:16px; }
+    }
+    @media(max-width:430px) { .photo-grid { gap:6px; } }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="brand-row">
+      <a class="brand" href="index.html#top" aria-label="Rex Li home">RexLi</a>
+    </div>
+    <nav class="nav-row" aria-label="Main navigation">
+      <button class="nav-trigger" type="button" data-panel="projects" aria-expanded="false" aria-controls="menu-panel">Projects</button>
+      <button class="nav-trigger" type="button" data-panel="researches" aria-expanded="false" aria-controls="menu-panel">Researches</button>
+      <button class="nav-trigger" type="button" data-panel="gallery" aria-expanded="false" aria-controls="menu-panel">Gallery</button>
+      <button class="nav-trigger" type="button" data-panel="about" aria-expanded="false" aria-controls="menu-panel">About</button>
+      <form class="search-wrap" id="searchForm" role="search">
+        <button class="search-toggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="siteSearch"><svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6" fill="none" stroke="currentColor" stroke-width="2.1"/><path d="m16 16 5 5" fill="none" stroke="currentColor" stroke-width="2.1"/></svg></button>
+        <input id="siteSearch" type="search" placeholder="Search Rex Li" aria-label="Search Rex Li's work" autocomplete="off" hidden>
+        <button class="clear-search" type="button" aria-label="Clear search" hidden>×</button>
+        <div class="search-results" id="searchResults" role="region" aria-live="polite" hidden></div>
+      </form>
+    </nav>
+    <div class="mega-panel" id="menu-panel" hidden>
+      <div class="mega-inner" id="panel-projects" hidden>
+        <div class="year-list">
+          <div class="year-group">
+            <button class="year-trigger" type="button" aria-expanded="true" aria-controls="year-2026"><span>2026</span><span aria-hidden="true">＋</span></button>
+            <div class="year-content" id="year-2026">
+              <a class="menu-project" href="index.html#robin"><small>Instrument · 2026</small><strong>Robin</strong></a>
+              <a class="menu-project" href="index.html#machine"><small>2026</small><strong>A Machine for Misunderstanding</strong></a>
+              <a class="menu-project" href="index.html#listener"><small>Sound system · In progress</small><strong>Listener</strong></a>
+            </div>
+          </div>
+          <div class="year-group">
+            <button class="year-trigger" type="button" aria-expanded="false" aria-controls="year-2025"><span>2025</span><span aria-hidden="true">＋</span></button>
+            <div class="year-content" id="year-2025"><a class="menu-project" href="index.html#music-classifier"><small>Machine learning · 2025</small><strong>NYUSH Music Classifier</strong></a>
+              <a class="menu-project" href="index.html#inner-landscape"><small>Music &amp; technology · 2025</small><strong>Inner Landscape</strong></a></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="mega-inner" id="panel-researches" hidden>
+        <div class="menu-links">
+          <a class="menu-link" href="index.html#research-contingency"><small>Music technology · 2026</small><strong>A Structural Spectrum of Contingency</strong></a>
+          <a class="menu-link" href="index.html#research-discipline"><small>AI and ethics · 2026</small><strong>Discipline Without a Subject</strong></a>
+        </div>
+      </div>
+      <div class="mega-inner" id="panel-gallery" hidden>
+        <div class="menu-links">
+          <a class="menu-link" href="gallery-detail.html?place=japan"><strong>Japan</strong></a>
+          <a class="menu-link" href="gallery-detail.html?place=hungary"><strong>Hungary</strong></a>
+        </div>
+      </div>
+      <div class="mega-inner" id="panel-about" hidden>
+        <div class="menu-links"><a class="menu-link" href="index.html#about-section"><strong>About Rex Li</strong></a></div>
+      </div>
+    </div>
+  </header>
+  <main class="gallery-layout">
+    <aside class="sidebar-column">
+      <div class="sidebar-content">
+        <h1 class="country-title" id="collection-title">Japan</h1>
+        <nav class="albums-column" aria-label="Albums">
+          <p class="albums-title">Albums</p>
+          <div class="album-list" id="album-list"></div>
+        </nav>
+      </div>
+    </aside>
+    <section class="photo-grid" id="photo-grid" aria-label="Selected album photographs"></section>
+  </main>
+    <footer class="site-footer">
+      <div class="footer-main">
+        <a class="footer-brand" href="index.html#top">RexLi</a>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="index.html#projects-section">Projects</a>
+          <a href="index.html#research-section">Researches</a>
+          <a href="index.html#gallery-section">Gallery</a>
+          <a href="index.html#about-section">About</a>
+        </nav>
+        <p class="footer-tagline">Contact</p>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Rex Li</span><a href="index.html#top">Back to top ↑</a></div>
+    </footer>
+  <script>
+    const navButtons = [...document.querySelectorAll('.nav-trigger')];
+    const megaPanel = document.querySelector('#menu-panel');
+    const panelViews = [...document.querySelectorAll('.mega-inner')];
+    const searchForm = document.querySelector('#searchForm');
+    const searchToggle = document.querySelector('.search-toggle');
+    const searchInput = document.querySelector('#siteSearch');
+    const results = document.querySelector('#searchResults');
+    const clearSearch = document.querySelector('.clear-search');
+    function closeMenu() {
+      megaPanel.hidden = true;
+      panelViews.forEach((view) => view.hidden = true);
+      navButtons.forEach((button) => button.setAttribute('aria-expanded', 'false'));
+    }
+    function closeSearch() {
+      searchForm.classList.remove('is-open');
+      searchToggle.setAttribute('aria-expanded', 'false');
+      searchToggle.setAttribute('aria-label', 'Open search');
+      searchInput.hidden = true;
+      results.hidden = true;
+    }
+    navButtons.forEach((button) => button.addEventListener('click', () => {
+      const isOpen = button.getAttribute('aria-expanded') === 'true';
+      closeSearch();
+      closeMenu();
+      if (!isOpen) {
+        button.setAttribute('aria-expanded', 'true');
+        megaPanel.hidden = false;
+        document.querySelector(`#panel-${button.dataset.panel}`).hidden = false;
+      }
+    }));
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { closeMenu(); closeSearch(); } });
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.site-header')) closeMenu();
+    });
+    document.querySelectorAll('.year-trigger').forEach((button) => button.addEventListener('click', () => {
+      const open = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', String(!open));
+      document.getElementById(button.getAttribute('aria-controls')).hidden = open;
+    }));
+
+    const searchableItems = [
+      { title: 'Robin', category: 'Project · 2026', text: 'Custom gesture-based instrument, hardware design, Max/MSP, Ableton Live, Python', href: 'index.html#robin' },
+      { title: 'A Machine for Misunderstanding', category: 'Project · 2026', text: 'Text-to-sound experiment on communication, emotional language and interpretation', href: 'index.html#machine' },
+      { title: 'Listener', category: 'Project · In progress', text: 'Acoustic feedback system, VCV Rack, resampling, field recording', href: 'index.html#listener' },
+      { title: 'NYUSH Music Classifier', category: 'Project · 2025', text: 'MERT, audio machine learning, FMA-small, music genre classification', href: 'index.html#music-classifier' },
+      { title: 'Inner Landscape', category: 'Project · 2025', text: 'Music-self, self-reflection, playlist sharing, visual room, privacy', href: 'index.html#inner-landscape' },
+      { title: 'A Structural Spectrum of Contingency', category: 'Research · 2026', text: 'Gesture based musical instruments, expressive movement, nonlinear patterns, spectral analysis', href: 'index.html#research-contingency' },
+      { title: 'Discipline Without a Subject', category: 'Research · 2026', text: 'AI alignment, Foucault, discipline, preference training, linguistic diversity', href: 'index.html#research-discipline' },
+      { title: 'About Rex Li', category: 'About', text: 'Artist, music technology, independent research, music and systems', href: 'index.html#about-section' },
+    ];
+    searchToggle.addEventListener('click', () => {
+      const isOpen = searchToggle.getAttribute('aria-expanded') === 'true';
+      if (isOpen) { closeSearch(); return; }
+      closeMenu();
+      searchForm.classList.add('is-open');
+      searchInput.hidden = false;
+      searchToggle.setAttribute('aria-expanded', 'true');
+      searchToggle.setAttribute('aria-label', 'Close search');
+      searchInput.focus();
+    });
+    function renderSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+      clearSearch.hidden = !query;
+      if (!query) { results.hidden = true; results.innerHTML = ''; return; }
+      const matches = searchableItems.filter((item) => `${item.title} ${item.category} ${item.text}`.toLowerCase().includes(query));
+      results.hidden = false;
+      results.innerHTML = `<p class="search-caption">Search results</p>${matches.length ? matches.map((item) => `<a class="search-result" href="${item.href}"><strong>${item.title}</strong><span>${item.category} · ${item.text}</span></a>`).join('') : '<p class="search-empty">No results. Try a project, topic, or research title.</p>'}`;
+    }
+    searchInput.addEventListener('input', () => { if (searchInput.value.trim()) closeMenu(); renderSearch(); });
+    searchForm.addEventListener('submit', (event) => event.preventDefault());
+    clearSearch.addEventListener('click', () => { searchInput.value = ''; renderSearch(); searchInput.focus(); });
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.search-wrap')) { closeSearch(); }
+    });
+    results.addEventListener('click', (event) => { if (event.target.closest('a')) closeSearch(); });
+  </script>
+  <script>
+    const places = { japan: "Japan", hungary: "Hungary" };
+    const placeKey = new URLSearchParams(location.search).get("place") || "japan";
+    const placeName = places[placeKey] || places.japan;
+    const albumsByPlace = {
+      japan: [
+        { name: "花火，Fireworks，2026夏", directory: "fireworks", count: 10 },
+        { name: "花火2025", directory: "fireworks-2025", count: 2 },
+        { name: "日常的生活，2025", directory: "kamakura", count: 13, layout: "flow" }
+      ],
+      hungary: [{ name: "欧洲的风物", directory: "hungary", count: 10, layout: "flow" }]
+    };
+    const albums = (albumsByPlace[placeKey] || []).map(album => ({
+      ...album,
+      photos: Array.from({ length: album.count }, (_, index) => `assets/gallery/${album.directory}/${String(index + 1).padStart(2, "0")}.JPG`)
+    }));
+    const albumList = document.getElementById("album-list");
+    const photoGrid = document.getElementById("photo-grid");
+    document.getElementById("collection-title").textContent = placeName;
+    document.title = `${placeName} — Gallery — Rex Li`;
+
+    function showAlbum(albumIndex) {
+      const album = albums[albumIndex];
+      photoGrid.classList.toggle("is-flow", album.layout === "flow");
+      [...albumList.children].forEach((button, index) => button.setAttribute("aria-pressed", String(index === albumIndex)));
+      photoGrid.replaceChildren(...album.photos.map((src, index) => {
+        const figure = document.createElement("figure");
+        const image = document.createElement("img");
+        image.className = "photo-placeholder";
+        image.src = src;
+        image.alt = `${album.name} — photograph ${index + 1}`;
+        image.loading = index < 4 ? "eager" : "lazy";
+        figure.append(image);
+        return figure;
+      }));
+    }
+
+    albums.forEach((album, index) => {
+      const button = document.createElement("button");
+      button.className = "album-button";
+      button.type = "button";
+      button.textContent = album.name;
+      button.setAttribute("aria-pressed", "false");
+      button.addEventListener("click", () => showAlbum(index));
+      albumList.append(button);
+    });
+    if (albums.length) showAlbum(0);
+  </script>
+</body>
+</html>

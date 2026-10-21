@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff">
+  <title>Rex Li — Music, Technology, Research</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #111;
+      --paper: #fff;
+      --muted: #686868;
+      --line: #d7d7d7;
+      --soft: #f0f0ef;
+      --accent: #111;
+      --burgundy: #ad5267;
+      --page-pad: max(14.2857vw, calc(50vw - 720px));
+      --brand-row-height: 94px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      scroll-behavior: smooth;
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body { margin: 0; }
+    button, input { font: inherit; }
+    a { color: inherit; }
+    .site-header { position: sticky; top: calc(-1 * var(--brand-row-height)); z-index: 20; background: var(--paper); }
+    .brand-row { height: 94px; min-height: 94px; overflow: hidden; padding: 16px var(--page-pad) 10px; display: flex; align-items: center; justify-content: space-between; opacity: 1; transition: height .32s ease, min-height .32s ease, padding .32s ease, opacity .22s ease, visibility .32s; }
+    .brand { display: inline-block; text-decoration: none; font-weight: 800; font-size: clamp(42px, 6vw, 72px); line-height: .85; letter-spacing: -.085em; }
+    .nav-row { min-height: 58px; padding: 0 var(--page-pad); display: flex; align-items: center; gap: clamp(10px, 2vw, 28px); border-bottom: 1px solid var(--line); }
+    .nav-trigger { min-height: 58px; padding: 0; border: 0; border-bottom: 3px solid transparent; background: transparent; cursor: pointer; font-size: clamp(16px, 1.5vw, 21px); font-weight: 700; letter-spacing: -.045em; }
+    .nav-trigger:hover, .nav-trigger[aria-expanded="true"] { border-bottom-color: var(--ink); }
+    .nav-trigger:focus-visible, .search-toggle:focus-visible, .close-search:focus-visible, .year-trigger:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .search-wrap { width: 40px; height: 58px; flex: 0 0 40px; margin-left: auto; position: relative; display: flex; align-items: center; justify-content: flex-end; border: 0; }
+    .search-toggle { width: 40px; height: 40px; flex: 0 0 auto; display: grid; place-items: center; padding: 0; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+    .search-icon { width: 22px; height: 22px; flex: 0 0 auto; }
+    #siteSearch { display: none; width: 100%; min-width: 0; padding: 11px 6px 10px 10px; border: 0; outline: 0; background: transparent; font-size: 14px; }
+    .search-wrap.is-open { position: absolute; top: calc(100% + 12px); right: var(--page-pad); z-index: 11; width: min(440px, calc(100vw - var(--page-pad) - var(--page-pad))); height: auto; padding: 8px 12px; justify-content: flex-start; border: 1px solid var(--line); background: #fff; box-shadow: 0 14px 26px #00000014; }
+    .search-wrap.is-open #siteSearch { display: block; }
+    #siteSearch::placeholder { color: #777; }
+    .clear-search { border: 0; padding: 5px 0 5px 8px; background: transparent; color: var(--muted); cursor: pointer; font-size: 18px; }
+    .search-results { position: absolute; top: calc(100% + 1px); right: 0; z-index: 10; width: min(440px, calc(100vw - var(--page-pad) - var(--page-pad))); padding: 18px; border: 1px solid var(--line); background: #fff; box-shadow: 0 14px 26px #00000014; }
+    .search-results[hidden] { display: none; }
+    .search-caption { margin: 0 0 10px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .search-result { display: block; padding: 12px 0; border-top: 1px solid var(--line); text-decoration: none; }
+    .search-result strong { display: block; font-size: 18px; letter-spacing: -.035em; }
+    .search-result span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .search-empty { color: var(--muted); font-size: 13px; }
+    .mega-panel { position: absolute; top: 100%; left: 0; right: 0; z-index: 8; padding: 28px var(--page-pad) 34px; background: #fff; box-shadow: 0 22px 32px #0000001a; }
+    .mega-panel[hidden] { display: none; }
+    .mega-inner { display: grid; grid-template-columns: minmax(180px, .7fr) minmax(0, 1.3fr); gap: clamp(30px, 8vw, 120px); max-width: 1440px; margin: 0 auto; }
+    .mega-inner[hidden] { display: none; }
+    #panel-projects { grid-template-columns: 1fr; }
+    #panel-researches, #panel-gallery, #panel-about { grid-template-columns: 1fr; }
+    .menu-kicker { margin: 0 0 20px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .menu-intro { max-width: 300px; margin: 0; font-size: clamp(21px, 2.4vw, 32px); line-height: 1.08; letter-spacing: -.065em; }
+    .menu-intro em { font-weight: 700; }
+    .year-list { border-top: 1px solid var(--line); }
+    .year-group { border-bottom: 1px solid var(--line); }
+    .year-trigger { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 13px 0; border: 0; background: transparent; text-align: left; cursor: pointer; font-size: clamp(19px, 2.1vw, 27px); font-weight: 700; letter-spacing: -.06em; }
+    .year-trigger span:last-child { font-size: 18px; font-weight: 400; transition: transform .2s; }
+    .year-trigger[aria-expanded="true"] span:last-child { transform: rotate(45deg); }
+    .year-content { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding: 3px 0 20px; }
+    .year-content[hidden] { display: none; }
+    .menu-project { min-height: 98px; padding: 12px; border: 1px solid var(--line); text-decoration: none; transition: background .2s, color .2s; }
+    .menu-project:hover { background: var(--ink); color: #fff; }
+    .menu-project small { display: block; margin-bottom: 10px; color: var(--muted); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+    .menu-project:hover small { color: #c9c9c9; }
+    .menu-project strong { display: block; font-size: 20px; font-weight: 700; line-height: 1.05; letter-spacing: -.045em; }
+    .year-empty { grid-column: 1 / -1; margin: 4px 0; color: var(--muted); font-size: 13px; }
+    .menu-links { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); border-top: 1px solid var(--line); }
+    .menu-link { padding: 17px 8px 17px 0; border-bottom: 1px solid var(--line); text-decoration: none; }
+    .menu-link:hover strong { color: var(--accent); }
+    .menu-link small { display: block; margin-bottom: 6px; color: var(--muted); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+    .menu-link strong { font-size: clamp(20px, 2.3vw, 29px); font-weight: 700; line-height: 1.05; letter-spacing: -.045em; }
+    .hero { padding: 0; }
+    .hero-image { display: block; width: 100%; height: clamp(280px, 44vw, 590px); object-fit: cover; object-position: center 60%; }
+    .welcome { padding: 30px var(--page-pad) 28px; }
+    .welcome h1 { margin: 0 0 9px; font-size: clamp(36px, 5vw, 62px); line-height: .95; letter-spacing: -.075em; }
+    .welcome p { margin: 0; font-size: clamp(18px, 2.2vw, 27px); font-weight: 700; letter-spacing: -.045em; }
+    .divider { height: 1px; margin: 0 var(--page-pad); background: var(--ink); }
+    .below-fold { padding: 58px var(--page-pad) 80px; }
+    .section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; margin: 0 0 24px; }
+    .section-head h2 { margin: 0; font-size: clamp(28px, 3.6vw, 44px); letter-spacing: -.065em; }
+    #projects-section .section-head p { display: none; }
+    #research-section .section-head p { display: none; }
+    .project-grid { display: flex; align-items: flex-start; gap: clamp(12px, 1.6vw, 22px); padding: 0 0 16px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-inline: contain; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--muted) transparent; }
+    .project-card { flex: 0 0 62%; max-width: 100%; min-width: 0; display: flex; flex-direction: column; scroll-snap-align: start; scroll-snap-stop: always; text-decoration: none; }
+    .project-card:nth-child(2) { margin-top: 20px; }
+    .project-card:nth-child(3) { margin-top: 10px; }
+    .project-cover { display: block; width: 100%; aspect-ratio: 1.55 / 1; object-fit: cover; background: var(--soft); }
+    .project-card:nth-child(2) .project-cover { aspect-ratio: 1.8 / 1; }
+    .project-card:nth-child(3) .project-cover { aspect-ratio: 1.4 / 1; }
+    .project-grid::-webkit-scrollbar { height: 5px; }
+    .project-grid::-webkit-scrollbar-thumb { background: var(--muted); }
+    .project-grid:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .project-copy { min-height: 190px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; color: #000; background: #fff; transition: background .2s ease; }
+    .project-card:hover .project-copy { background: var(--soft); }
+    .project-card small { margin-bottom: 20px; font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .project-card h3 { max-width: 12em; min-height: 86px; margin: 0; font-size: clamp(23px, 2.7vw, 36px); font-weight: 400; line-height: .98; letter-spacing: -.055em; }
+    .research-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .research-item { position: relative; min-height: 219px; display: flex; flex-direction: column; align-items: flex-start; gap: 15px; padding: 20px; color: #000; background: #cccaca; text-decoration: none; transition: filter .2s ease; }
+    .research-item:hover { filter: brightness(.94); }
+    .research-item small { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .research-item h3 { max-width: 13em; min-height: 68px; margin: auto 0 0; font-size: clamp(25px, 3vw, 40px); font-weight: 400; line-height: .98; letter-spacing: -.055em; }
+    .research-item p { max-width: 38em; margin: 0; color: #111; font-size: 14px; line-height: 1.4; }
+    .research-arrow { position: absolute; right: 20px; bottom: 14px; font-size: 24px; }
+    .gallery-section { padding: 0 var(--page-pad) 66px; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .gallery-place { display: flex; min-height: 190px; align-items: flex-end; margin: 0; padding: 16px; background: var(--soft); color: var(--ink); text-decoration: none; }
+    .gallery-place h3 { margin: 0; font-size: clamp(22px, 2.5vw, 32px); font-weight: 400; letter-spacing: -.05em; }
+    .about-section { margin-inline: var(--page-pad); padding: 52px 0 88px; border-top: 1px solid var(--ink); }
+    .about-profile { display: grid; grid-template-columns: .9fr 1.1fr; gap: 7vw; align-items: center; padding-bottom: 34px; }
+    .about-kicker, .about-label, .about-meta { margin: 0; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .about-profile > div { text-align: left; }
+    .about-profile h2 { margin: 0; font-size: clamp(64px, 8vw, 112px); line-height: .95; letter-spacing: -.09em; }
+    .about-location { margin: 14px 0 0; color: var(--ink); font-size: clamp(22px, 2.6vw, 34px); font-weight: 700; line-height: 1.05; letter-spacing: -.055em; }
+    .about-avatar { display: block; width: clamp(150px, 18vw, 270px); aspect-ratio: 1; justify-self: end; border-radius: 50%; object-fit: cover; background: var(--soft); }
+    .about-visual { position: relative; margin: 0; background: var(--soft); }
+    .about-visual img { display: block; width: 100%; height: clamp(250px, 38vw, 500px); object-fit: cover; object-position: center 45%; }
+    .about-visual figcaption { position: absolute; right: 12px; bottom: 12px; padding: 8px 10px; background: #ffffffdf; color: var(--muted); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+    .about-fields { display: grid; grid-template-columns: .9fr 1.1fr; gap: 7vw; padding: 18px 0 54px; border-bottom: 1px solid var(--line); }
+    .about-field-list { display: flex; flex-wrap: wrap; gap: 7px; }
+    .about-field { padding: 7px 10px; border: 1px solid var(--line); border-radius: 99px; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
+    .about-story { display: grid; grid-template-columns: 1fr; gap: 24px; padding: 50px 0 52px; }
+    .about-story-heading { align-self: start; }
+    .about-story-heading h3 { max-width: 900px; margin: 12px 0 0; font-size: clamp(30px, 4vw, 48px); line-height: 1.04; letter-spacing: -.06em; }
+    .about-copy { max-width: 750px; }
+    .about-copy p { margin: 0 0 22px; font-size: clamp(16px, 1.7vw, 20px); line-height: 1.55; }
+    .about-quote { margin: 32px 0; padding: 0; border: 0; color: var(--ink); font-size: clamp(16px, 1.7vw, 20px) !important; line-height: 1.55 !important; font-weight: 700; letter-spacing: normal; }
+    .about-current { display: grid; grid-template-columns: 1.05fr .95fr; gap: 7vw; align-items: center; padding: 28px 0 46px; border-top: 1px solid var(--line); }
+    .about-current img { display: block; width: 100%; min-height: 230px; max-height: 390px; object-fit: cover; background: var(--soft); }
+    .about-current h3 { margin: 10px 0 12px; font-size: clamp(33px, 4vw, 52px); font-weight: 400; line-height: .98; letter-spacing: -.065em; }
+    .about-current p:not(.about-label) { max-width: 540px; margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
+    .site-footer { padding: 36px var(--page-pad) 22px; background: #444; color: #fff; }
+    .footer-main { min-height: 170px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-content: space-between; }
+    .footer-brand { justify-self: start; color: #fff; font-size: clamp(38px, 5vw, 60px); font-weight: 800; line-height: .9; letter-spacing: -.08em; text-decoration: none; }
+    .footer-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; align-content: start; gap: 10px 24px; }
+    .footer-nav a, .footer-bottom a { color: #fff; font-size: 14px; font-weight: 700; text-decoration: none; }
+    .footer-nav a:hover, .footer-bottom a:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .footer-tagline { margin: 0; color: #fff; font-size: 18px; font-weight: 700; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 16px; margin-top: 36px; padding-top: 18px; border-top: 1px solid #777; color: #bbb; font-size: 11px; }
+    @media (max-width: 760px) {
+      :root { --brand-row-height: 76px; }
+      .brand-row { height: 76px; min-height: 76px; }
+      .nav-row { min-height: 54px; gap: 0 clamp(5px, 1.2vw, 10px); overflow: visible; }
+      .nav-trigger { min-height: 54px; font-size: clamp(12px, 2.7vw, 16px); }
+      .search-wrap { width: 36px; height: 54px; flex-basis: 36px; margin: 0 0 0 auto; padding: 0; border: 0; }
+      .search-toggle { width: 36px; height: 40px; }
+      #siteSearch { padding: 8px 6px 8px 10px; }
+      .clear-search { display: block; }
+      .mega-panel { padding-top: 22px; }
+      .mega-inner { grid-template-columns: 1fr; gap: 24px; }
+      .menu-intro { max-width: 540px; }
+      .year-content { grid-template-columns: 1fr; gap: 8px; }
+      .menu-project { min-height: 0; }
+      .project-grid { gap: 12px; }
+      .project-card { flex-basis: 78%; }
+      .project-card:nth-child(2) { margin-top: 14px; }
+      .project-card:nth-child(3) { margin-top: 7px; }
+      .project-cover, .project-card:nth-child(2) .project-cover, .project-card:nth-child(3) .project-cover { aspect-ratio: 1.4 / 1; }
+      .project-copy { min-height: 160px; padding: 12px; }
+      .project-card h3 { min-height: 62px; font-size: clamp(19px, 5vw, 27px); }
+      .research-list { grid-template-columns: 1fr; gap: 8px; }
+      .research-item { min-height: 219px; padding: 16px; }
+      .research-item h3 { min-height: 62px; }
+      .gallery-grid { grid-template-columns: 1fr; gap: 8px; }
+      .gallery-place { min-height: 120px; }
+      .about-section { padding: 34px 0 64px; }
+      .about-profile, .about-fields, .about-story, .about-current { grid-template-columns: 1fr; gap: 17px; }
+      .about-profile { padding-bottom: 24px; }
+      .about-profile h2 { font-size: clamp(56px, 16vw, 82px); }
+      .about-avatar { width: clamp(120px, 34vw, 190px); justify-self: start; }
+      .about-visual img { height: 64vw; min-height: 235px; max-height: 380px; }
+      .about-fields { padding-bottom: 36px; }
+      .about-story { padding: 36px 0 30px; }
+      .about-story-heading h3 { max-width: 520px; }
+      .about-copy p { margin-bottom: 17px; }
+      .about-quote { margin: 24px 0; }
+      .about-current { padding: 24px 0 34px; }
+      .about-current img { min-height: 220px; }
+      .footer-main { min-height: 230px; grid-template-columns: 1fr; gap: 24px; }
+      .footer-nav { justify-content: flex-start; }
+      .footer-bottom { flex-direction: column; }
+    }
+    @media (max-width: 380px) {
+      .nav-row { gap: 0 4px; }
+      .nav-trigger { font-size: 11px; }
+      .search-wrap, .search-toggle { width: 32px; flex-basis: 32px; }
+      .search-icon { width: 20px; height: 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="brand-row">
+      <a class="brand" href="#top" aria-label="Rex Li home">RexLi</a>
+    </div>
+    <nav class="nav-row" aria-label="Main navigation">
+      <button class="nav-trigger" type="button" data-panel="projects" aria-expanded="false" aria-controls="menu-panel">Projects</button>
+      <button class="nav-trigger" type="button" data-panel="researches" aria-expanded="false" aria-controls="menu-panel">Researches</button>
+      <button class="nav-trigger" type="button" data-panel="gallery" aria-expanded="false" aria-controls="menu-panel">Gallery</button>
+      <button class="nav-trigger" type="button" data-panel="about" aria-expanded="false" aria-controls="menu-panel">About</button>
+      <form class="search-wrap" id="searchForm" role="search">
+        <button class="search-toggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="siteSearch"><svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6" fill="none" stroke="currentColor" stroke-width="2.1"/><path d="m16 16 5 5" fill="none" stroke="currentColor" stroke-width="2.1"/></svg></button>
+        <input id="siteSearch" type="search" placeholder="Search Rex Li" aria-label="Search Rex Li's work" autocomplete="off" hidden>
+        <button class="clear-search" type="button" aria-label="Clear search" hidden>×</button>
+        <div class="search-results" id="searchResults" role="region" aria-live="polite" hidden></div>
+      </form>
+    </nav>
+    <div class="mega-panel" id="menu-panel" hidden>
+      <div class="mega-inner" id="panel-projects" hidden>
+        <div class="year-list">
+          <div class="year-group">
+            <button class="year-trigger" type="button" aria-expanded="true" aria-controls="year-2026"><span>2026</span><span aria-hidden="true">＋</span></button>
+            <div class="year-content" id="year-2026">
+              <a class="menu-project" href="#robin"><small>Instrument · 2026</small><strong>Robin</strong></a>
+              <a class="menu-project" href="#machine"><small>2026</small><strong>A Machine for Misunderstanding</strong></a>
+              <a class="menu-project" href="#listener"><small>Sound system · In progress</small><strong>Listener</strong></a>
+            </div>
+          </div>
+          <div class="year-group">
+            <button class="year-trigger" type="button" aria-expanded="false" aria-controls="year-2025"><span>2025</span><span aria-hidden="true">＋</span></button>
+            <div class="year-content" id="year-2025"><a class="menu-project" href="#music-classifier"><small>Machine learning · 2025</small><strong>NYUSH Music Classifier</strong></a>
+              <a class="menu-project" href="#inner-landscape"><small>Music &amp; technology · 2025</small><strong>Inner Landscape</strong></a></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="mega-inner" id="panel-researches" hidden>
+        <div class="menu-links">
+          <a class="menu-link" href="#research-contingency"><small>Music technology · 2026</small><strong>A Structural Spectrum of Contingency</strong></a>
+          <a class="menu-link" href="#research-discipline"><small>AI and ethics · 2026</small><strong>Discipline Without a Subject</strong></a>
+        </div>
+      </div>
+      <div class="mega-inner" id="panel-gallery" hidden>
+        <div class="menu-links">
+          <a class="menu-link" href="gallery-detail.html?place=japan"><strong>Japan</strong></a>
+          <a class="menu-link" href="gallery-detail.html?place=hungary"><strong>Hungary</strong></a>
+        </div>
+      </div>
+      <div class="mega-inner" id="panel-about" hidden>
+        <div class="menu-links"><a class="menu-link" href="#about-section"><strong>About Rex Li</strong></a></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="Featured image">
+      <img class="hero-image" src="assets/home-hero.jpg" alt="A lone figure standing in a grassy field beside the sea beneath a cloudy sky">
+    </section>
+    <section class="welcome" aria-labelledby="welcome-title">
+      <h1 id="welcome-title">Welcome</h1>
+      <p>Explore music and technology ideas of Rex Li</p>
+    </section>
+    <div class="divider" role="separator"></div>
+
+    <section class="below-fold" id="projects-section" aria-labelledby="projects-title">
+      <div class="section-head"><h2 id="projects-title">Projects</h2></div>
+      <div class="project-grid" role="region" aria-label="Projects carousel" tabindex="0">
+        <a class="project-card" id="robin" href="project-detail.html?project=robin"><img class="project-cover" src="assets/covers/Robin.png" alt="Robin instrument and patch"><div class="project-copy"><small>2026</small><h3>Robin</h3></div></a>
+        <a class="project-card" id="machine" href="project-detail.html?project=a-machine-for-misunderstanding"><img class="project-cover" src="assets/covers/Machine.png" alt="A Machine for Misunderstanding"><div class="project-copy"><small>2026</small><h3>A Machine for Misunderstanding</h3></div></a>
+        <a class="project-card" id="listener" href="project-detail.html?project=listener"><img class="project-cover" src="assets/covers/listener.png" alt="Listener sound system"><div class="project-copy"><small>2026</small><h3>Listener</h3></div></a>
+        <a class="project-card" id="music-classifier" href="project-detail.html?project=music-classifier"><img class="project-cover" src="assets/covers/MusicClassifier.png" alt="Music genre classifier evaluation confusion matrix"><div class="project-copy"><small>2025</small><h3>NYUSH Music Classifier</h3></div></a>
+        <a class="project-card" id="inner-landscape" href="project-detail.html?project=inner-landscape"><img class="project-cover" src="assets/covers/InnerLandscape.svg" alt="Concept illustration for Inner Landscape"><div class="project-copy"><small>2025</small><h3>Inner Landscape</h3></div></a>
+      </div>
+    </section>
+    <section class="below-fold" id="research-section" aria-labelledby="research-title" style="padding-top:0">
+        <div class="section-head"><h2 id="research-title">Researches</h2></div>
+        <div class="research-list">
+          <a class="research-item" id="research-contingency" href="https://drive.google.com/file/d/1WrAGPYTMfMooK7nSxsDXvcrphQiD-X5Z/view?usp=drive_link" target="_blank" rel="noreferrer"><small>01 · 2026</small><h3>A Structural Spectrum of Contingency</h3><span class="research-arrow" aria-hidden="true">↗</span></a>
+          <a class="research-item" id="research-discipline" href="https://drive.google.com/file/d/1mBZepO2QKQPT7Wt5j3-RZWTcr3g5reev/view?usp=drive_link" target="_blank" rel="noreferrer"><small>02 · 2026</small><h3>Discipline Without a Subject</h3><span class="research-arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+      <section class="gallery-section" id="gallery-section" aria-labelledby="gallery-title">
+        <div class="section-head"><h2 id="gallery-title">Gallery</h2></div>
+        <div class="gallery-grid">
+          <a class="gallery-place" href="gallery-detail.html?place=japan" aria-label="Open Japan photo gallery"><h3>Japan</h3></a>
+          <a class="gallery-place" href="gallery-detail.html?place=hungary" aria-label="Open Hungary photo gallery"><h3>Hungary</h3></a>
+        </div>
+      </section>
+      <section class="about-section" id="about-section" aria-labelledby="about-section-title">
+        <div class="about-profile">
+          <div>
+            <h2 id="about-section-title">Rex Li</h2>
+            <p class="about-location">Nanjing, China</p>
+          </div>
+          <img class="about-avatar" src="assets/about-avatar.png" alt="Portrait of Rex Li">
+        </div>
+        <div class="about-story">
+          <div class="about-story-heading">
+            <h3>“My projects work across music, HCI, and technology. From following the rules to making room for surprise.”</h3>
+          </div>
+          <div class="about-copy">
+            <p>For more than ten years, percussion has taught me to hear time through the body: the weight of a stroke, the color of a surface, the space before the next sound.</p>
+            <p>I once thought good playing meant staying inside the grid. Then I began to hear how a slight delay could make a phrase breathe. André 3000’s laid-back phrasing helped me recognize that precision and expression do not always ask for the same thing.</p>
+            <p class="about-quote">A small deviation can change who—or what—is leading.</p>
+            <p>I started building with code because I wanted to make something that did not exist yet. In sixth grade, I made my mother a small Mother’s Day website. Years later, that same impulse led me to solder sensors, write code, and build Robin, an instrument that lets bodily movement alter the musical system.</p>
+            <p>My projects and writing return to a related question: when we build systems to control uncertainty, what new uncertainty do those systems create? I explore this through performance, machine listening, and research into how technical systems interpret human expression.</p>
+          </div>
+        </div>
+      </section>
+    <footer class="site-footer">
+      <div class="footer-main">
+        <a class="footer-brand" href="#top">RexLi</a>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="#projects-section">Projects</a>
+          <a href="#research-section">Researches</a>
+          <a href="#gallery-section">Gallery</a>
+          <a href="#about-section">About</a>
+        </nav>
+        <p class="footer-tagline">Contact</p>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Rex Li</span><a href="#top">Back to top ↑</a></div>
+    </footer>
+  </main>
+  <script>
+    const navButtons = [...document.querySelectorAll('.nav-trigger')];
+    const megaPanel = document.querySelector('#menu-panel');
+    const panelViews = [...document.querySelectorAll('.mega-inner')];
+    const searchForm = document.querySelector('#searchForm');
+    const searchToggle = document.querySelector('.search-toggle');
+    const searchInput = document.querySelector('#siteSearch');
+    const results = document.querySelector('#searchResults');
+    const clearSearch = document.querySelector('.clear-search');
+    function closeMenu() {
+      megaPanel.hidden = true;
+      panelViews.forEach((view) => view.hidden = true);
+      navButtons.forEach((button) => button.setAttribute('aria-expanded', 'false'));
+    }
+    function closeSearch() {
+      searchForm.classList.remove('is-open');
+      searchToggle.setAttribute('aria-expanded', 'false');
+      searchToggle.setAttribute('aria-label', 'Open search');
+      searchInput.hidden = true;
+      results.hidden = true;
+    }
+    navButtons.forEach((button) => button.addEventListener('click', () => {
+      const isOpen = button.getAttribute('aria-expanded') === 'true';
+      closeSearch();
+      closeMenu();
+      if (!isOpen) {
+        button.setAttribute('aria-expanded', 'true');
+        megaPanel.hidden = false;
+        document.querySelector(`#panel-${button.dataset.panel}`).hidden = false;
+      }
+    }));
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { closeMenu(); closeSearch(); } });
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.site-header')) closeMenu();
+    });
+    document.querySelectorAll('.year-trigger').forEach((button) => button.addEventListener('click', () => {
+      const open = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', String(!open));
+      document.getElementById(button.getAttribute('aria-controls')).hidden = open;
+    }));
+
+    const searchableItems = [
+      { title: 'Robin', category: 'Project · 2026', text: 'Custom gesture-based instrument, hardware design, Max/MSP, Ableton Live, Python', href: '#robin' },
+      { title: 'A Machine for Misunderstanding', category: 'Project · 2026', text: 'Text-to-sound experiment on communication, emotional language and interpretation', href: '#machine' },
+      { title: 'Listener', category: 'Project · In progress', text: 'Acoustic feedback system, VCV Rack, resampling, field recording', href: '#listener' },
+      { title: 'NYUSH Music Classifier', category: 'Project · 2025', text: 'MERT, audio machine learning, FMA-small, music genre classification', href: '#music-classifier' },
+      { title: 'Inner Landscape', category: 'Project · 2025', text: 'Music-self, self-reflection, playlist sharing, visual room, privacy', href: '#inner-landscape' },
+      { title: 'A Structural Spectrum of Contingency', category: 'Research · 2026', text: 'Gesture based musical instruments, expressive movement, nonlinear patterns, spectral analysis', href: '#research-contingency' },
+      { title: 'Discipline Without a Subject', category: 'Research · 2026', text: 'AI alignment, Foucault, discipline, preference training, linguistic diversity', href: '#research-discipline' },
+      { title: 'About Rex Li', category: 'About', text: 'Artist, music technology, independent research, music and systems', href: '#about-section' },
+    ];
+    searchToggle.addEventListener('click', () => {
+      const isOpen = searchToggle.getAttribute('aria-expanded') === 'true';
+      if (isOpen) { closeSearch(); return; }
+      closeMenu();
+      searchForm.classList.add('is-open');
+      searchInput.hidden = false;
+      searchToggle.setAttribute('aria-expanded', 'true');
+      searchToggle.setAttribute('aria-label', 'Close search');
+      searchInput.focus();
+    });
+    function renderSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+      clearSearch.hidden = !query;
+      if (!query) { results.hidden = true; results.innerHTML = ''; return; }
+      const matches = searchableItems.filter((item) => `${item.title} ${item.category} ${item.text}`.toLowerCase().includes(query));
+      results.hidden = false;
+      results.innerHTML = `<p class="search-caption">Search results</p>${matches.length ? matches.map((item) => `<a class="search-result" href="${item.href}"><strong>${item.title}</strong><span>${item.category} · ${item.text}</span></a>`).join('') : '<p class="search-empty">No results. Try a project, topic, or research title.</p>'}`;
+    }
+    searchInput.addEventListener('input', () => { if (searchInput.value.trim()) closeMenu(); renderSearch(); });
+    searchForm.addEventListener('submit', (event) => event.preventDefault());
+    clearSearch.addEventListener('click', () => { searchInput.value = ''; renderSearch(); searchInput.focus(); });
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.search-wrap')) { closeSearch(); }
+    });
+    results.addEventListener('click', (event) => { if (event.target.closest('a')) closeSearch(); });
+  </script>
+</body>
+</html>

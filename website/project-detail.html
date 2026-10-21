@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff">
+  <title>Project — Rex Li</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #111;
+      --paper: #fff;
+      --muted: #686868;
+      --line: #d7d7d7;
+      --soft: #f0f0ef;
+      --title-field: #d7e83f;
+      --machine-field: #f0dfe3;
+      --listener-field: #dce7ef;
+      --page-pad: max(14.2857vw, calc(50vw - 720px));
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      scroll-behavior: smooth;
+    }
+    * { box-sizing: border-box; }
+    body { min-width: 320px; margin: 0; }
+    a { color: inherit; }
+    .site-header { position: sticky; top: 0; z-index: 20; background: var(--paper); }
+    .brand-row { height: 94px; min-height: 94px; overflow: hidden; padding: 16px var(--page-pad) 10px; display: flex; align-items: center; justify-content: space-between; opacity: 1; transition: height .32s ease, min-height .32s ease, padding .32s ease, opacity .22s ease, visibility .32s; }
+    .site-header.is-condensed .brand-row { height: 0; min-height: 0; padding-top: 0; padding-bottom: 0; visibility: hidden; opacity: 0; }
+    .brand { display: inline-block; text-decoration: none; font-size: clamp(42px, 6vw, 72px); font-weight: 800; line-height: .85; letter-spacing: -.085em; }
+    .nav-row { min-height: 58px; padding: 0 var(--page-pad); display: flex; align-items: center; gap: clamp(10px, 2vw, 28px); border-bottom: 1px solid var(--line); }
+    .nav-row a { min-height: 58px; display: inline-flex; align-items: center; border-bottom: 3px solid transparent; font-size: clamp(14px, 1.5vw, 20px); font-weight: 700; letter-spacing: -.04em; text-decoration: none; }
+    .nav-row a:hover { border-bottom-color: var(--ink); }
+    .nav-row .search-link { margin-left: auto; width: 40px; justify-content: flex-end; }
+    .search-icon { width: 22px; height: 22px; }
+    :focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+    .detail-shell { padding: 0; }
+    .project-head { position: relative; min-height: clamp(260px, 32vw, 440px); display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; padding: clamp(28px, 5vw, 68px) var(--page-pad); background: var(--title-field); }
+    .project-head-machine { background:var(--machine-field); }
+    .project-head-listener { background:var(--listener-field); }
+    .project-head-music-classifier { background: #e7e0f2; }
+    .project-head-inner-landscape { background: #e7e7e2; }
+    h1 { max-width: 1000px; margin: 0; font-size: clamp(48px, 8vw, 112px); font-weight: 400; line-height: .9; letter-spacing: -.075em; }
+    .hero-figure { margin: 0; }
+    .hero-image { display: block; width: 100%; height: min(43vw, 560px); min-height: 330px; object-fit: cover; object-position: center 42%; background: var(--soft); }
+    .hero-caption { display: flex; justify-content: space-between; gap: 16px; padding: 10px var(--page-pad) 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
+    .project-overview { display: grid; grid-template-columns: minmax(240px, .55fr) minmax(0, 1.45fr); gap: clamp(28px, 6vw, 90px); margin: 0 var(--page-pad); padding: 58px 0 66px; border-bottom: 1px solid var(--line); }
+    .overview-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+    .overview-label { margin: 0; font-size: clamp(20px, 2vw, 28px); font-weight: 700; letter-spacing: -.035em; }
+    .overview-date { margin: 0; font-size: clamp(16px, 1.55vw, 21px); line-height: 1.45; }
+    .overview-copy { max-width: 900px; }
+    .overview-copy p { max-width: 900px; margin: 0; color: #222; font-size: clamp(16px, 1.55vw, 21px); font-weight: 400; line-height: 1.55; }
+    .overview-copy p + p { margin-top: 20px; }
+    .project-video { margin: 0 var(--page-pad); padding: 48px 0 56px; border-bottom: 1px solid var(--line); }
+    .video-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; margin: 0 0 18px; }
+    .video-heading h2 { margin: 0; font-size: clamp(24px, 3vw, 36px); font-weight: 400; letter-spacing: -.05em; }
+    .video-heading span { color: var(--muted); font-size: 11px; }
+    .video-frame { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; background: #111; }
+    .video-local { display: grid; width: 100%; aspect-ratio: 16 / 9; place-items: center; background: #111; color: #fff; font-size: 16px; text-decoration: none; }
+    .video-local span { border-bottom: 1px solid currentColor; padding-bottom: 5px; }
+    .video-local:hover { background: #292929; }
+    .video-watch-link { display: inline-block; margin-top: 10px; color: var(--muted); font-size: 11px; text-underline-offset: 4px; }
+    .video-pending { display: grid; min-height: 220px; place-items: center; background: var(--soft); color: var(--muted); font-size: 14px; }
+    .project-story, .project-resources, .next-project { margin-right: var(--page-pad); margin-left: var(--page-pad); }
+    .story-section { display: grid; grid-template-columns: minmax(140px, .55fr) minmax(0, 1.45fr); gap: clamp(28px, 6vw, 90px); padding: 44px 0; border-bottom: 1px solid var(--line); }
+    .story-index { margin: 4px 0 0; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .1em; }
+    .story-copy h2 { max-width: 900px; margin: 0 0 16px; font-size: clamp(26px, 3.4vw, 42px); font-weight: 400; line-height: 1.04; letter-spacing: -.055em; }
+    .story-copy p { max-width: 760px; margin: 0; color: #444; font-size: 16px; line-height: 1.65; }
+    .project-media { margin: 26px 0 0; }
+    .project-media img { display: block; max-width: 100%; max-height: 560px; object-fit: contain; object-position: left center; }
+    .project-media figcaption { margin-top: 8px; color: var(--muted); font-size: 11px; }
+    .project-resources { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 6vw, 90px); padding: 60px 0 72px; border-bottom: 1px solid var(--line); }
+    .project-resources.project-resources-single { grid-template-columns: 1fr; }
+    .project-resources h2 { margin: 0 0 20px; font-size: 24px; font-weight: 700; letter-spacing: -.04em; }
+    .project-links { margin: 0; font-size: 16px; line-height: 1.55; }
+    .project-links a { text-underline-offset: 4px; }
+    .project-links a:hover { text-decoration-thickness: 2px; }
+    .resource-list, .credit-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+    .resource-list li, .credit-list li { display: flex; justify-content: space-between; gap: 18px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 13px; line-height: 1.4; }
+    .credits-note { margin:0; padding:14px 0; border-top:1px solid var(--line); font-size:13px; }
+    .resource-list a { text-underline-offset: 4px; }
+    .resource-list a:hover { text-decoration-thickness: 2px; }
+    .credit-name { color: var(--muted); text-align: right; }
+    .next-project { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 38px 0 52px; text-decoration: none; }
+    .next-project span { color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .next-project strong { font-size: clamp(24px, 4vw, 42px); font-weight: 400; letter-spacing: -.05em; }
+    .next-project:hover strong { text-decoration: underline; text-underline-offset: 6px; }
+    .site-footer { padding: 36px var(--page-pad) 22px; background: #444; color: #fff; }
+    .footer-main { min-height: 170px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-content: space-between; }
+    .footer-brand { justify-self: start; color: #fff; font-size: clamp(38px, 5vw, 60px); font-weight: 800; line-height: .9; letter-spacing: -.08em; text-decoration: none; }
+    .footer-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; align-content: start; gap: 10px 24px; }
+    .footer-nav a, .footer-bottom a { color: #fff; font-size: 14px; font-weight: 700; text-decoration: none; }
+    .footer-nav a:hover, .footer-bottom a:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .footer-tagline { margin: 0; color: #fff; font-size: 18px; font-weight: 700; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 16px; margin-top: 36px; padding-top: 18px; border-top: 1px solid #777; color: #bbb; font-size: 11px; }
+    .not-found { min-height: 40vh; padding: 70px 0; }
+    @media (max-width: 760px) {
+      .brand-row { height: 76px; min-height: 76px; }
+      .nav-row { min-height: 54px; gap: 10px; }
+      .nav-row a { min-height: 54px; font-size: clamp(12px, 2.7vw, 16px); }
+      .nav-row .search-link { width: 32px; }
+      .project-head { min-height: 300px; padding: 28px var(--page-pad); }
+      .hero-image { height: 46vw; min-height: 170px; max-height: 360px; object-position: center; }
+      .hero-caption { flex-direction: column; gap: 4px; }
+      .project-overview, .story-section { grid-template-columns: 1fr; gap: 24px; }
+      .project-overview { padding: 44px 0 48px; }
+      .project-video { padding: 36px 0 42px; }
+      .story-section { padding: 32px 0; }
+      .project-resources { grid-template-columns: 1fr; gap: 40px; padding: 42px 0 52px; }
+      .next-project { align-items: flex-start; flex-direction: column; gap: 12px; }
+      .footer-main { min-height: 230px; grid-template-columns: 1fr; gap: 24px; }
+      .footer-nav { justify-content: flex-start; }
+      .footer-bottom { flex-direction: column; }
+    }
+    @media (max-width: 380px) {
+      .nav-row { gap: 6px; }
+      .nav-row a { font-size: 11px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      :root { scroll-behavior: auto; }
+      .brand-row { transition: none; }
+    }
+
+    .lab-report-cta { margin:0; padding:clamp(30px,5vw,58px) var(--page-pad); background:var(--machine-field); }
+    .lab-report-cta a { min-height:84px; width:fit-content; max-width:100%; padding:20px 24px; display:flex; align-items:center; border:2px solid var(--ink); background:var(--paper); color:var(--ink); text-decoration:none; transition:background .18s ease,color .18s ease; }
+    .lab-report-cta strong { font-size:clamp(18px,2.2vw,26px); font-weight:700; line-height:1.15; letter-spacing:-.035em; }
+    .lab-report-cta a:hover { background:var(--ink); color:var(--paper); }
+    .lab-report-cta a:focus-visible { outline-offset:5px; }
+    @media(max-width:760px) { .lab-report-cta a { min-height:72px; padding:16px 18px; } }
+
+  </style>
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="brand-row">
+      <a class="brand" href="index.html#top" aria-label="Rex Li home">RexLi</a>
+    </div>
+    <nav class="nav-row" aria-label="Main navigation">
+      <a href="index.html#projects-section">Projects</a>
+      <a href="index.html#research-section">Researches</a>
+      <a href="index.html#gallery-section">Gallery</a>
+      <a href="index.html#about-section">About</a>
+      <a class="search-link" href="index.html#searchForm" aria-label="Search Rex Li"><svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6" fill="none" stroke="currentColor" stroke-width="2.1"/><path d="m16 16 5 5" fill="none" stroke="currentColor" stroke-width="2.1"/></svg></a>
+    </nav>
+  </header>
+  <main class="detail-shell" id="main">
+    <article id="project"></article>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-main">
+      <a class="footer-brand" href="index.html#top">RexLi</a>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="index.html#projects-section">Projects</a>
+        <a href="index.html#research-section">Researches</a>
+        <a href="index.html#gallery-section">Gallery</a>
+        <a href="index.html#about-section">About</a>
+      </nav>
+      <p class="footer-tagline">Contact</p>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Rex Li</span><a href="#top">Back to top ↑</a></div>
+  </footer>
+<script>
+    const siteHeader = document.querySelector(".site-header");
+    const brandRow = document.querySelector(".brand-row");
+    const syncHeader = () => {
+      const condensed = window.scrollY > 128;
+      siteHeader.classList.toggle("is-condensed", condensed);
+      brandRow.setAttribute("aria-hidden", String(condensed));
+      brandRow.querySelector("a").tabIndex = condensed ? -1 : 0;
+    };
+    syncHeader();
+    window.addEventListener("scroll", syncHeader, { passive: true });
+
+    const projects = {
+      robin: {
+        title: "Robin", type: "Instrument", year: "2026", status: "",
+        subtitle: "A gesture-based instrument for live performance",
+        image: "assets/covers/Robin.png", alt: "Robin custom physical instrument with copper touch pads and ESP32 microcontroller",
+        caption: "Robin, a custom instrument for a live dialogue between performer and system.",
+        summary: "Robin is a custom percussion instrument that turns touch and movement into a shared musical process between performer and system.",
+        thesis: "The project asks how much of a musical performance can be controlled—and what new possibilities appear when the instrument makes choices of its own.",
+        experience: "Touch sets rhythms in motion, while the performer's movement changes their pace and texture. The instrument introduces variation; the performer listens, responds, and shapes what happens next.",
+        tags: ["Hardware Design", "Max/MSP", "Ableton Live", "Python"],
+        film: "https://www.youtube.com/watch?v=z70T89--KOc", videoId: "z70T89--KOc",
+        sections: [
+          { heading: "An instrument built for touch and movement", body: "Eleven copper touch pads register discrete strikes, while a motion sensor follows the instrument's movement. Together, they let the performer shape both individual sounds and the larger flow of a live performance." },
+          { heading: "A system that leaves room for change", body: "Python, Max/MSP, and Ableton Live connect the instrument's physical gestures to sound. A sequencer adds its own rhythmic variations, so the performer responds to a musical partner rather than simply triggering fixed sounds." },
+          { heading: "Performing with the instrument", body: "The video essay follows Robin in performance, showing how touch, movement, and generated rhythms shape an unfolding exchange between performer and instrument." }
+        ],
+        resources: [
+          ["Performance & Setup Manual", "assets/docs/robin/performance.pdf"],
+          ["Video Essay Script (English)", "assets/docs/robin/script-en.md"],
+          ["Max/MSP Patches Directory", "assets/docs/robin/patches/index.html"]
+        ],
+        credits: [["Concept, hardware design & performance", "Rex Li"], ["Firmware & embedded systems", "Rex Li"], ["DSP & Max/MSP patch architecture", "Rex Li"], ["Video essay direction & editing", "Rex Li"]]
+      },
+      "a-machine-for-misunderstanding": {
+        title: "A Machine for Misunderstanding", type: "Listening study", year: "2026", status: "Completed · Open source",
+        subtitle: "A text-to-sound experiment on communication and interpretation",
+        image: "assets/covers/Machine.png", alt: "A Machine for Misunderstanding modular synthesizer interface and affect visualization",
+        caption: "A system that translates written language into modular sound.",
+        summary: "A text-to-sound system and listening study exploring what changes when emotional language passes through a machine.",
+        thesis: "When words are translated into sound, what carries through—and what is changed or misunderstood? The project explores this question through a machine-mediated exchange and a listening study.",
+        experience: "Participants exchange short texts through a system that turns language into modular sound. One person sends a message; another listens to its sonic translation and describes what they hear. Comparing intention with perception makes each step of the exchange part of the work.",
+        tags: ["VCV Rack", "Python", "Experiment"],
+        film: "https://youtu.be/ctAal_Ea91U", videoId: "ctAal_Ea91U",
+        sections: [
+          { heading: "From language to sound", body: "A language model interprets emotional qualities in a text. The system maps that interpretation to changes in a modular synthesizer, turning a written message into a sound that can be heard and interpreted in turn." },
+          { heading: "A conversation through sound", body: "In an alternating listening exchange, participants send texts and receive only their sound translations. They describe what they perceive before comparing it with the original message, making room for both connection and misunderstanding." },
+          { heading: "Listening for what changes", body: "The study brings the sender's intended feeling into contact with the receiver's interpretation. Its report documents where meaning seems to carry through, shift, or become ambiguous as it moves from text to sound." }
+        ],
+        resources: [
+          ["GitHub Repository", "https://github.com/Rex188/Machine-for-Misunderstanding"],
+          ["Interactive Research Report", "assets/docs/machine/report.html"],
+          ["Lab Report and Experiment Process", "machine-lab-report.html"],
+        ],
+        credits: [["Principal investigator & system architect", "Rex Li"], ["Affective model fine-tuning", "Rex Li"], ["Modular sound design", "Rex Li"], ["Web laboratory frontend & visualizations", "Rex Li"]]
+      },
+      listener: {
+        title: "Listener", type: "Sound system", year: "2026", status: "In progress · Field recording pending",
+        subtitle: "An acoustic feedback system that listens to its environment",
+        image: "assets/covers/listener.png", alt: "Listener modular patch signal flow diagram in VCV Rack",
+        caption: "The current VCV Rack patch for capturing, transforming, and returning room sound.",
+        summary: "Listener records sounds from a room, transforms them, and plays them back into the same space—so each response becomes part of what the system hears next.",
+        thesis: "What does it mean for a system to listen when the sounds it has already heard shape what it notices next? Listener explores this question through an evolving acoustic feedback loop.",
+        experience: "A microphone picks up sounds already present in the space. Listener captures a brief fragment, reshapes it, and plays it back into the room. That response becomes part of the next listening moment, allowing the sound environment to change over time. Field recordings are still in progress.",
+        tags: ["VCV Rack", "Feedback Loop", "Resampling"],
+        film: "", videoId: "",
+        sections: [
+          { heading: "The room becomes the source", body: "Listener begins with sounds from its surroundings rather than a built-in tone. It captures short fragments from the room and uses them as the material for what it plays back." },
+          { heading: "Memory shapes attention", body: "The system uses traces of earlier sound to change how it responds to later sounds. Listening is therefore not a fresh start each time: the room's recent past helps shape what happens next." },
+          { heading: "A loop still taking shape", body: "The current working patch is Project_3-V0.1.10_NoCard.vcv. The next step is to record it in a real space and learn how the returning sound changes the environment over time." }
+        ],
+        resources: [
+          ["Current VCV Patch V0.1.10 NoCard", "assets/docs/project3/Project_3-V0.1.10_NoCard.vcv"],
+          ["Patch Reverse Engineering Audit", "assets/docs/project3/project3_review.md"],
+          ["Historical V0.2 Changelog (retired)", "assets/docs/project3/V0.2_changelog.md"],
+          ["Nanjing Sound Map", "projects/listener/index.html"]
+        ],
+        credits: [["Concept, modular patch architecture & sound design", "Rex Li"], ["Artistic influences", "Pauline Oliveros; Alvin Lucier"]]
+      },
+      "music-classifier": {
+        title: "NYUSH Music Classifier", type: "Machine learning", year: "2025", status: "Draft · Evaluation report available",
+        subtitle: "Comparing learned audio representations for genre classification",
+        image: "assets/covers/MusicClassifier.png", alt: "Confusion matrix from the held-out evaluation of an eight-genre music classifier",
+        caption: "Held-out evaluation of the log-mel spectrogram classifier across eight FMA-small genres.",
+        summary: "A music genre classification project developed for NYU Shanghai’s summer school, comparing three ways to represent audio for machine learning.",
+        thesis: "Can learned audio representations help classify genres in a small, uneven dataset? The project compares MERT embeddings, log-mel spectrograms, and a statistical-feature baseline using the FMA-small dataset.",
+        experience: "The pipeline converts music into features or spectrograms, then predicts one of eight top-level genres. In the reported held-out evaluation, the lightweight 2D CNN reached 29.2% accuracy. The confusion matrix makes the model’s uneven performance and genre overlap visible.",
+        tags: ["MERT", "Audio ML", "CNN", "FMA-small", "Python"],
+        film: "", videoId: "",
+        resources: [
+          ["GitHub Repository", "https://github.com/Rex188/music_classifier/tree/main"],
+          ["Model Evaluation Report", "assets/docs/music-classifier/final_report.html"]
+        ],
+        credits: []
+      },
+      "inner-landscape": {
+        title: "Inner Landscape", type: "Music & technology", year: "2025", status: "Draft · Research concept and prototype",
+        subtitle: "A private music space for exploring how you perceive the world",
+        image: "assets/covers/InnerLandscape.svg", alt: "Conceptual illustration of a room with a window, vinyl record, and listening figure",
+        caption: "A room that grows from music, reflection, and the meanings a person chooses to share.",
+        summary: "Inner Landscape is a private-first music-self project: a visual space that grows from the music a person shares, inviting them to explore how they perceive the world.",
+        thesis: "Instead of treating playlists as taste data or asking an AI to explain a listener’s feelings, the project asks whether music can become a lens for self-understanding—and, later, a more meaningful way to connect with others.",
+        experience: "Early prototypes explored playlist import and music-informed reflection. The design evolved toward a 2.5D room that starts quiet and gains color as music and writing accumulate. People can choose which facets to share, with privacy built into the social concept.",
+        tags: ["Music & Technology", "Self-Reflection", "Creative Coding", "Web Prototype"],
+        film: "", videoId: "",
+        resources: [
+          ["Project Documentation", "https://rex188.github.io/csmusic/"],
+          ["GitHub Repository", "https://github.com/Rex188/csmusic"],
+          ["Interactive Prototype", "https://music-self.onrender.com"]
+        ],
+        credits: []
+      }
+    };
+    const escapeHTML = (value) => String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
+    const projectId = new URLSearchParams(location.search).get("project") || "robin";
+    const project = projects[projectId];
+    const root = document.querySelector("#project");
+    if (!project) {
+      root.innerHTML = '<div class="not-found"><h1>Project not found</h1><a href="index.html#projects-section">Return to projects</a></div>';
+    } else {
+      document.title = `${project.title} — Rex Li`;
+      const nextId = projectId === "robin" ? "a-machine-for-misunderstanding" : projectId === "a-machine-for-misunderstanding" ? "listener" : projectId === "listener" ? "music-classifier" : projectId === "music-classifier" ? "inner-landscape" : "robin";
+      const nextProject = projects[nextId];
+      root.innerHTML = `
+          <header class="project-head ${projectId === "a-machine-for-misunderstanding" ? "project-head-machine" : projectId === "listener" ? "project-head-listener" : projectId === "music-classifier" ? "project-head-music-classifier" : projectId === "inner-landscape" ? "project-head-inner-landscape" : ""}">
+          <h1>${escapeHTML(project.title)}</h1>
+        </header>
+        <figure class="hero-figure">
+          <img class="hero-image" src="${escapeHTML(project.image)}" alt="${escapeHTML(project.alt)}">
+          <figcaption class="hero-caption"><span>${escapeHTML(project.caption)}</span><span>Rex Li · ${escapeHTML(project.year)}</span></figcaption>
+        </figure>
+        <section class="project-overview" aria-labelledby="overview-title">
+          <div class="overview-meta">${projectId === "robin" ? `<h2 class="overview-label" id="overview-title">Performance</h2><p class="overview-date">September, 2026</p>` : `<h2 class="overview-label" id="overview-title">${projectId === "a-machine-for-misunderstanding" ? "Experiment" : "Project"}</h2><p class="overview-date">${escapeHTML(project.year)}</p>`}</div>
+          <div class="overview-copy"><p>${escapeHTML(project.summary)}</p><p>${escapeHTML(project.thesis)}</p><p>${escapeHTML(project.experience)}</p></div>
+        </section>
+        ${projectId === "inner-landscape" ? "" : projectId === "a-machine-for-misunderstanding" ? `<section class="lab-report-cta" aria-label="Lab report and experiment process"><a href="machine-lab-report.html"><strong>View Lab Report and Experiment Process</strong></a></section>` : projectId === "music-classifier" ? `<section class="lab-report-cta" aria-label="Model evaluation report"><a href="assets/docs/music-classifier/final_report.html"><strong>View Model Evaluation Report ↗</strong></a></section>` : `<section class="project-video" aria-labelledby="video-title"><div class="video-heading"><h2 id="video-title">Video</h2><span>${project.videoId ? "Project film" : "Documentation in progress"}</span></div>${project.videoId ? `${location.protocol === "file:" ? `<a class="video-local" href="${escapeHTML(project.film)}" target="_blank" rel="noreferrer"><span>Play project film on YouTube ↗</span></a>` : `<iframe class="video-frame" src="https://www.youtube.com/embed/${encodeURIComponent(project.videoId)}" title="${escapeHTML(project.title)} project video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><a class="video-watch-link" href="${escapeHTML(project.film)}" target="_blank" rel="noreferrer">Open on YouTube ↗</a>`}` : `<div class="video-pending">Field recording in progress</div>`}</section>`}
+        <section class="project-resources ${projectId === "listener" ? "project-resources-single" : ""}" aria-label="Project links and credits">
+          ${projectId === "robin" ? `<div><h2>Project Links</h2><p class="project-links"><a href="https://github.com/Rex188/Robin" target="_blank" rel="noreferrer">Patches Repository</a></p></div>` : projectId === "a-machine-for-misunderstanding" || projectId === "music-classifier" || projectId === "inner-landscape" ? `<div><h2>Project Links</h2><ul class="resource-list">${project.resources.map(([label, href]) => `<li><a href="${escapeHTML(href)}" ${/^https?:/.test(href) ? 'target="_blank" rel="noreferrer"' : ''}>${escapeHTML(label)} ↗</a></li>`).join("")}</ul></div>` : ""}
+          <div><h2>Credits</h2>${projectId === "a-machine-for-misunderstanding" ? `<p class="credits-note">All created by Rex Li</p>` : projectId === "music-classifier" ? `<p class="credits-note">NYU Shanghai summer school project</p>` : projectId === "inner-landscape" ? `<p class="credits-note">Research concept and prototype in progress</p>` : `<ul class="credit-list">${project.credits.map(([role, name]) => `<li><span>${escapeHTML(role)}</span><span class="credit-name">${escapeHTML(name)}</span></li>`).join("")}</ul>`}</div>
+        </section>
+        <a class="next-project" href="project-detail.html?project=${encodeURIComponent(nextId)}"><span>Next project</span><strong>${escapeHTML(nextProject.title)} →</strong></a>`;
+    }
+  </script>
+</body>
+</html>

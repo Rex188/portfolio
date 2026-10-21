@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="title desc">
+  <title id="title">Portrait placeholder</title>
+  <desc id="desc">A neutral illustrated portrait placeholder on a warm gray background.</desc>
+  <rect width="400" height="400" fill="#dedbd6"/>
+  <circle cx="200" cy="150" r="73" fill="#aaa49e"/>
+  <path d="M72 400c8-99 55-153 128-153s120 54 128 153" fill="#aaa49e"/>
+  <circle cx="200" cy="200" r="190" fill="none" stroke="#c9c4be" stroke-width="4"/>
+</svg>

@@ -1,0 +1,15 @@
+.detail.open{opacity:1;pointer-events:auto}
+@keyframes pulse{to{height:calc(var(--h)*.46);opacity:.35}}
+.fade{position:absolute;inset:0;background:#101614;z-index:9;opacity:0;pointer-events:none;transition:opacity .5s}
+.fade.on{opacity:1}
+.map-screen.focus-start .map-title{opacity:0;transform:translateY(14px);filter:blur(5px);transition:opacity .45s,transform .65s,filter .5s}
+.map-screen.focus-start .map-pin{transition:opacity .45s,filter .45s,transform .45s}
+.map-screen.focus-start .map-pin:not(.is-focused){opacity:.18;filter:blur(2px)}
+.map-screen.focus-start .map-pin.is-focused .pin-shape{transform:rotate(-45deg) scale(1.35);box-shadow:0 0 0 9px #80002044,0 7px 28px #180007cc}
+.detail.open .scene{animation:focusSceneIn .9s cubic-bezier(.2,.75,.25,1) both}
+.detail.open .story{animation:focusStoryIn .75s .18s cubic-bezier(.2,.75,.25,1) both}
+.detail.open .scene-meta,.detail.open .back-map,.detail.open .switch-place{animation:focusFadeIn .55s .3s both}
+@keyframes focusSceneIn{from{transform:scale(1.045);filter:blur(7px)}to{transform:scale(1);filter:blur(0)}}
+@keyframes focusStoryIn{from{opacity:0;transform:translateY(24px);filter:blur(4px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes focusFadeIn{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.map-screen,.map-title,.map-pin,.detail,.detail.open .scene,.detail.open .story,.detail.open .scene-meta,.detail.open .back-map,.detail.open .switch-place{animation:none!important;transition:none!important}}

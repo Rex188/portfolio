@@ -1,0 +1,168 @@
+{
+  "schema_version": "1.0",
+  "projects": [
+    {
+      "id": "robin",
+      "title": "Robin",
+      "subtitle": "",
+      "year": "",
+      "status": "",
+      "tags": [
+        "Hardware Design",
+        "Max/MSP",
+        "Ableton Live",
+        "Python"
+      ],
+      "hero": {
+        "image": "",
+        "image_alt": "",
+        "caption": "",
+        "video_url": ""
+      },
+      "summary": "",
+      "project_thesis": "",
+      "visitor_experience": "",
+      "content_sections": [
+        {
+          "id": "",
+          "heading": "",
+          "body": "",
+          "media": [
+            {
+              "type": "image",
+              "src": "",
+              "alt": "",
+              "caption": ""
+            }
+          ]
+        }
+      ],
+      "sound": {
+        "audio_url": "",
+        "caption": "",
+        "transcript_url": ""
+      },
+      "credits": [
+        {
+          "role": "",
+          "name": ""
+        }
+      ],
+      "links": [
+        {
+          "label": "",
+          "url": "",
+          "type": ""
+        }
+      ]
+    },
+    {
+      "id": "a-machine-for-misunderstanding",
+      "title": "A Machine for Misunderstanding",
+      "subtitle": "",
+      "year": "",
+      "status": "",
+      "tags": [
+        "VCV Rack",
+        "Python",
+        "Experiment"
+      ],
+      "hero": {
+        "image": "",
+        "image_alt": "",
+        "caption": "",
+        "video_url": ""
+      },
+      "summary": "",
+      "project_thesis": "",
+      "visitor_experience": "",
+      "content_sections": [
+        {
+          "id": "",
+          "heading": "",
+          "body": "",
+          "media": [
+            {
+              "type": "image",
+              "src": "",
+              "alt": "",
+              "caption": ""
+            }
+          ]
+        }
+      ],
+      "sound": {
+        "audio_url": "",
+        "caption": "",
+        "transcript_url": ""
+      },
+      "credits": [
+        {
+          "role": "",
+          "name": ""
+        }
+      ],
+      "links": [
+        {
+          "label": "",
+          "url": "",
+          "type": ""
+        }
+      ]
+    },
+    {
+      "id": "listener",
+      "title": "Listener",
+      "subtitle": "",
+      "year": "",
+      "status": "",
+      "tags": [
+        "VCV Rack",
+        "Feedback Loop",
+        "Resampling"
+      ],
+      "hero": {
+        "image": "",
+        "image_alt": "",
+        "caption": "",
+        "video_url": ""
+      },
+      "summary": "",
+      "project_thesis": "",
+      "visitor_experience": "",
+      "content_sections": [
+        {
+          "id": "",
+          "heading": "",
+          "body": "",
+          "media": [
+            {
+              "type": "image",
+              "src": "",
+              "alt": "",
+              "caption": ""
+            }
+          ]
+        }
+      ],
+      "sound": {
+        "audio_url": "",
+        "caption": "",
+        "transcript_url": ""
+      },
+      "credits": [
+        {
+          "role": "",
+          "name": ""
+        }
+      ],
+      "links": [
+        {
+          "label": "",
+          "url": "",
+          "type": ""
+        }
+      ]
+    }
+  ]
+}

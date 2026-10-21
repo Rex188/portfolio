@@ -1,0 +1,277 @@
+{
+  "schema_version": "1.0",
+  "projects": [
+    {
+      "id": "robin",
+      "title": "Robin",
+      "subtitle": "A gesture-based instrument for live performance",
+      "year": "2026",
+      "status": "",
+      "tags": [
+        "Hardware Design",
+        "Max/MSP",
+        "Ableton Live",
+        "Python"
+      ],
+      "hero": {
+        "image": "assets/covers/Robin.png",
+        "image_alt": "Robin custom physical instrument with copper touch pads and ESP32 microcontroller",
+        "caption": "Robin, a custom instrument for a live dialogue between performer and system.",
+        "video_url": "https://youtu.be/z70T89--KOc"
+      },
+      "summary": "Robin is a custom percussion instrument that turns touch and movement into a shared musical process between performer and system.",
+      "project_thesis": "The project asks how much of a musical performance can be controlled—and what new possibilities appear when the instrument makes choices of its own.",
+      "visitor_experience": "Touch sets rhythms in motion, while the performer's movement changes their pace and texture. The instrument introduces variation; the performer listens, responds, and shapes what happens next.",
+      "content_sections": [],
+      "sound": {
+        "audio_url": "",
+        "caption": "",
+        "transcript_url": ""
+      },
+      "credits": [
+        {
+          "role": "Concept, Hardware Design & Performance",
+          "name": "Rex Li"
+        },
+        {
+          "role": "Firmware & Embedded Systems (C++/ESP-IDF)",
+          "name": "Rex Li"
+        },
+        {
+          "role": "DSP & Max/MSP Patch Architecture",
+          "name": "Rex Li"
+        },
+        {
+          "role": "Video Essay Direction & Editing",
+          "name": "Rex Li"
+        }
+      ],
+      "links": [
+        {
+          "label": "Performance & Setup Manual",
+          "url": "assets/docs/robin/performance.pdf",
+          "type": "documentation"
+        },
+        {
+          "label": "Video Essay Script (English)",
+          "url": "assets/docs/robin/script-en.md",
+          "type": "script"
+        },
+        {
+          "label": "Max/MSP Patches Directory",
+          "url": "assets/docs/robin/patches/index.html",
+          "type": "source_code"
+        }
+      ]
+    },
+    {
+      "id": "a-machine-for-misunderstanding",
+      "title": "A Machine for Misunderstanding",
+      "subtitle": "A text-to-sound experiment on communication and interpretation",
+      "year": "2026",
+      "status": "Completed · 100% Open Source on GitHub",
+      "tags": [
+        "VCV Rack",
+        "Python",
+        "Experiment"
+      ],
+      "hero": {
+        "image": "assets/covers/Machine.png",
+        "image_alt": "A Machine for Misunderstanding modular synthesizer interface and 3D VAD vector visualization",
+        "caption": "A system that translates written language into modular sound.",
+        "video_url": "https://www.youtube.com/watch?v=ctAal_Ea91U"
+      },
+      "summary": "A text-to-sound system and listening study exploring what changes when emotional language passes through a machine.",
+      "project_thesis": "When words are translated into sound, what carries through—and what is changed or misunderstood? The project explores this question through a machine-mediated exchange and a listening study.",
+      "visitor_experience": "Participants exchange short texts through a system that turns language into modular sound. One person sends a message; another listens to its sonic translation and describes what they hear. Comparing intention with perception makes each step of the exchange part of the work.",
+      "content_sections": [],
+      "sound": {
+        "audio_url": "",
+        "caption": "",
+        "transcript_url": ""
+      },
+      "credits": [
+        {
+          "role": "Principal Investigator & System Architect",
+          "name": "Rex Li"
+        },
+        {
+          "role": "Affective Model Fine-Tuning (PyTorch/LoRA)",
+          "name": "Rex Li"
+        },
+        {
+          "role": "Modular Sound Design (VCV Rack)",
+          "name": "Rex Li"
+        },
+        {
+          "role": "Web Laboratory Frontend & Visualizations",
+          "name": "Rex Li"
+        }
+      ],
+      "links": [
+        {
+          "label": "GitHub Repository",
+          "url": "https://github.com/Rex188/Machine-for-Misunderstanding",
+          "type": "github"
+        },
+        {
+          "label": "Interactive Research Report",
+          "url": "assets/docs/machine/report.html",
+          "type": "interactive_report"
+        },
+        {
+          "label": "Empirical Lab Report & Data Schema",
+          "url": "assets/docs/machine/LAB_REPORT.md",
+          "type": "documentation"
+        },
+        {
+          "label": "Session 3 Listening Study Video",
+          "url": "https://youtu.be/ctAal_Ea91U",
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "id": "listener",
+      "title": "Listener",
+      "subtitle": "An acoustic feedback system that listens to its environment",
+      "year": "2026",
+      "status": "Current patch: V0.1.10_NoCard · listening tests and field recording in progress",
+      "tags": [
+        "VCV Rack",
+        "Feedback Loop",
+        "Resampling"
+      ],
+      "hero": {
+        "image": "assets/covers/listener.png",
+        "image_alt": "Listener modular patch signal flow diagram with 249 modules in VCV Rack",
+        "caption": "The current VCV Rack patch for capturing, transforming, and returning room sound.",
+        "video_url": ""
+      },
+      "summary": "Listener records sounds from a room, transforms them, and plays them back into the same space—so each response becomes part of what the system hears next.",
+      "project_thesis": "What does it mean for a system to listen when the sounds it has already heard shape what it notices next? Listener explores this question through an evolving acoustic feedback loop.",
+      "visitor_experience": "A microphone picks up sounds already present in the space. Listener captures a brief fragment, reshapes it, and plays it back into the room. That response becomes part of the next listening moment, allowing the sound environment to change over time. Field recordings are still in progress.",
+      "content_sections": [],
+      "sound": {
+        "audio_url": "",
+        "caption": "",
+        "transcript_url": ""
+      },
+      "credits": [
+        {
+          "role": "Concept, Modular Patch Architecture & Sound Design",
+          "name": "Rex Li"
+        },
+        {
+          "role": "Artistic influences",
+          "name": "Pauline Oliveros; Alvin Lucier"
+        }
+      ],
+      "links": [
+        {
+          "label": "Current VCV Patch V0.1.10 NoCard",
+          "url": "assets/docs/project3/Project_3-V0.1.10_NoCard.vcv",
+          "type": "vcv_patch"
+        },
+        {
+          "label": "Patch Reverse Engineering Audit",
+          "url": "assets/docs/project3/project3_review.md",
+          "type": "documentation"
+        },
+        {
+          "label": "Historical V0.2 Changelog (retired)",
+          "url": "assets/docs/project3/V0.2_changelog.md",
+          "type": "changelog"
+        }
+      ]
+    },
+    {
+      "id": "music-classifier",
+      "title": "NYUSH Music Classifier",
+      "subtitle": "Comparing learned audio representations for genre classification",
+      "year": "2025",
+      "status": "Draft · Evaluation report available",
+      "tags": [
+        "MERT",
+        "Audio ML",
+        "CNN",
+        "FMA-small",
+        "Python"
+      ],
+      "hero": {
+        "image": "assets/covers/MusicClassifier.png",
+        "image_alt": "Confusion matrix from the held-out evaluation of an eight-genre music classifier",
+        "caption": "Held-out evaluation of the log-mel spectrogram classifier across eight FMA-small genres.",
+        "video_url": ""
+      },
+      "summary": "A music genre classification project developed for NYU Shanghai’s summer school, comparing three ways to represent audio for machine learning.",
+      "project_thesis": "Can learned audio representations help classify genres in a small, uneven dataset? The project compares MERT embeddings, log-mel spectrograms, and a statistical-feature baseline using the FMA-small dataset.",
+      "visitor_experience": "The pipeline converts music into features or spectrograms, then predicts one of eight top-level genres. In the reported held-out evaluation, the lightweight 2D CNN reached 29.2% accuracy. The confusion matrix makes the model’s uneven performance and genre overlap visible.",
+      "content_sections": [],
+      "sound": {
+        "audio_url": "",
+        "caption": "",
+        "transcript_url": ""
+      },
+      "credits": [],
+      "links": [
+        {
+          "label": "GitHub Repository",
+          "url": "https://github.com/Rex188/music_classifier/tree/main",
+          "type": "github"
+        },
+        {
+          "label": "Model Evaluation Report",
+          "url": "assets/docs/music-classifier/final_report.html",
+          "type": "report"
+        }
+      ]
+    },
+    {
+      "id": "inner-landscape",
+      "title": "Inner Landscape",
+      "subtitle": "A private music space for exploring how you perceive the world",
+      "year": "2025",
+      "status": "Draft · Research concept and prototype",
+      "tags": [
+        "Music & Technology",
+        "Self-Reflection",
+        "Creative Coding",
+        "Web Prototype"
+      ],
+      "hero": {
+        "image": "assets/covers/InnerLandscape.svg",
+        "image_alt": "Conceptual illustration of a room with a window, vinyl record, and listening figure",
+        "caption": "A room that grows from music, reflection, and the meanings a person chooses to share.",
+        "video_url": ""
+      },
+      "summary": "Inner Landscape is a private-first music-self project: a visual space that grows from the music a person shares, inviting them to explore how they perceive the world.",
+      "project_thesis": "Instead of treating playlists as taste data or asking an AI to explain a listener’s feelings, the project asks whether music can become a lens for self-understanding—and, later, a more meaningful way to connect with others.",
+      "visitor_experience": "Early prototypes explored playlist import and music-informed reflection. The design evolved toward a 2.5D room that starts quiet and gains color as music and writing accumulate. People can choose which facets to share, with privacy built into the social concept.",
+      "content_sections": [],
+      "sound": {
+        "audio_url": "",
+        "caption": "",
+        "transcript_url": ""
+      },
+      "credits": [],
+      "links": [
+        {
+          "label": "Project Documentation",
+          "url": "https://rex188.github.io/csmusic/",
+          "type": "project_site"
+        },
+        {
+          "label": "GitHub Repository",
+          "url": "https://github.com/Rex188/csmusic",
+          "type": "github"
+        },
+        {
+          "label": "Interactive Prototype",
+          "url": "https://music-self.onrender.com",
+          "type": "prototype"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" role="img" aria-labelledby="title desc">
+  <title id="title">Photo placeholder</title>
+  <desc id="desc">A quiet, neutral placeholder for a gallery photograph.</desc>
+  <rect width="800" height="640" fill="#e6e8e7"/>
+  <path d="M0 430c116-65 197-48 295-2 100 47 194 53 296-9 72-44 136-60 209-33v254H0Z" fill="#d9dddc"/>
+  <circle cx="590" cy="185" r="52" fill="#f2f3f2"/>
+  <rect x="323" y="253" width="154" height="118" rx="3" fill="none" stroke="#a8afad" stroke-width="8"/>
+  <path d="m337 353 42-45 27 27 28-34 28 52" fill="none" stroke="#a8afad" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="367" cy="282" r="9" fill="#a8afad"/>
+</svg>
