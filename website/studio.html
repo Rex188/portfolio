@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <title>Studio — Rex Li</title>
+  <style>
+    :root{font-family:Arial,Helvetica,sans-serif;color:#171716;background:#f5f4ef;font-synthesis:none;text-rendering:optimizeLegibility}*{box-sizing:border-box}body{margin:0;min-height:100vh}.studio{min-height:100vh;display:grid;grid-template-rows:auto 1fr}.topbar{height:76px;padding:0 28px;display:flex;align-items:center;gap:18px;border-bottom:1px solid #deddd6;background:#fbfaf7}.brand{font-size:23px;font-weight:800;letter-spacing:-.08em;text-decoration:none;color:inherit}.topbar-label{font-size:12px;color:#77766f}.top-actions{margin-left:auto;display:flex;align-items:center;gap:9px}.button{min-height:38px;padding:0 14px;border:1px solid #d1d0c8;background:#fff;color:#171716;border-radius:5px;font:600 12px Arial,Helvetica,sans-serif;cursor:pointer}.button:hover{background:#f0efe9}.button.primary{background:#171716;border-color:#171716;color:#fff}.button.primary:hover{background:#383833}.layout{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 350px}.preview-area{min-width:0;display:grid;grid-template-rows:56px minmax(0,1fr);padding:22px 24px 24px;gap:14px}.preview-top{display:flex;align-items:center;gap:12px}.preview-title{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#77766f}.page-select{min-width:230px;max-width:min(420px,60vw);height:38px;padding:0 32px 0 12px;border:1px solid #d1d0c8;border-radius:5px;background:#fff;font:13px Arial,Helvetica,sans-serif;color:#171716}.preview-hint{margin-left:auto;font-size:11px;color:#898880}.frame-wrap{min-height:300px;overflow:hidden;border:1px solid #deddd6;border-radius:7px;background:#fff;box-shadow:0 14px 35px #25251b0c}.preview-frame{width:100%;height:100%;min-height:600px;border:0;background:#fff}.inspector{padding:26px 24px 22px;border-left:1px solid #deddd6;background:#fbfaf7;display:flex;flex-direction:column;gap:22px}.inspector-head{display:flex;justify-content:space-between;align-items:center}.eyebrow{margin:0 0 7px;color:#85847d;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}.inspector h1{margin:0;font-size:22px;letter-spacing:-.045em}.status{display:flex;align-items:center;gap:7px;color:#77766f;font-size:11px}.status-dot{width:7px;height:7px;border-radius:50%;background:#bbb}.status.is-saved .status-dot{background:#39916a}.field-label{display:block;margin-bottom:9px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}.copy-input{width:100%;min-height:180px;resize:vertical;padding:13px;border:1px solid #d8d7d0;border-radius:5px;background:white;font:15px/1.55 Arial,Helvetica,sans-serif;color:#171716}.copy-input:focus,.page-select:focus{outline:2px solid #45453d;outline-offset:2px}.empty-state{min-height:180px;padding:20px 17px;border:1px dashed #d1d0c8;border-radius:5px;color:#77766f;font-size:13px;line-height:1.6}.field-actions{display:flex;gap:8px;margin-top:10px}.field-actions .button{flex:1}.section-rule{height:1px;background:#e2e1da}.guide{font-size:12px;line-height:1.6;color:#76756e}.guide p{margin:0 0 9px}.guide strong{color:#30302c}.copy-count{margin-left:auto;font-size:10px;color:#8b8a83}.toast{position:fixed;left:50%;bottom:25px;z-index:9;transform:translate(-50%,12px);padding:11px 16px;border-radius:5px;background:#171716;color:white;font-size:12px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}.toast.show{opacity:1;transform:translate(-50%,0)}.file-input{display:none}
+    @media(max-width:900px){.layout{grid-template-columns:minmax(0,1fr) 310px}.preview-area{padding:16px}.inspector{padding:22px 18px}.preview-hint{display:none}}
+    @media(max-width:680px){.topbar{height:64px;padding:0 14px;gap:10px}.topbar-label{display:none}.top-actions{gap:6px}.button{padding:0 10px;font-size:11px}.layout{grid-template-columns:1fr;grid-template-rows:minmax(60vh,1fr) auto}.preview-area{grid-template-rows:44px minmax(0,1fr);padding:12px;gap:9px}.preview-frame{min-height:60vh}.page-select{min-width:0;max-width:none;flex:1}.inspector{border-left:0;border-top:1px solid #deddd6;padding:20px 16px}.copy-input{min-height:130px}}
+  </style>
+</head>
+<body>
+  <div class="studio">
+    <header class="topbar">
+      <a class="brand" href="index.html">RexLi</a><span class="topbar-label">/ WEBSITE STUDIO</span>
+      <div class="top-actions">
+        <button class="button" id="importButton" type="button">导入文案</button>
+        <button class="button" id="exportButton" type="button">导出文案</button>
+        <a class="button primary" href="index.html" style="display:grid;place-items:center;text-decoration:none">返回网站</a>
+      </div>
+      <input class="file-input" id="importFile" type="file" accept="application/json,.json">
+    </header>
+    <main class="layout">
+      <section class="preview-area" aria-label="页面预览">
+        <div class="preview-top"><span class="preview-title">页面</span>
+          <select class="page-select" id="pageSelect" aria-label="选择要编辑的页面">
+            <option value="index.html">首页</option>
+            <option value="project-detail.html?project=robin">项目 / Robin</option>
+            <option value="project-detail.html?project=a-machine-for-misunderstanding">项目 / A Machine for Misunderstanding</option>
+            <option value="project-detail.html?project=listener">项目 / Listener</option>
+            <option value="project-detail.html?project=music-classifier">项目 / NYUSH Music Classifier</option>
+            <option value="project-detail.html?project=inner-landscape">项目 / Inner Landscape</option>
+            <option value="research-paper.html?paper=contingency">研究 / A Structural Spectrum of Contingency</option>
+            <option value="research-paper.html?paper=discipline">研究 / Discipline Without a Subject</option>
+            <option value="gallery-detail.html?place=japan">相册 / Japan</option>
+            <option value="gallery-detail.html?place=hungary">相册 / Hungary</option>
+            <option value="machine-lab-report.html">研究报告 / Machine</option>
+            <option value="projects/listener/index.html">互动项目 / Listener Sound Map</option>
+          </select>
+          <span class="preview-hint">点击预览中的标题或段落开始编辑</span>
+        </div>
+        <div class="frame-wrap"><iframe class="preview-frame" id="preview" title="网站页面预览"></iframe></div>
+      </section>
+      <aside class="inspector" aria-label="文字编辑面板">
+        <div class="inspector-head"><div><p class="eyebrow">文字编辑</p><h1 id="selectionTitle">选择一段文字</h1></div><span class="status" id="saveStatus"><i class="status-dot"></i><span>已保存</span></span></div>
+        <div id="editorPanel" hidden>
+          <label class="field-label" for="copyInput">页面文案 <span class="copy-count" id="copyCount"></span></label>
+          <textarea class="copy-input" id="copyInput" placeholder="在这里修改文字…"></textarea>
+          <div class="field-actions"><button class="button primary" id="saveButton" type="button">保存修改</button><button class="button" id="resetButton" type="button">恢复原文</button></div>
+        </div>
+        <div class="empty-state" id="emptyState">在左侧预览中点击任意标题或正文段落，就可以在这里编辑。保存后，网站会在这个浏览器中显示新文案。</div>
+        <div class="section-rule"></div>
+        <div class="guide"><p><strong>编辑方式</strong></p><p>切换上方页面，点选要改的文字，在编辑框中输入并保存。页面会即时预览保存后的效果。</p><p><strong>带走文案</strong></p><p>使用“导出文案”下载 JSON 文件。换浏览器时，在 Studio 里导入它即可继续编辑。</p></div>
+      </aside>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    const preview = document.querySelector('#preview');
+    const pageSelect = document.querySelector('#pageSelect');
+    const copyInput = document.querySelector('#copyInput');
+    const editorPanel = document.querySelector('#editorPanel');
+    const emptyState = document.querySelector('#emptyState');
+    const selectionTitle = document.querySelector('#selectionTitle');
+    const saveStatus = document.querySelector('#saveStatus');
+    const toast = document.querySelector('#toast');
+    let currentSelection = null;
+    let savedValue = '';
+    let toastTimer;
+    const notify = (message) => { toast.textContent = message; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 2200); };
+    const storageKey = 'rex-site-copy-v1';
+    const setPage = () => { currentSelection = null; editorPanel.hidden = true; emptyState.hidden = false; selectionTitle.textContent = '选择一段文字'; saveStatus.classList.add('is-saved'); saveStatus.lastElementChild.textContent = '已保存'; preview.src = `${pageSelect.value}${pageSelect.value.includes('?') ? '&' : '?'}studioEdit=1`; };
+    pageSelect.addEventListener('change', setPage);
+    preview.addEventListener('load', () => { currentSelection = null; editorPanel.hidden = true; emptyState.hidden = false; selectionTitle.textContent = '选择一段文字'; });
+    window.addEventListener('message', (event) => {
+      if (event.origin !== location.origin || event.source !== preview.contentWindow || event.data?.type !== 'studio-select') return;
+      currentSelection = { selector: event.data.selector, key: (() => { const u=new URL(preview.src); const p=['project','paper','place'].find(k=>u.searchParams.has(k)); return (u.pathname==='/'?'/index.html':u.pathname)+(p?`?${p}=${u.searchParams.get(p)}`:''); })() };
+      savedValue = event.data.text;
+      selectionTitle.textContent = event.data.text.slice(0, 42) || '已选择文字';
+      copyInput.value = event.data.text;
+      document.querySelector('#copyCount').textContent = `${event.data.text.length} 字`;
+      editorPanel.hidden = false; emptyState.hidden = true; saveStatus.classList.add('is-saved'); saveStatus.lastElementChild.textContent = '已保存';
+    });
+    copyInput.addEventListener('input', () => {
+      if (!currentSelection) return;
+      preview.contentWindow.postMessage({ type: 'studio-preview-text', text: copyInput.value }, location.origin);
+      saveStatus.classList.remove('is-saved'); saveStatus.lastElementChild.textContent = '未保存';
+      document.querySelector('#copyCount').textContent = `${copyInput.value.length} 字`;
+    });
+    document.querySelector('#saveButton').addEventListener('click', () => {
+      if (!currentSelection) return;
+      let all = {}; try { all = JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch {}
+      all[currentSelection.key] ||= {}; all[currentSelection.key][currentSelection.selector] = copyInput.value;
+      localStorage.setItem(storageKey, JSON.stringify(all));
+      preview.contentWindow.postMessage({ type: 'studio-save-text', text: copyInput.value }, location.origin);
+      savedValue = copyInput.value; saveStatus.classList.add('is-saved'); saveStatus.lastElementChild.textContent = '已保存'; notify('修改已保存');
+    });
+    document.querySelector('#resetButton').addEventListener('click', () => {
+      if (!currentSelection) return;
+      let all = {}; try { all = JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch {}
+      if (all[currentSelection.key]) { delete all[currentSelection.key][currentSelection.selector]; if (!Object.keys(all[currentSelection.key]).length) delete all[currentSelection.key]; }
+      localStorage.setItem(storageKey, JSON.stringify(all));
+      preview.contentWindow.postMessage({ type: 'studio-reset-text' }, location.origin);
+      notify('已恢复为网站原文');
+    });
+    document.querySelector('#exportButton').addEventListener('click', () => {
+      const data = localStorage.getItem(storageKey) || '{}';
+      const link = document.createElement('a'); const url = URL.createObjectURL(new Blob([JSON.stringify({ format: 'rex-site-copy', version: 1, edits: JSON.parse(data) }, null, 2)], { type: 'application/json' })); link.href = url; link.download = 'rex-site-copy.json'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); notify('文案文件已导出');
+    });
+    document.querySelector('#importButton').addEventListener('click', () => document.querySelector('#importFile').click());
+    document.querySelector('#importFile').addEventListener('change', async (event) => {
+      const file = event.target.files[0]; if (!file) return;
+      try { const parsed = JSON.parse(await file.text()); const edits = parsed.edits || parsed; if (!edits || typeof edits !== 'object' || Array.isArray(edits)) throw new Error('invalid'); localStorage.setItem(storageKey, JSON.stringify(edits)); setPage(); notify('文案已导入'); }
+      catch { notify('文件格式无法识别'); }
+      event.target.value = '';
+    });
+    setPage();
+  </script>
+</body>
+</html>
