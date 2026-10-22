@@ -55,7 +55,7 @@
     .mega-inner[hidden] { display: none; }
     #panel-projects { grid-template-columns: 1fr; }
     #panel-researches, #panel-gallery { grid-template-columns: 1fr; }
-    #panel-researches .menu-links, #panel-gallery .menu-links { padding-inline: clamp(16px, 3vw, 40px); column-gap: clamp(12px, 2.5vw, 32px); }
+    #panel-researches .menu-links, #panel-gallery .menu-links { column-gap: clamp(12px, 2.5vw, 32px); }
     .nav-anchor { display: flex; align-items: center; text-decoration: none; }
     .menu-kicker { margin: 0 0 20px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
     .menu-intro { max-width: 300px; margin: 0; font-size: clamp(21px, 2.4vw, 32px); line-height: 1.08; letter-spacing: -.065em; }
@@ -141,6 +141,13 @@
     .footer-nav a, .footer-bottom a { color: #fff; font-size: 14px; font-weight: 700; text-decoration: none; }
     .footer-nav a:hover, .footer-bottom a:hover { text-decoration: underline; text-underline-offset: 4px; }
     .footer-tagline { margin: 0; color: #fff; font-size: 18px; font-weight: 700; }
+    .footer-contact { position: relative; justify-self: start; }
+    .contact-trigger { padding: 0; border: 0; background: transparent; cursor: pointer; }
+    .contact-trigger:focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+    .contact-popover { position: absolute; bottom: 100%; left: 0; z-index: 2; padding-bottom: 12px; opacity: 0; visibility: hidden; transition: opacity .15s ease, visibility .15s ease; }
+    .contact-popover a { display: block; padding: 14px 18px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); box-shadow: 0 8px 24px #0003; font-size: 15px; white-space: nowrap; text-decoration: none; }
+    .contact-popover a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .footer-contact:hover .contact-popover, .footer-contact:focus-within .contact-popover { opacity: 1; visibility: visible; }
     .footer-bottom { display: flex; justify-content: space-between; gap: 16px; margin-top: 36px; padding-top: 18px; border-top: 1px solid #777; color: #bbb; font-size: 11px; }
     @media (max-width: 760px) {
       :root { --brand-row-height: 76px; }
@@ -312,7 +319,10 @@
           <a href="#gallery-section">Gallery</a>
           <a href="#about-section">About</a>
         </nav>
-        <p class="footer-tagline">Contact</p>
+        <div class="footer-contact">
+          <button class="footer-tagline contact-trigger" type="button" aria-describedby="contact-email">Contact</button>
+          <div class="contact-popover" id="contact-email"><a href="mailto:lirex2009@gmail.com">lirex2009@gmail.com</a></div>
+        </div>
       </div>
       <div class="footer-bottom"><span>© 2026 Rex Li</span><span><a href="#top">Back to top</a></span></div>
     </footer>
