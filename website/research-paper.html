@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2f1ed">
+  <title>Research Paper — Rex Li</title>
+  <style>
+    :root { color-scheme: light; --ink:#171817; --muted:#777a75; --line:#d7d7d1; --ground:#f2f1ed; --paper:#fff; font-family:Arial,Helvetica,sans-serif; color:var(--ink); background:var(--ground); }
+    * { box-sizing:border-box; }
+    body { min-width:320px; min-height:100vh; margin:0; }
+    a { color:inherit; }
+    .page { min-height:100vh; }
+    .sitebar { height:58px; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:0 clamp(18px,4vw,64px); background:var(--paper); border-bottom:1px solid var(--line); }
+    .brand,.back,.eyebrow { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+    .brand,.back { text-decoration:none; }
+    .brand:hover,.back:hover { text-decoration:underline; text-underline-offset:4px; }
+    .paper-head { width:min(1440px,100%); margin:0 auto; padding:30px clamp(18px,4vw,64px) 22px; display:flex; align-items:end; justify-content:space-between; gap:24px; }
+    .eyebrow { margin:0 0 10px; color:var(--muted); }
+    h1 { max-width:900px; margin:0; font-size:clamp(32px,5.5vw,68px); font-weight:400; line-height:.98; letter-spacing:-.065em; }
+    .download { flex:none; display:inline-flex; min-height:40px; align-items:center; justify-content:center; padding:8px 12px; border:1px solid var(--ink); font-size:11px; text-decoration:none; }
+    .download:hover { background:var(--ink); color:var(--paper); }
+    .reader { width:min(1440px,100%); margin:0 auto; padding:0 clamp(18px,4vw,64px) 36px; }
+    .toolbar { position:sticky; top:0; z-index:5; min-height:52px; display:flex; align-items:center; justify-content:center; gap:10px; padding:7px 12px; background:#242725; color:#f7f6f1; box-shadow:0 5px 18px #1013101c; }
+    .tool-group { display:flex; align-items:center; gap:5px; }
+    .tool-separator { width:1px; height:23px; margin:0 3px; background:#ffffff32; }
+    .tool-button { min-width:34px; height:34px; display:inline-grid; place-items:center; padding:0 9px; border:0; border-radius:2px; background:transparent; color:inherit; font:500 17px/1 Arial,Helvetica,sans-serif; cursor:pointer; }
+    .tool-button:hover:not(:disabled) { background:#ffffff1c; }
+    .tool-button:disabled { color:#ffffff56; cursor:default; }
+    .page-count { display:flex; align-items:center; gap:7px; font-size:12px; white-space:nowrap; }
+    #page-number { width:42px; height:30px; padding:3px 5px; border:1px solid #ffffff4d; border-radius:2px; background:#ffffff0c; color:#fff; text-align:center; font:12px Arial,Helvetica,sans-serif; }
+    #zoom-label { min-width:43px; color:#e0e1dc; font-size:11px; text-align:center; }
+    .toolbar-spacer { flex:1; }
+    .tool-label { font-size:10px; letter-spacing:.04em; }
+    .viewer { min-height:65vh; max-height:calc(100vh - 186px); overflow:auto; overscroll-behavior:contain; padding:28px 20px 54px; background:#e5e4e0; scrollbar-color:#9c9d98 transparent; scrollbar-width:thin; }
+    .page-stack { width:max-content; min-width:100%; display:flex; flex-direction:column; align-items:center; gap:24px; }
+    .pdf-page { position:relative; flex:none; overflow:hidden; background:#fff; box-shadow:0 3px 12px #17181720,0 1px 2px #17181716; }
+    .pdf-page canvas { display:block; }
+    .page-placeholder { width:100%; height:100%; background:linear-gradient(100deg,#fff 0%,#fafaf8 48%,#fff 100%); }
+    .status { width:min(1440px,100%); margin:0 auto; padding:12px clamp(18px,4vw,64px) 20px; color:var(--muted); font-size:12px; }
+    .status a { color:var(--ink); }
+    .error { color:#8d3027; }
+    @media (max-width:700px) {
+      .sitebar { height:52px; }
+      .paper-head { align-items:flex-start; flex-direction:column; gap:15px; padding-top:24px; }
+      .toolbar { justify-content:flex-start; gap:5px; padding-inline:7px; }
+      .tool-button { min-width:31px; padding-inline:6px; }
+      .toolbar-spacer,.tool-label { display:none; }
+      .viewer { max-height:calc(100vh - 218px); min-height:55vh; padding:16px 12px 36px; }
+      .page-stack { gap:14px; }
+    }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="sitebar">
+      <a class="brand" href="index.html#research-section">Rex Li / Research</a>
+      <a class="back" href="index.html#research-section">Portfolio</a>
+    </header>
+    <section class="paper-head">
+      <div>
+        <p class="eyebrow">Research · 2026</p>
+        <h1 id="paper-title">Research Paper</h1>
+      </div>
+      <a class="download" id="download-link" href="#" download>Download PDF</a>
+    </section>
+    <section class="reader" aria-label="PDF reader">
+      <div class="toolbar" role="toolbar" aria-label="PDF controls">
+        <div class="tool-group">
+          <button class="tool-button" id="previous-page" type="button" aria-label="Previous page" title="Previous page">‹</button>
+          <div class="page-count"><input id="page-number" type="number" min="1" value="1" aria-label="Page number"><span>/</span><span id="page-total">—</span></div>
+          <button class="tool-button" id="next-page" type="button" aria-label="Next page" title="Next page">›</button>
+        </div>
+        <span class="tool-separator" aria-hidden="true"></span>
+        <div class="tool-group">
+          <button class="tool-button" id="zoom-out" type="button" aria-label="Zoom out" title="Zoom out">−</button>
+          <span id="zoom-label">Fit</span>
+          <button class="tool-button" id="zoom-in" type="button" aria-label="Zoom in" title="Zoom in">＋</button>
+        </div>
+        <span class="tool-separator" aria-hidden="true"></span>
+        <button class="tool-button tool-label" id="fit-width" type="button" title="Fit page to reader width">Fit width</button>
+        <span class="toolbar-spacer"></span>
+        <span class="tool-label">PDF · <span id="file-page-count">Loading</span></span>
+      </div>
+      <div class="viewer" id="viewer" tabindex="0" aria-label="Scroll through paper pages">
+        <div class="page-stack" id="page-stack"></div>
+      </div>
+    </section>
+    <p class="status" id="reader-status" role="status" aria-live="polite">Loading paper…</p>
+  </main>
+  <script type="module">
+    const papers = {
+      contingency: {
+        title: 'A Structural Spectrum of Contingency',
+        file: 'assets/docs/research/structural-spectrum-of-contingency.pdf',
+      },
+      discipline: {
+        title: 'Discipline Without a Subject',
+        file: 'assets/docs/research/discipline-without-a-subject.pdf',
+      },
+    };
+    const paper = papers[new URLSearchParams(location.search).get('paper')];
+    const status = document.querySelector('#reader-status');
+    const download = document.querySelector('#download-link');
+    const title = document.querySelector('#paper-title');
+    const viewer = document.querySelector('#viewer');
+    const pageStack = document.querySelector('#page-stack');
+    const pageNumber = document.querySelector('#page-number');
+    const pageTotal = document.querySelector('#page-total');
+    const zoomLabel = document.querySelector('#zoom-label');
+    const previousButton = document.querySelector('#previous-page');
+    const nextButton = document.querySelector('#next-page');
+    const zoomOutButton = document.querySelector('#zoom-out');
+    const zoomInButton = document.querySelector('#zoom-in');
+    let pdfDocument;
+    let observer;
+    let zoom = 1;
+    let pages = [];
+    let currentPage = 1;
+    const renderedScale = new WeakMap();
+
+    function updateControls() {
+      pageNumber.value = String(currentPage);
+      previousButton.disabled = currentPage <= 1;
+      nextButton.disabled = !pdfDocument || currentPage >= pdfDocument.numPages;
+      zoomLabel.textContent = zoom === 1 ? 'Fit' : `${Math.round(zoom * 100)}%`;
+    }
+
+    function setCurrentPage(number) {
+      currentPage = Math.max(1, Math.min(pdfDocument.numPages, number));
+      updateControls();
+    }
+
+    function pageWidth() {
+      return Math.max(240, Math.min(940, viewer.clientWidth - 64)) * zoom;
+    }
+
+    async function renderPage(record) {
+      if (record.rendering) { record.needsRender = true; return; }
+      const width = pageWidth();
+      const scale = width / record.baseViewport.width;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+      const key = `${Math.round(width)}-${dpr}`;
+      if (renderedScale.get(record.canvas) === key) return;
+      record.rendering = true;
+      try {
+        const page = await pdfDocument.getPage(record.number);
+        const viewport = page.getViewport({ scale });
+        record.shell.style.width = `${Math.floor(viewport.width)}px`;
+        record.shell.style.height = `${Math.floor(viewport.height)}px`;
+        record.canvas.width = Math.floor(viewport.width * dpr);
+        record.canvas.height = Math.floor(viewport.height * dpr);
+        record.canvas.style.width = `${Math.floor(viewport.width)}px`;
+        record.canvas.style.height = `${Math.floor(viewport.height)}px`;
+        const context = record.canvas.getContext('2d', { alpha: false });
+        context.fillStyle = '#fff';
+        context.fillRect(0, 0, record.canvas.width, record.canvas.height);
+        await page.render({
+          canvasContext: context,
+          viewport,
+          transform: dpr === 1 ? null : [dpr, 0, 0, dpr, 0, 0],
+        }).promise;
+        renderedScale.set(record.canvas, key);
+        record.placeholder.remove();
+      } catch (error) {
+        status.textContent = `Page ${record.number} could not be rendered. ${error.message}`;
+        status.classList.add('error');
+      } finally {
+        record.rendering = false;
+        if (record.needsRender) {
+          record.needsRender = false;
+          renderPage(record);
+        }
+      }
+    }
+
+    async function setZoom(value) {
+      zoom = Math.max(0.65, Math.min(2.4, Math.round(value * 100) / 100));
+      updateControls();
+      for (const record of pages) {
+        if (record.shell.getBoundingClientRect().bottom > viewer.getBoundingClientRect().top - 700 && record.shell.getBoundingClientRect().top < viewer.getBoundingClientRect().bottom + 700) {
+          await renderPage(record);
+        }
+      }
+    }
+
+    async function loadPaper() {
+      if (!paper) {
+        title.textContent = 'This paper link is unavailable.';
+        status.textContent = 'Choose a paper from the Research section on the portfolio homepage.';
+        status.classList.add('error');
+        download.hidden = true;
+        document.querySelector('.reader').hidden = true;
+        return;
+      }
+      document.title = `${paper.title} — Rex Li`;
+      title.textContent = paper.title;
+      download.href = paper.file;
+      download.download = `${paper.title}.pdf`;
+      if (location.protocol === 'file:') {
+        status.innerHTML = `The custom PDF reader needs this site to run from a local web server. The hosted site will work normally. <a href="${paper.file}" target="_blank" rel="noreferrer">Open the original PDF</a>.`;
+        status.classList.add('error');
+        document.querySelector('.reader').hidden = true;
+        return;
+      }
+      try {
+        const pdfjsLib = await import('https://cdn.jsdelivr.net/npm/pdfjs-dist@6.4.299/build/pdf.mjs');
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@6.4.299/build/pdf.worker.mjs';
+        const loadingTask = pdfjsLib.getDocument({ url: paper.file });
+        pdfDocument = await loadingTask.promise;
+        pageTotal.textContent = String(pdfDocument.numPages);
+        document.querySelector('#file-page-count').textContent = `${pdfDocument.numPages} pages`;
+        pageNumber.max = String(pdfDocument.numPages);
+        const firstPage = await pdfDocument.getPage(1);
+        const baseViewport = firstPage.getViewport({ scale: 1 });
+        pageStack.replaceChildren();
+        pages = [];
+        for (let number = 1; number <= pdfDocument.numPages; number += 1) {
+          const shell = document.createElement('div');
+          shell.className = 'pdf-page';
+          shell.setAttribute('aria-label', `Page ${number}`);
+          const placeholder = document.createElement('div');
+          placeholder.className = 'page-placeholder';
+          const canvas = document.createElement('canvas');
+          canvas.setAttribute('aria-label', `Paper page ${number}`);
+          shell.append(placeholder, canvas);
+          pageStack.append(shell);
+          const page = number === 1 ? firstPage : await pdfDocument.getPage(number);
+          const pageBaseViewport = page.getViewport({ scale: 1 });
+          shell.style.width = `${Math.floor(Math.min(940, viewer.clientWidth - 64))}px`;
+          shell.style.aspectRatio = `${pageBaseViewport.width} / ${pageBaseViewport.height}`;
+          pages.push({ number, shell, canvas, placeholder, baseViewport: pageBaseViewport, rendering: false });
+        }
+        observer = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            const record = pages[Number(entry.target.getAttribute('aria-label').replace('Page ', '')) - 1];
+            if (record) renderPage(record);
+          }
+        }, { root: viewer, rootMargin: '900px 0px' });
+        pages.forEach((record) => observer.observe(record.shell));
+        status.textContent = 'Scroll to read. Use the controls to change page or zoom.';
+        updateControls();
+      } catch (error) {
+        status.innerHTML = `The custom preview could not load this PDF. <a href="${paper.file}" target="_blank" rel="noreferrer">Open the original PDF</a>.`;
+        status.classList.add('error');
+        document.querySelector('#file-page-count').textContent = 'Unavailable';
+      }
+    }
+
+    document.querySelector('#previous-page').addEventListener('click', () => pages[currentPage - 2]?.shell.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    document.querySelector('#next-page').addEventListener('click', () => pages[currentPage]?.shell.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    pageNumber.addEventListener('change', () => {
+      const target = Math.max(1, Math.min(pdfDocument?.numPages || 1, Number(pageNumber.value) || 1));
+      pages[target - 1]?.shell.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (pdfDocument) setCurrentPage(target);
+    });
+    zoomOutButton.addEventListener('click', () => setZoom(zoom - 0.1));
+    zoomInButton.addEventListener('click', () => setZoom(zoom + 0.1));
+    document.querySelector('#fit-width').addEventListener('click', () => setZoom(1));
+    let pageUpdateFrame = 0;
+    viewer.addEventListener('scroll', () => {
+      if (pageUpdateFrame) cancelAnimationFrame(pageUpdateFrame);
+      pageUpdateFrame = requestAnimationFrame(() => {
+        const center = viewer.getBoundingClientRect().top + viewer.clientHeight / 2;
+        let nearest = null;
+        let distance = Infinity;
+        pages.forEach((record) => {
+          const rect = record.shell.getBoundingClientRect();
+          const nextDistance = Math.abs(rect.top + rect.height / 2 - center);
+          if (nextDistance < distance) { distance = nextDistance; nearest = record.number; }
+        });
+        if (nearest && nearest !== currentPage) setCurrentPage(nearest);
+      });
+    }, { passive: true });
+    window.addEventListener('resize', () => {
+      if (!pdfDocument) return;
+      setZoom(zoom);
+    });
+    loadPaper();
+  </script>
+</body>
+</html>

@@ -41,11 +41,11 @@
     .lab-report-body code { padding:2px 4px; background:var(--soft); font:12px ui-monospace,SFMono-Regular,Menlo,monospace; }
     .lab-report-body pre { overflow-x:auto; padding:18px; background:var(--soft); font:12px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace; }
     .lab-report-body hr { margin:28px 0; border:0; border-top:1px solid var(--line); }
-    .report-flow { display:flex; align-items:stretch; gap:10px; overflow-x:auto; padding:18px 2px 24px; }
+    .report-flow { display:flex; align-items:stretch; gap:10px; overflow-x:auto; padding:18px 2px 24px; counter-reset:flow-step; }
     .report-flow-node { flex:1 0 150px; padding:15px; border:1px solid var(--line); background:#f7f7f5; font-size:12px; line-height:1.55; }
+    .report-flow-node::before { counter-increment:flow-step; content:counter(flow-step,decimal-leading-zero); display:block; margin-bottom:12px; color:var(--muted); font:700 10px ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.08em; }
     .report-flow-node strong { display:block; margin-bottom:7px; padding-bottom:7px; border-bottom:3px solid var(--title-field); font-size:12px; }
     .report-flow-node span { display:block; color:#555; }
-    .report-flow-arrow { align-self:center; font-size:19px; }
     .site-footer { padding:30px var(--page-pad) 20px; background:#444; color:#fff; }
     .footer-bottom { display:flex; justify-content:space-between; gap:16px; padding-top:16px; border-top:1px solid #777; color:#bbb; font-size:11px; }
     .footer-bottom a { color:#fff; font-weight:700; text-decoration:none; }
@@ -59,7 +59,7 @@
   </header>
   <main>
     <header class="report-hero">
-      <a href="project-detail.html?project=a-machine-for-misunderstanding">← Back to A Machine for Misunderstanding</a>
+      <a href="project-detail.html?project=a-machine-for-misunderstanding">Back to A Machine for Misunderstanding</a>
       <p class="report-kicker">Lab report &amp; experiment process · 2026</p>
       <h1>How meaning changes as it passes through sound</h1>
       <p>Read the full empirical report, from the double-blind listening setup and VAD measures to the session data, findings, and references.</p>
@@ -83,7 +83,7 @@
 <hr>
 <h3>2. Experimental System &amp; Workflow</h3>
 <p>The system functions essentially as a miniature model of social media: one person broadcasts an input, an automated intermediary translates it, and another person on the other side attempts to interpret the resulting artifact.</p>
-<div class="report-flow" aria-label="Experimental workflow"><div class="report-flow-node"><strong>Sender (Participant A)</strong><span>Text Input</span><span>Self-Reported VAD</span></div><span class="report-flow-arrow" aria-hidden="true">→</span><div class="report-flow-node"><strong>Language Model</strong><span>Emotion Extraction</span><span>Generative Parameters</span></div><span class="report-flow-arrow" aria-hidden="true">→</span><div class="report-flow-node"><strong>VCV Rack (Modular Synth)</strong><span>8-Channel Control Voltage</span><span>Continuous Generative Audio</span></div><span class="report-flow-arrow" aria-hidden="true">→</span><div class="report-flow-node"><strong>Receiver (Participant B)</strong><span>Pure Auditory Listening</span><span>Perceived VAD &amp; Notes</span></div></div>
+<div class="report-flow" aria-label="Experimental workflow"><div class="report-flow-node"><strong>Sender (Participant A)</strong><span>Text Input</span><span>Self-Reported VAD</span></div><div class="report-flow-node"><strong>Language Model</strong><span>Emotion Extraction</span><span>Generative Parameters</span></div><div class="report-flow-node"><strong>VCV Rack (Modular Synth)</strong><span>8-Channel Control Voltage</span><span>Continuous Generative Audio</span></div><div class="report-flow-node"><strong>Receiver (Participant B)</strong><span>Pure Auditory Listening</span><span>Perceived VAD &amp; Notes</span></div></div>
 <h4>2.1 The Double-Blind Test Design</h4>
 <p>To observe authentic interpretation without conversational anchoring:</p>
 <ol><li><strong>Isolation</strong>: The receiver hears the continuous generative soundscape through headphones and has no visual access to the sender&#x27;s text, the sender&#x27;s self-assessed coordinates, or the model&#x27;s internal data.</li><li><strong>Continuous Audio</strong>: The modular synthesizer produces a persistent sound environment rather than an isolated clip, mirroring how digital media surrounds us constantly.</li><li><strong>Swapping</strong>: The experiment runs across multiple rounds. After each turn, roles reverse, allowing participants to negotiate meaning across time.</li><li><strong>Revelation</strong>: Only after all rounds are finalized are both participants shown the comparative data, textual logs, and calculated deviations.</li></ol>
@@ -128,7 +128,7 @@
 <hr>
 <h3>6. Qualitative Case Studies</h3>
 <p>To understand how mathematical deviations translate into visceral human experiences, we documented detailed dialogue logs, participant feedback, and psychoacoustic inversions across two formal sessions.</p>
-<p>For the complete, uncompressed round-by-round dialogue records, qualitative feedback, and acoustic analysis: 👉 <strong><a href="https://github.com/Rex188/Machine-for-Misunderstanding/blob/main/CASE_STUDIES.md" target="_blank" rel="noreferrer">View Detailed Phenomenological Case Studies &amp; Dialogue Logs →</a></strong></p>
+<p>For the complete, uncompressed round-by-round dialogue records, qualitative feedback, and acoustic analysis: <strong><a href="https://github.com/Rex188/Machine-for-Misunderstanding/blob/main/CASE_STUDIES.md" target="_blank" rel="noreferrer">View Detailed Phenomenological Case Studies &amp; Dialogue Logs</a></strong></p>
 <p><em>Key highlights from the separate dossier:</em></p>
 <ul><li><strong>The &quot;Creepy Comfort&quot; Paradox (Evolution Test)</strong>: Demonstrates how comforting inputs like <em>&quot;You need to be confident!&quot;</em> were transduced by high-arousal FM synthesis into jarring metallic overtones, causing the receiver to report that the sound felt <em>&quot;deadass creepy&quot;</em> (Round 5, <span class="report-math">d_{\text{total}} = 0.427</span>).</li><li><strong>Struggling for Mutual Grounding (Session 3)</strong>: Documents a four-round negotiation where participants calibrated their expressions from abstract feelings to direct acoustic cues, progressively bringing the misunderstanding score down from <span class="report-math">0.563</span> to <span class="report-math">0.165</span>.</li></ul>
 <hr>
@@ -140,6 +140,6 @@
 <ol><li>McLuhan, M. (1964). <em>Understanding Media: The Extensions of Man</em>. McGraw-Hill.</li><li>Mehrabian, A., &amp; Russell, J. A. (1974). <em>An Approach to Environmental Psychology</em>. The MIT Press.</li><li>Russell, J. A. (1980). A circumplex model of affect. <em>Journal of Personality and Social Psychology</em>, 39(6), 1161–1178.</li></ol>
     </article>
   </main>
-  <footer class="site-footer"><div class="footer-bottom"><span>© 2026 Rex Li · A Machine for Misunderstanding</span><a href="#top">Back to top ↑</a></div></footer>
+  <footer class="site-footer"><div class="footer-bottom"><span>© 2026 Rex Li · A Machine for Misunderstanding</span><a href="#top">Back to top</a></div></footer>
 </body>
 </html>
