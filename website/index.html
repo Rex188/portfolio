@@ -54,7 +54,9 @@
     .mega-inner { display: grid; grid-template-columns: minmax(180px, .7fr) minmax(0, 1.3fr); gap: clamp(30px, 8vw, 120px); max-width: 1440px; margin: 0 auto; }
     .mega-inner[hidden] { display: none; }
     #panel-projects { grid-template-columns: 1fr; }
-    #panel-researches, #panel-gallery, #panel-about { grid-template-columns: 1fr; }
+    #panel-researches, #panel-gallery { grid-template-columns: 1fr; }
+    #panel-researches .menu-links, #panel-gallery .menu-links { padding-inline: clamp(16px, 3vw, 40px); column-gap: clamp(12px, 2.5vw, 32px); }
+    .nav-anchor { display: flex; align-items: center; text-decoration: none; }
     .menu-kicker { margin: 0 0 20px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
     .menu-intro { max-width: 300px; margin: 0; font-size: clamp(21px, 2.4vw, 32px); line-height: 1.08; letter-spacing: -.065em; }
     .menu-intro em { font-weight: 700; }
@@ -67,8 +69,6 @@
     .year-content[hidden] { display: none; }
     .menu-project { min-height: 98px; padding: 12px; border: 1px solid var(--line); text-decoration: none; transition: background .2s, color .2s; }
     .menu-project:hover { background: var(--ink); color: #fff; }
-    .menu-project small { display: block; margin-bottom: 10px; color: var(--muted); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
-    .menu-project:hover small { color: #c9c9c9; }
     .menu-project strong { display: block; font-size: 20px; font-weight: 700; line-height: 1.05; letter-spacing: -.045em; }
     .year-empty { grid-column: 1 / -1; margin: 4px 0; color: var(--muted); font-size: 13px; }
     .menu-links { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); border-top: 1px solid var(--line); }
@@ -205,7 +205,7 @@
       <button class="nav-trigger" type="button" data-panel="projects" aria-expanded="false" aria-controls="menu-panel">Projects</button>
       <button class="nav-trigger" type="button" data-panel="researches" aria-expanded="false" aria-controls="menu-panel">Researches</button>
       <button class="nav-trigger" type="button" data-panel="gallery" aria-expanded="false" aria-controls="menu-panel">Gallery</button>
-      <button class="nav-trigger" type="button" data-panel="about" aria-expanded="false" aria-controls="menu-panel">About</button>
+      <a class="nav-trigger nav-anchor" href="#about-section">About</a>
       <form class="search-wrap" id="searchForm" role="search">
         <button class="search-toggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="siteSearch"><svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6" fill="none" stroke="currentColor" stroke-width="2.1"/><path d="m16 16 5 5" fill="none" stroke="currentColor" stroke-width="2.1"/></svg></button>
         <input id="siteSearch" type="search" placeholder="Search Rex Li" aria-label="Search Rex Li's work" autocomplete="off" hidden>
@@ -219,22 +219,24 @@
           <div class="year-group">
             <button class="year-trigger" type="button" aria-expanded="true" aria-controls="year-2026"><span>2026</span><span aria-hidden="true">＋</span></button>
             <div class="year-content" id="year-2026">
-              <a class="menu-project" href="#robin"><small>Instrument · 2026</small><strong>Robin</strong></a>
-              <a class="menu-project" href="#machine"><small>2026</small><strong>A Machine for Misunderstanding</strong></a>
-              <a class="menu-project" href="#listener"><small>Sound system · In progress</small><strong>Listener</strong></a>
+              <a class="menu-project" href="project-detail.html?project=robin"><strong>Robin</strong></a>
+              <a class="menu-project" href="project-detail.html?project=a-machine-for-misunderstanding"><strong>A Machine for Misunderstanding</strong></a>
+              <a class="menu-project" href="project-detail.html?project=listener"><strong>Listener</strong></a>
             </div>
           </div>
           <div class="year-group">
             <button class="year-trigger" type="button" aria-expanded="false" aria-controls="year-2025"><span>2025</span><span aria-hidden="true">＋</span></button>
-            <div class="year-content" id="year-2025"><a class="menu-project" href="#music-classifier"><small>Machine learning · 2025</small><strong>NYUSH Music Classifier</strong></a>
-              <a class="menu-project" href="#inner-landscape"><small>Music &amp; technology · 2025</small><strong>Inner Landscape</strong></a></div></div>
+            <div class="year-content" id="year-2025" hidden>
+              <a class="menu-project" href="project-detail.html?project=music-classifier"><strong>NYUSH Music Classifier</strong></a>
+              <a class="menu-project" href="project-detail.html?project=inner-landscape"><strong>Inner Landscape</strong></a>
+            </div>
           </div>
         </div>
       </div>
       <div class="mega-inner" id="panel-researches" hidden>
         <div class="menu-links">
-          <a class="menu-link" href="#research-contingency"><small>Music technology · 2026</small><strong>A Structural Spectrum of Contingency</strong></a>
-          <a class="menu-link" href="#research-discipline"><small>AI and ethics · 2026</small><strong>Discipline Without a Subject</strong></a>
+          <a class="menu-link" href="research-paper.html?paper=contingency"><strong>A Structural Spectrum of Contingency</strong></a>
+          <a class="menu-link" href="research-paper.html?paper=discipline"><strong>Discipline Without a Subject</strong></a>
         </div>
       </div>
       <div class="mega-inner" id="panel-gallery" hidden>
@@ -242,9 +244,6 @@
           <a class="menu-link" href="gallery-detail.html?place=japan"><strong>Japan</strong></a>
           <a class="menu-link" href="gallery-detail.html?place=hungary"><strong>Hungary</strong></a>
         </div>
-      </div>
-      <div class="mega-inner" id="panel-about" hidden>
-        <div class="menu-links"><a class="menu-link" href="#about-section"><strong>About Rex Li</strong></a></div>
       </div>
     </div>
   </header>
@@ -315,11 +314,11 @@
         </nav>
         <p class="footer-tagline">Contact</p>
       </div>
-      <div class="footer-bottom"><span>© 2026 Rex Li</span><span><a href="studio.html">Studio</a> · <a href="#top">Back to top</a></span></div>
+      <div class="footer-bottom"><span>© 2026 Rex Li</span><span><a href="#top">Back to top</a></span></div>
     </footer>
   </main>
   <script>
-    const navButtons = [...document.querySelectorAll('.nav-trigger')];
+    const navButtons = [...document.querySelectorAll('button.nav-trigger')];
     const megaPanel = document.querySelector('#menu-panel');
     const panelViews = [...document.querySelectorAll('.mega-inner')];
     const searchForm = document.querySelector('#searchForm');
@@ -349,6 +348,7 @@
         document.querySelector(`#panel-${button.dataset.panel}`).hidden = false;
       }
     }));
+    document.querySelector('.nav-anchor[href="#about-section"]').addEventListener('click', () => { closeMenu(); closeSearch(); });
     document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { closeMenu(); closeSearch(); } });
     document.addEventListener('click', (event) => {
       if (!event.target.closest('.site-header')) closeMenu();
@@ -395,6 +395,5 @@
     });
     results.addEventListener('click', (event) => { if (event.target.closest('a')) closeSearch(); });
   </script>
-  <script src="assets/js/studio-runtime.js"></script>
 </body>
 </html>

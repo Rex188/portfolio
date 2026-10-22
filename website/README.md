@@ -9,7 +9,6 @@ From this directory run `python3 -m http.server 8000`, then open `http://localho
 ## Structure
 
 - `index.html` — canonical portfolio homepage
-- `studio.html` — browser based copy editor with page previews, saved edits, and JSON import/export
 - `project-detail.html` — canonical project detail pages
 - `machine-lab-report.html` — A Machine for Misunderstanding lab report and experiment process
 - `data/projects.json` — project metadata for future data-driven page rendering
@@ -20,6 +19,5 @@ From this directory run `python3 -m http.server 8000`, then open `http://localho
 
 The former prototype URLs in `portfolio/project 3/` redirect to these canonical pages. Make website changes in this folder; do not edit the archived pages as active implementations.
 
-Open `/studio.html` to edit page text. Edits are saved in the current browser and applied across the site in that browser. Use **Export Copy** to download a JSON copy, or import it in another browser. This static site has no server-side content store; to publish edits for all visitors, include the exported overrides in a deployment or update the source copy.
 
 To add a Listener stop, edit `projects/listener/data/places.json`; each item defines bilingual name, area, story, and latitude/longitude.
