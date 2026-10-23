@@ -11,45 +11,43 @@
     .site-header { position:sticky; top:0; z-index:20; background:var(--paper); }
     .brand-row { height:94px; padding:16px var(--page-pad) 10px; display:flex; align-items:center; justify-content:space-between; }
     .brand { font-size:clamp(42px,6vw,72px); font-weight:800; line-height:.85; letter-spacing:-.085em; text-decoration:none; }
-    .nav-row { min-height:58px; padding:0 var(--page-pad); display:flex; align-items:center; gap:clamp(10px,2vw,28px); border-bottom:1px solid var(--line); }
+    .nav-row { min-height:58px; padding:0 var(--page-pad); display:flex; align-items:center; gap:clamp(10px,2vw,28px); }
     .nav-row a { min-height:58px; display:inline-flex; align-items:center; border-bottom:3px solid transparent; font-size:clamp(14px,1.5vw,20px); font-weight:700; letter-spacing:-.04em; text-decoration:none; }
     .nav-row a:hover { border-bottom-color:var(--ink); }
     :focus-visible { outline:2px solid var(--ink); outline-offset:4px; }
     main { padding:0 var(--page-pad); }
-    .report-hero { padding:clamp(34px,6vw,76px) 0 28px; border-bottom:1px solid var(--ink); }
+    .report-hero { padding:clamp(34px,6vw,76px) 0 28px; }
     .report-hero a { font-size:12px; font-weight:700; text-underline-offset:4px; }
     .report-kicker { margin:34px 0 12px; font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
     .report-hero h1 { max-width:1000px; margin:0; font-size:clamp(42px,7vw,88px); font-weight:400; line-height:.92; letter-spacing:-.075em; }
     .report-hero p { max-width:760px; margin:22px 0 0; color:#444; font-size:clamp(16px,1.55vw,21px); line-height:1.55; }
-    .lab-report-body { max-width:1040px; margin:0 0 0 auto; padding:42px 0 80px; font-size:15px; line-height:1.7; }
+    .lab-report-body { max-width:1040px; margin:0 0 0 auto; padding:42px 0 80px; font-size:18px; line-height:1.7; }
     .lab-report-body .report-title { max-width:900px; margin:0 0 10px; font-size:clamp(28px,4vw,46px); font-weight:400; line-height:1.04; letter-spacing:-.06em; }
-    .lab-report-body h3 { margin:42px 0 14px; padding-bottom:10px; border-bottom:1px solid var(--line); font-size:clamp(23px,3vw,34px); font-weight:400; line-height:1.08; letter-spacing:-.05em; }
+    .lab-report-body h3 { margin:42px 0 14px; padding-bottom:10px; font-size:clamp(23px,3vw,34px); font-weight:400; line-height:1.08; letter-spacing:-.05em; }
     .lab-report-body h4 { margin:28px 0 10px; font-size:20px; font-weight:700; line-height:1.2; letter-spacing:-.04em; }
     .lab-report-body p { max-width:850px; margin:0 0 17px; color:#333; }
     .lab-report-body strong { color:var(--ink); }
-    .lab-report-body blockquote { max-width:850px; margin:22px 0; padding:4px 0 4px 18px; border-left:3px solid var(--title-field); color:#444; }
+    .lab-report-body blockquote { max-width:850px; margin:22px 0; padding:4px 0 4px 18px; color:#444; }
     .lab-report-body ul,.lab-report-body ol { max-width:850px; padding-left:24px; margin:12px 0 22px; }
     .lab-report-body li { padding-left:4px; margin:7px 0; }
     .lab-report-body a { text-underline-offset:4px; }
     .report-table-wrap { overflow-x:auto; margin:22px 0 30px; }
-    .lab-report-body table { width:100%; border-collapse:collapse; font-size:12px; line-height:1.5; }
-    .lab-report-body th { padding:10px 12px; border-bottom:2px solid var(--ink); text-align:left; font-size:10px; letter-spacing:.06em; text-transform:uppercase; }
-    .lab-report-body td { min-width:90px; padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
-    .lab-report-body tr:last-child td { border-bottom:2px solid var(--ink); }
-    .report-equation { overflow-x:auto; margin:16px 0 22px; padding:14px 18px; background:var(--soft); font:15px/1.7 Georgia,serif; white-space:pre-wrap; }
+    .lab-report-body table { width:100%; border-collapse:collapse; font-size:14px; line-height:1.5; }
+    .lab-report-body th { padding:10px 12px; text-align:left; font-size:12px; letter-spacing:.06em; text-transform:uppercase; }
+    .lab-report-body td { min-width:90px; padding:10px 12px; vertical-align:top; }
+    .report-equation { overflow-x:auto; margin:16px 0 22px; padding:14px 18px; background:var(--soft); font:18px/1.7 Georgia,serif; white-space:pre-wrap; }
     .report-math { white-space:nowrap; }
-    .lab-report-body code { padding:2px 4px; background:var(--soft); font:12px ui-monospace,SFMono-Regular,Menlo,monospace; }
-    .lab-report-body pre { overflow-x:auto; padding:18px; background:var(--soft); font:12px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace; }
-    .lab-report-body hr { margin:28px 0; border:0; border-top:1px solid var(--line); }
+    .lab-report-body code { padding:2px 4px; background:var(--soft); font:.85em ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .lab-report-body pre { overflow-x:auto; padding:18px; background:var(--soft); font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace; }
     .report-flow { display:flex; align-items:stretch; gap:10px; overflow-x:auto; padding:18px 2px 24px; counter-reset:flow-step; }
-    .report-flow-node { flex:1 0 150px; padding:15px; border:1px solid var(--line); background:#f7f7f5; font-size:12px; line-height:1.55; }
+    .report-flow-node { flex:1 0 150px; padding:15px; background:#f7f7f5; font-size:14px; line-height:1.55; }
     .report-flow-node::before { counter-increment:flow-step; content:counter(flow-step,decimal-leading-zero); display:block; margin-bottom:12px; color:var(--muted); font:700 10px ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.08em; }
-    .report-flow-node strong { display:block; margin-bottom:7px; padding-bottom:7px; border-bottom:3px solid var(--title-field); font-size:12px; }
+    .report-flow-node strong { display:block; margin-bottom:7px; padding-bottom:7px; font-size:14px; }
     .report-flow-node span { display:block; color:#555; }
     .site-footer { padding:30px var(--page-pad) 20px; background:#444; color:#fff; }
-    .footer-bottom { display:flex; justify-content:space-between; gap:16px; padding-top:16px; border-top:1px solid #777; color:#bbb; font-size:11px; }
+    .footer-bottom { display:flex; justify-content:space-between; gap:16px; padding-top:16px; color:#bbb; font-size:11px; }
     .footer-bottom a { color:#fff; font-weight:700; text-decoration:none; }
-    @media(max-width:760px) { :root { --page-pad:18px; } .brand-row { height:76px; } .nav-row { min-height:54px; gap:10px; } .nav-row a { min-height:54px; font-size:clamp(12px,2.7vw,16px); } .lab-report-body { padding-top:28px; font-size:14px; } .lab-report-body table { font-size:11px; } .lab-report-body th,.lab-report-body td { padding:8px; } .footer-bottom { flex-direction:column; } }
+    @media(max-width:760px) { :root { --page-pad:18px; } .brand-row { height:76px; } .nav-row { min-height:54px; gap:10px; } .nav-row a { min-height:54px; font-size:clamp(12px,2.7vw,16px); } .lab-report-body { padding-top:28px; font-size:16px; } .lab-report-body table { font-size:13px; } .lab-report-body th,.lab-report-body td { padding:8px; } .footer-bottom { flex-direction:column; } }
   </style>
   <script>
     window.MathJax = {
@@ -78,11 +76,9 @@
 <h2 class="report-title">A Machine for Misunderstanding: Exploring the Distortion of Language Through Generative Musical Media</h2>
 <h3>Laboratory Research Report &amp; Empirical Analysis</h3>
 <p><strong>Author</strong>: Rex Li <strong>Project</strong>: Portfolio Project 2 (<code>portfolio/project2/</code>) <strong>Data</strong>: 10 Sessions / 36 Communication Cycles (<code>portfolio/project2/blind_test/data/</code>)</p>
-<hr>
 <h3>Abstract</h3>
 <p>Modern social media and fast fashion culture have led to an unprecedented failure of text. As human communication is mediated through algorithmic feeds, automated curation, and fast-paced platforms, original subjective meanings are consistently distorted. In this project, I treat generative ambient music as an analog for digital media itself. <strong>A Machine for Misunderstanding</strong> was built, an experimental human-computer-human system that forces two participants to converse solely through generative synthesis driven by language models.</p>
 <p>Across 10 sessions and 36 complete interaction cycles, the divergence between what people meant and what was perceived was measured. The data demonstrates that the acoustic medium introduces substantially greater distortion than the language model itself (<span class="report-math">\(d_{\text{medium}} &gt; d_{\text{model}}\)</span> in 7 of 10 sessions), and that positive intentions are often distorted by the medium into disturbing acoustic experiences. This experiment visualizes how modern media fundamentally destabilizes human expression, turning communication into an ongoing struggle against mediation.</p>
-<hr>
 <h3>1. Introduction: Media and the Breakdown of Language</h3>
 <h4>1.1 The Medium is the Message</h4>
 <p>Marshall McLuhan famously argued that <em>&quot;the medium is the message&quot;</em>. The medium through which we communicate is never a neutral container; it actively reshapes, filters, and defines the content it carries.</p>
@@ -90,14 +86,12 @@
 <h4>1.2 Music as an Extreme Form of Mediation</h4>
 <p>This project investigates this phenomenon by turning sound into a tangible metaphor for social media. I ask a fundamental question: <strong>What happens to human meaning when language is translated through an algorithmic, generative medium?</strong></p>
 <p>Instead of building a utility to &quot;optimize&quot; or &quot;clarify&quot; communication, we designed a system that exposes the gap. A sender inputs their real-time emotional and bodily state into words. An AI model interprets these words into emotional coordinates, which directly modulate an analog-style modular synthesizer (VCV Rack). A blind receiver listens to the resulting generative soundscape and attempts to reconstruct what the sender originally felt. By treating ambient sound as media infrastructure, the experiment dramatizes how modern mediation inevitably distorts human connection.</p>
-<hr>
 <h3>2. Experimental System &amp; Workflow</h3>
 <p>The system functions essentially as a miniature model of social media: one person broadcasts an input, an automated intermediary translates it, and another person on the other side attempts to interpret the resulting artifact.</p>
 <div class="report-flow" aria-label="Experimental workflow"><div class="report-flow-node"><strong>Sender (Participant A)</strong><span>Text Input</span><span>Self-Reported VAD</span></div><div class="report-flow-node"><strong>Language Model</strong><span>Emotion Extraction</span><span>Generative Parameters</span></div><div class="report-flow-node"><strong>VCV Rack (Modular Synth)</strong><span>8-Channel Control Voltage</span><span>Continuous Generative Audio</span></div><div class="report-flow-node"><strong>Receiver (Participant B)</strong><span>Pure Auditory Listening</span><span>Perceived VAD &amp; Notes</span></div></div>
 <h4>2.1 The Double-Blind Test Design</h4>
 <p>To observe authentic interpretation without conversational anchoring:</p>
 <ol><li><strong>Isolation</strong>: The receiver hears the continuous generative soundscape through headphones and has no visual access to the sender&#x27;s text, the sender&#x27;s self-assessed coordinates, or the model&#x27;s internal data.</li><li><strong>Continuous Audio</strong>: The modular synthesizer produces a persistent sound environment rather than an isolated clip, mirroring how digital media surrounds us constantly.</li><li><strong>Swapping</strong>: The experiment runs across multiple rounds. After each turn, roles reverse, allowing participants to negotiate meaning across time.</li><li><strong>Revelation</strong>: Only after all rounds are finalized are both participants shown the comparative data, textual logs, and calculated deviations.</li></ol>
-<hr>
 <h3>3. Data Processing</h3>
 <h4>3.1 Premise and Necessary Limitation: Quantifying Emotion into VAD</h4>
 <p>To mathematically observe and calculate misunderstanding, human affective states in this experiment are operationalized using the classic three-dimensional <strong>Valence-Arousal-Dominance (VAD)</strong> model, originally formalized by Albert Mehrabian and James A. Russell (Mehrabian &amp; Russell, 1974; Russell, 1980):</p>
@@ -120,11 +114,9 @@
 <p><em>The overall divergence between what the sender originally felt and what the receiver understood.</em></p>
 <ol><li><strong>Inter-Round Drift (<span class="report-math">\(\Delta_{\text{drift}}\)</span>)</strong>:</li></ol>
 <p><em>The change in sender coordinates between round <span class="report-math">\(k\)</span> and round <span class="report-math">\(k-1\)</span>, tracking how a participant&#x27;s mood shifts as the dialogue unfolds.</em></p>
-<hr>
 <h3>4. Generative Sound Mapping (8-Channel Control Voltages)</h3>
 <p>The language model&#x27;s inferred parameters <span class="report-math">\(\{V, A, D\}\)</span> are mapped into 8 control voltages (<span class="report-math">\(-4.0\,\text{V}\)</span> to <span class="report-math">\(+10.0\,\text{V}\)</span>) to control the modular synthesizer (Plaits, Plateau Reverb, and Clocked):</p>
 <div class="report-table-wrap"><table><thead><tr><th>Ch</th><th>Parameter</th><th>Function</th><th>Target Module</th><th>Mapping Formula</th></tr></thead><tbody><tr><td>1</td><td><code>/param/timbre</code></td><td>Harmonic brightness</td><td>Timbre CV (Plaits)</td><td><span class="report-math">\(v_1 = -3 + 8V\)</span></td></tr><tr><td>2</td><td><code>/param/frequency</code></td><td>Pitch center</td><td>V/Oct modulation</td><td><span class="report-math">\(v_2 = -2 + 4A\)</span></td></tr><tr><td>3</td><td><code>/param/amplitude</code></td><td>Volume / Dynamic level</td><td>VCA Level</td><td><span class="report-math">\(v_3 = 2 + 8A\)</span></td></tr><tr><td>4</td><td><code>/param/envelope</code></td><td>Decay speed</td><td>ADSR decay time</td><td><span class="report-math">\(v_4 = -4 + 8(1 - A)\)</span></td></tr><tr><td>5</td><td><code>/param/mode</code></td><td>Scale mode</td><td>Mode select (ScaleCV)</td><td><span class="report-math">\(v_5 = -4 + 8V\)</span></td></tr><tr><td>6</td><td><code>/param/chord</code></td><td>Chord degree (0–6)</td><td>Chord select (DiatonicCV)</td><td><span class="report-math">\(v_6 = \operatorname{round}(6D)\)</span></td></tr><tr><td>7</td><td><code>/param/type</code></td><td>Chord type (triad / 7th / 9th)</td><td>Type select (DiatonicCV)</td><td><span class="report-math">\(v_7 = \operatorname{round}(2D)\)</span></td></tr><tr><td>8</td><td><code>/param/noise</code></td><td>Noise &amp; Instability</td><td>Noise modulation</td><td><span class="report-math">\(v_8 = 10(1 - D)\)</span></td></tr></tbody></table></div>
-<hr>
 <h3>5. Experimental Data &amp; Results</h3>
 <p>Across the formal experimental trials, we selected the 6 most representative, multi-round interaction sessions (covering 25 complete conversational cycles) to analyze human communicative dynamics, medium impedance, and model performance.</p>
 <h4>5.1 Table 1: Representative Multi-Round Sessions &amp; Distortion Breakdown</h4>
@@ -135,17 +127,14 @@
 <div class="report-table-wrap"><table><thead><tr><th>Architecture / Model Backend</th><th>Deployment Mode</th><th>Avg Latency</th><th>Model Gap (<span class="report-math">\(d_{\text{model}}\)</span>)</th><th>Medium Gap (<span class="report-math">\(d_{\text{medium}}\)</span>)</th><th>Total Misunderstanding (<span class="report-math">\(d_{\text{total}}\)</span>)</th></tr></thead><tbody><tr><td><strong>Local Qwen2.5-1.5B LoRA (Session 3)</strong></td><td>On-device MPS (Apple Silicon)</td><td>4403.0 ms</td><td>0.2162</td><td>0.3111</td><td><strong>0.3805</strong></td></tr><tr><td><strong>DeepSeek API, <code>deepseek-chat</code> (Session 4)</strong></td><td>Cloud Distributed Inference</td><td><strong>858.0 ms</strong></td><td><strong>0.1587</strong></td><td><strong>0.2161</strong></td><td><strong>0.2697</strong></td></tr></tbody></table></div>
 <h4>Key Analytical Takeaways:</h4>
 <ol><li><strong>The Acoustic Medium Dominates Distortion</strong>: In 4 of the 5 sessions in Table 1, the acoustic medium introduced substantially more entropy than the model&#x27;s text decoding (<span class="report-math">\(\mu(d_{\text{medium}}) = 0.2984\)</span> vs. <span class="report-math">\(\mu(d_{\text{model}}) = 0.1980\)</span>). The musical medium itself acts as an autonomous filter that fundamentally destabilizes semantic clarity.</li><li><strong>Frontier Models Improve Text Precision, but Cannot Bypass the Medium</strong>: While DeepSeek (<code>deepseek-chat</code>, Session 4) reduced textual extraction error, relative to the local model in Session 3, by <span class="report-math">\(26.6\%\)</span> (<span class="report-math">\(0.2162 \to 0.1587\)</span>) and provided near-instantaneous response times, the acoustic medium distortion remained prominent (<span class="report-math">\(0.2161\)</span>). Scaling up linguistic intelligence cannot resolve the perceptual ambiguity inherent to sensory media.</li></ol>
-<hr>
 <h3>6. Qualitative Case Studies</h3>
 <p>To understand how mathematical deviations translate into visceral human experiences, we documented detailed dialogue logs, participant feedback, and psychoacoustic inversions across two formal sessions.</p>
 <p>For the complete, uncompressed round-by-round dialogue records, qualitative feedback, and acoustic analysis: <strong><a href="https://github.com/Rex188/Machine-for-Misunderstanding/blob/main/CASE_STUDIES.md" target="_blank" rel="noreferrer">View Detailed Phenomenological Case Studies &amp; Dialogue Logs</a></strong></p>
 <p><em>Key highlights from the separate dossier:</em></p>
 <ul><li><strong>The &quot;Creepy Comfort&quot; Paradox (Evolution Test)</strong>: Demonstrates how comforting inputs like <em>&quot;You need to be confident!&quot;</em> were transduced by high-arousal FM synthesis into jarring metallic overtones, causing the receiver to report that the sound felt <em>&quot;deadass creepy&quot;</em> (Round 5, <span class="report-math">\(d_{\text{total}} = 0.427\)</span>).</li><li><strong>Struggling for Mutual Grounding (Session 3)</strong>: Documents a four-round negotiation where participants calibrated their expressions from abstract feelings to direct acoustic cues, progressively bringing the misunderstanding score down from <span class="report-math">\(0.563\)</span> to <span class="report-math">\(0.165\)</span>.</li></ul>
-<hr>
 <h3>7. Conclusion</h3>
 <p>The primary empirical finding of <em>A Machine for Misunderstanding</em> is that when human expression is forced through an automated intermediary, the medium itself introduces substantially more variance than the words themselves (<span class="report-math">\(d_{\text{medium}} &gt; d_{\text{model}}\)</span> in 7 of 10 sessions). Natural language models are increasingly capable of approximating semantic intent; however, once those semantic representations are re-embodied into physical, continuous media—whether analog synthesizer voltages or algorithmic social media feeds—the structural properties of the medium dominate the interpretation. The medium does not merely transmit meaning; it possesses its own acoustic and affective agency that reshapes and alienates original intentions.</p>
 <p>In contemporary digital culture, where authentic interpersonal connection is increasingly replaced by algorithmic feeds and flattened digital text, understanding this communicative gap is urgent. By quantifying how meaning shears and drifts across generative mediation, this study demonstrates that seamless digital communication is an illusion. Recognizing the inevitable distortion introduced by media is the first step toward reclaiming mindful, critical engagement with the computational systems that structure modern human interaction.</p>
-<hr>
 <h3>References</h3>
 <ol><li>McLuhan, M. (1964). <em>Understanding Media: The Extensions of Man</em>. McGraw-Hill.</li><li>Mehrabian, A., &amp; Russell, J. A. (1974). <em>An Approach to Environmental Psychology</em>. The MIT Press.</li><li>Russell, J. A. (1980). A circumplex model of affect. <em>Journal of Personality and Social Psychology</em>, 39(6), 1161–1178.</li></ol>
     </article>
