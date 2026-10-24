@@ -13,6 +13,12 @@ video/
 *.pt
 *.pth
 
+# Browser-ready Listener media is part of the deployed portfolio.
+!website/projects/listener/**/assets/*.mp4
+website/projects/listener/*preview.png
+website/**/__pycache__/
+website/**/*.pyc
+
 # Independent engineering sub-repositories
 project 1/
 project2/

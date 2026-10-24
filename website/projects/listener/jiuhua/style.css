@@ -1,0 +1,56 @@
+:root{color-scheme:dark;font-family:Arial,"Helvetica Neue","PingFang SC",sans-serif;color:#f4f3ee;background:#171916;font-synthesis:none}
+*{box-sizing:border-box}
+body{margin:0;min-height:100svh}
+.background,.shade{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+.background{object-fit:cover;object-position:50% 50%;filter:blur(3px);transform:scale(1.025);z-index:-2}
+.shade{background:rgba(10,13,10,.47);z-index:-1}
+header{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:32px 40px;font-size:13px}
+.project-name{font-size:15px}
+nav{display:flex;gap:28px;align-items:center}
+button{font:inherit;color:inherit;border:0;background:none;padding:7px 0;cursor:pointer;border-radius:0}
+button:hover{opacity:.72}
+button:disabled{opacity:.45;cursor:default}
+button:focus-visible,input:focus-visible{outline:1px solid #fff;outline-offset:6px}
+main{min-height:calc(100svh - 270px);display:flex;align-items:center;padding:45px 8vw 100px}
+.place{width:min(540px,100%)}
+.location{font-size:12px;line-height:1.6;margin:0 0 18px;color:#eeeae0}
+h1{font-weight:400;font-size:clamp(38px,5vw,66px);letter-spacing:-.035em;line-height:1.15;margin:0}
+html[lang="zh-CN"] h1{letter-spacing:.06em}
+.description{font-size:15px;line-height:1.95;white-space:pre-wrap;margin:32px 0 0;max-width:450px}
+footer{padding:0 40px 25px;position:fixed;bottom:0;left:0;width:100%;font-size:13px;background:linear-gradient(transparent,rgba(10,13,10,.25))}
+.transport{display:flex;align-items:center;gap:36px;min-height:52px}
+.play{min-width:116px;text-align:left}
+.sources{display:flex;align-items:center;gap:18px}
+.sources span{opacity:.4}
+.sources button{opacity:.55;border-bottom:1px solid transparent}
+.sources button[aria-pressed="true"]{opacity:1;border-color:currentColor}
+.sources button:disabled{opacity:.35}
+.volume{margin-left:auto;display:flex;align-items:center;gap:15px;font-size:11px}
+input[type="range"]{accent-color:#f4f3ee;cursor:pointer;height:16px}
+.volume input{width:72px}
+.timeline{display:flex;gap:14px;align-items:center;margin-top:10px}
+.change-timeline{position:relative;flex:1;min-width:0;height:40px}
+.change-curve{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.change-shape{fill:#ffffff0d;stroke:#ffffff60;stroke-width:1;vector-effect:non-scaling-stroke}
+.played-shape{fill:#ffffff25;stroke:#f4f3ee;stroke-width:1;vector-effect:non-scaling-stroke}
+.playhead{position:absolute;left:0;top:17px;width:6px;height:6px;border-radius:50%;background:#fff;transform:translateX(-50%);pointer-events:none}
+.timeline input{position:absolute;inset:0;width:100%;height:40px;margin:0;opacity:0;cursor:pointer}
+.change-timeline:focus-within{outline:1px solid #ffffff80;outline-offset:5px}
+time{font-size:10px;font-variant-numeric:tabular-nums;min-width:30px}
+time:last-child{text-align:right}
+.status{font-size:11px;line-height:1.5;min-height:17px;color:#e1e0d8;margin:12px 0 0}
+dialog{background:#eeeee7;color:#252822;border:0;padding:30px 36px 38px;width:min(600px,calc(100% - 32px));max-height:85svh;line-height:1.7}
+dialog::backdrop{background:#0b0d0b99}
+.dialog-top{display:flex;justify-content:space-between;align-items:center;gap:24px;font-size:12px}
+dialog h2{font-size:26px;line-height:1.25;font-weight:400;letter-spacing:-.025em;margin:38px 0 20px}
+dialog p,dialog dl{font-size:14px}
+dialog dl{margin-top:30px}
+dialog dt{font-size:11px;margin:24px 0 5px;color:#5d6257}
+dialog dd{margin:0}
+.author-note{border-top:1px solid #25282230;padding-top:20px;margin-top:30px;font-size:12px}
+@media(max-width:600px){header{padding:20px;align-items:flex-start}nav{gap:20px;font-size:11px}.project-name{font-size:13px}main{padding:36px 24px 130px;min-height:calc(100svh - 200px)}footer{padding:0 20px 20px;padding-bottom:max(20px,env(safe-area-inset-bottom))}.transport{gap:24px;flex-wrap:wrap}.play{min-width:100px}.volume{gap:8px}.volume span{display:none}.volume input{width:45px}.sources{gap:12px}.status{font-size:10px;max-width:300px}.background{object-position:52% center}dialog{padding:22px 24px}dialog h2{font-size:24px}}
+@media(max-height:560px){main{padding-top:12px;align-items:flex-start}.location{margin-bottom:10px}h1{font-size:36px}.description{margin-top:12px}footer{padding-bottom:12px}.status{margin-top:5px}}
+
+.project-name{color:inherit;text-decoration:none}
+
+.photo-controls{display:flex;align-items:center;gap:22px;margin-top:28px;font-size:12px}.photo-controls button{min-width:32px;min-height:40px}.photo-controls span{font-size:10px;font-variant-numeric:tabular-nums}.background{object-position:50% 48%}

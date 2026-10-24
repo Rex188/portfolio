@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171916">
+  <title>Jiuhua Hill — Listener</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <img id="background" class="background" src="assets/photo-01.jpg" alt="" aria-hidden="true">
+  <div class="shade" aria-hidden="true"></div>
+  <header>
+    <a class="project-name" href="../" aria-label="Return to map">Listener</a>
+    <nav aria-label="Page options">
+      <button id="aboutButton" data-text="about">About this recording</button>
+      <button id="language" lang="zh-CN">中文</button>
+    </nav>
+  </header>
+  <main>
+    <div class="place">
+      <p class="location" data-text="location">Nanjing · 24 October 2026</p>
+      <h1 id="placeName">Jiuhua Hill</h1>
+      <p class="description" id="description" hidden></p>
+      <div class="photo-controls" role="group" aria-label="Photographs"><button id="previousPhoto" aria-label="Previous photograph">←</button><span id="photoCount" aria-live="polite">01 / 06</span><button id="nextPhoto" aria-label="Next photograph">→</button></div>
+    </div>
+  </main>
+  <footer>
+    <div class="transport">
+      <button id="play" class="play" data-text="begin">Begin listening</button>
+      <div class="sources" role="group" aria-label="Sound source">
+        <button id="originalButton" aria-pressed="true" data-text="original">Original</button>
+        <span aria-hidden="true">/</span>
+        <button id="vcvButton" aria-pressed="false" data-text="vcv" disabled>VCV</button>
+      </div>
+      <label class="volume"><span data-text="volume">Volume</span><input id="volume" type="range" min="0" max="100" value="65" aria-label="Volume"></label>
+    </div>
+    <div class="timeline">
+      <time id="elapsed">0:00</time>
+      <div class="change-timeline" id="changeTimeline">
+        <svg class="change-curve" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true">
+          <defs><clipPath id="playedClip"><rect id="playedRect" x="0" y="0" width="0" height="40"/></clipPath></defs>
+          <path id="changeShape" class="change-shape"/>
+          <path id="playedShape" class="played-shape" clip-path="url(#playedClip)"/>
+        </svg>
+        <span class="playhead" id="playhead" aria-hidden="true"></span>
+        <input id="seek" aria-label="Playback position" type="range" min="0" max="1000" value="0" disabled>
+      </div>
+      <time id="duration">—:—</time>
+    </div>
+    <p id="status" class="status" aria-live="polite" data-text="ready">Start with the original sound. Switch whenever you are ready.</p>
+  </footer>
+  <dialog id="about">
+    <div class="dialog-top"><span data-text="about">About this recording</span><button id="closeAbout" data-text="close">Close</button></div>
+    <h2 data-text="aboutTitle">Listening becomes remembering.</h2>
+    <p data-text="concept">The patch does not retain every sound. It captures selected fragments and repeats them. Listening here explores how a place can remain with us through a few sounds.</p>
+    <dl>
+      <dt data-text="imageLabel">Image</dt><dd data-text="imageNote">Six photographs from Jiuhua Hill. Use the arrows to turn through them at your own pace. Sound selection does not change the photograph.</dd>
+      <dt data-text="originalLabel">Original sound</dt><dd data-text="originalNote">The audio track extracted from the supplied Jiuhua Hill field screen recording.</dd>
+      <dt data-text="vcvLabel">VCV sound</dt><dd data-text="vcvNote">The recorded audio referenced by the Jiuhua Hill Ableton project. The browser plays this recording; it does not run the patch.</dd>
+      <dt data-text="listeningLabel">Listening</dt><dd data-text="listeningNote">Switching matches elapsed time in both recordings, with a short crossfade. If the target recording is shorter, the position is limited to its end. Photographs are browsed independently and are not synchronized with the audio.</dd>
+      <dt data-text="changeLabel">The progress line</dt><dd data-text="changeNote">Its shape shows estimated acoustic change relative to earlier material, calculated offline from each recording. Peaks suggest places to listen again; they do not confirm a new sound source or a new sample being recorded.</dd>
+    </dl>
+    <p class="author-note" data-text="authorNote">The place description is reserved for the author's own writing.</p>
+  </dialog>
+  <audio id="original" src="assets/original.m4a" preload="metadata" loop></audio>
+  <audio id="vcv" src="assets/vcv.m4a" preload="metadata" loop></audio>
+  <script src="place.js"></script>
+  <script src="assets/audio-change.js"></script>
+  <script src="player.js?v=time-sync-1"></script>
+  <script src="gallery.js"></script>
+</body>
+</html>

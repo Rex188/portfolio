@@ -2,28 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111614">
-  <meta name="description" content="A personal sound map made by stopping, listening, and carrying a few sounds forward.">
-  <title>Listener — Nanjing Sound Map</title>
-  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.css">
-  <link rel="stylesheet" href="styles/tokens.css">
-  <link rel="stylesheet" href="styles/base.css">
-  <link rel="stylesheet" href="styles/map.css">
-  <link rel="stylesheet" href="styles/detail.css">
-  <link rel="stylesheet" href="styles/motion.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#171916">
+  <title>Listener — Nanjing</title>
+  <link rel="stylesheet" href="vendor/maplibre-gl.css">
+  <link rel="stylesheet" href="map.css?v=pin-position-2">
 </head>
-<body><main class="app"><div class="grain"></div>
-<header class="top"><div class="brand">LISTENER <span>／</span> RESAMPLING &amp; RE-LISTENING</div><div class="top-right"><div class="eyebrow" id="edition">A personal sound map of Nanjing</div><button class="layout-toggle" id="layoutToggle" aria-expanded="false">Adjust view</button><button class="text-btn" id="lang">中文</button></div></header>
-<aside class="layout-panel" id="layoutPanel" hidden><h3>Map composition</h3><p>Drag to adjust the view. Values save in this browser on this device.</p><div class="slider-row"><label for="zoomSlider">Zoom</label><output id="zoomValue">11.80</output><input id="zoomSlider" type="range" min="9" max="14" step="0.05" value="11.8"></div><div class="slider-row"><label for="pinXSlider">04 horizontal position</label><output id="pinXValue">65%</output><input id="pinXSlider" type="range" min="25" max="95" step="1" value="65"></div><div class="slider-row"><label for="pinYSlider">04 vertical position</label><output id="pinYValue">29%</output><input id="pinYSlider" type="range" min="15" max="85" step="1" value="29"></div><div class="layout-actions"><button id="resetLayout">Reset</button><button id="copyLayout">Copy values</button></div><div class="layout-saved" id="layoutSaved" aria-live="polite"></div></aside>
-<section class="map-screen" id="mapScreen" aria-label="Nanjing sound map"><div class="map-title"><div class="eyebrow" id="mapEyebrow">Nanjing, China</div><h1 id="mapHeading">A city,<br><em>re-heard.</em></h1><p id="mapIntro">A personal sound map made by stopping, listening, and carrying a few sounds forward.</p></div>
-<div class="map-wrap"><div class="map-base" id="mapBase"></div>
-<div class="map-credit">© OpenStreetMap contributors · OpenFreeMap</div></div>
-</section>
-<section class="detail" id="detail"><div class="scene"><div class="scene-orb"></div><div class="scene-lines"></div><button class="back-map" id="back"><span id="backText">Return to map</span></button><div class="scene-meta" id="sceneMeta">Field recording 01 · Nanjing · material placeholder</div><div class="story"><div class="eyebrow" id="storyIndex">01 / 05 · LISTENING POINT</div><h2 id="placeTitle">Xuanwu<br>Lake</h2><p id="storyText">I came here before the city fully woke. From the path, the water held the first traffic sounds at a distance; closer by, small movements kept interrupting the quiet. I stayed with the edge between them.</p><div class="caption" id="storyCaption">Personal account · replace with your own place memory</div></div><button class="switch-place" id="nextPlace">Continue to next point</button><div class="footnote" id="footnote">Looping time-lapse · silent image placeholder</div><div class="scroll-spacer"></div></div></section>
-<div class="audio hidden" id="audio"><button class="play" id="play" aria-label="Pause or play">Ⅱ</button><div class="audio-info"><div class="eyebrow" id="audioTitle">LISTENING AT XUANWU LAKE</div><strong id="audioMode">ORIGINAL FIELD SOUND</strong></div><div class="mode-toggle"><button class="selected" data-mode="original" id="originalBtn">Original</button><button data-mode="patch" id="patchBtn">Patch</button></div><div class="wave" id="wave"></div><div class="volume">VOL <input type="range" min="0" max="100" value="72" id="volume"></div><div class="sound-state" id="soundState">fading to patch…</div></div>
-<div class="fade" id="fade"></div></main>
-<script src="https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.js"></script>
-<script type="module" src="js/main.js"></script>
+<body>
+  <div id="map" aria-label="Map of recording locations in Nanjing"></div>
+  <header>
+    <span>Listener <span class="city" id="city">/ Nanjing</span></span>
+    <nav aria-label="Page options"><button id="language">中文</button><a href="../../project-detail.html?project=listener" id="backProject">← Project</a></nav>
+  </header>
+  <h1 class="sr-only">Listener recording locations</h1>
+  <div id="mapStatus" role="status" aria-live="polite">Loading map…</div>
+  <nav class="fallback" id="fallback" aria-label="Recording locations" hidden>
+    <a href="new-city/">New City Plaza / 新城市广场</a>
+    <a href="yihe/">Yihe Road / 颐和路</a>
+    <a href="deji/">Deji Plaza / 德基广场</a>
+    <a href="jiuhua/">Jiuhua Hill / 九华山</a>
+  </nav>
+  <noscript><nav class="fallback"><a href="new-city/">新城市广场</a><a href="yihe/">颐和路</a><a href="deji/">德基广场</a><a href="jiuhua/">九华山</a></nav></noscript>
+  <script src="vendor/maplibre-gl.js"></script>
+  <script src="map.js?v=four-places-2"></script>
 </body>
 </html>

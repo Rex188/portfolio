@@ -42,3 +42,17 @@ The mistaken edit was initially made to `/Users/rexli/Documents/Rex/portfolio/we
 - Copied the homepage's hero and avatar placeholder assets into `website/assets/` and repaired the promoted pages' internal paths.
 - Left redirect stubs at the former prototype URLs so existing links continue to open the canonical pages.
 - Updated the homepage project-group labels from year ranges to 2027, 2026, and 2025.
+
+
+## 2026-10-24 Listener integration
+
+- Replaced the active sound-map entry with the approved four-place listening experience at `projects/listener/`, retaining the old map in `archive/listener-map-20261024/`.
+- Copied self-contained recordings, field imagery, per-track acoustic-change data, and time-matched players for Yihe Road, Deji Plaza, Jiuhua Hill, and New City Plaza. No external drive or prototype server is required at runtime.
+- Connected homepage → Listener detail → Listen to the Recordings → place list → listening page, with return navigation. Replaced the stale field-recording-pending panel with the listening entry and aligned Listener metadata with the current work.
+- Added a website-root byte-range preview server (`python3 serve.py`, port 8770) and updated navigation/provenance instructions. Verified homepage-to-recording navigation, real audio playback, source switching, seek-range responses for all four pages, inline/player script syntax, and return navigation.
+- Place descriptions remain author-owned and empty. New City screen audio remains explicitly identified rather than asserted to be an unprocessed field recording.
+
+
+## 2026-10-24 Four-place map entry
+
+Replaced the flat location list with a restrained MapLibre/OpenFreeMap map linked to the four current listening pages. Removed retired pins; Yihe uses time-lapse GPS and Jiuhua uses the park entrance photograph GPS. Deji/New City retain earlier project place coordinates. Position provenance is stored in projects/listener/data/places.json. Preserved plain location labels without media-type labels. Verified actual basemap loading, four markers, mobile label containment, map-to-Jiuhua navigation, and return-to-map linkage. Vendor library/CSS/license are local; basemap tiles/fonts require network.

@@ -1,10 +1,10 @@
 # Rex Li — Portfolio Website
 
-This folder is the canonical, deployable website root. The current homepage and project detail use the MoMA-inspired personal-site prototype design. Serve this directory over HTTP (the Listener page loads its place records from JSON and uses JavaScript modules).
+This folder is the canonical, deployable website root. The homepage and project detail use the established personal-site design. Listener contains a minimal Nanjing map entry and the approved listening pages with self-contained media and measured acoustic-change progress lines.
 
 ## Local preview
 
-From this directory run `python3 -m http.server 8000`, then open `http://localhost:8000`.
+From this directory run `python3 serve.py`, then open `http://127.0.0.1:8770/`. This server supports HTTP byte ranges, required for reliable audio/video seeking. A deployed static host must also support range requests.
 
 ## Structure
 
@@ -14,10 +14,12 @@ From this directory run `python3 -m http.server 8000`, then open `http://localho
 - `data/projects.json` — project metadata for future data-driven page rendering
 - `assets/covers/` — homepage and project cover images
 - `assets/docs/` — documents linked from project pages
-- `projects/listener/` — Listener sound map, split into HTML, CSS, JS modules, and `data/places.json`
+- `projects/listener/` — Listener map and four listening pages: `yihe/`, `deji/`, `jiuhua/`, `new-city/`
 - `archive/` — previous homepage and project detail designs, retained for reference
 
 The former prototype URLs in `portfolio/project 3/` redirect to these canonical pages. Make website changes in this folder; do not edit the archived pages as active implementations.
 
 
-To add a Listener stop, edit `projects/listener/data/places.json`; each item defines bilingual name, area, story, and latitude/longitude.
+Listener is connected through homepage → Listener project detail → “Listen to the Recordings” → map → listening page. The map links back to the project detail page. All recorded media is inside this folder; no external drive or prototype server is needed. The map basemap requires network access to OpenFreeMap, with place-link fallback when unavailable.
+
+To add a place, reuse the approved Listener Sound Place template and read `projects/listener/AGENTS.md`. Replace its actual media and provenance, recompute its audio-change analysis, and leave description writing to Rex. The previous map implementation is retained in `archive/listener-map-20261024/`.

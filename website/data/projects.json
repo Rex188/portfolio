@@ -134,23 +134,23 @@
     {
       "id": "listener",
       "title": "Listener",
-      "subtitle": "An acoustic feedback system that listens to its environment",
+      "subtitle": "Selective listening, repetition and place memory",
       "year": "2026",
-      "status": "Current patch: V0.1.10_NoCard · listening tests and field recording in progress",
+      "status": "Interactive recordings available · Author texts in progress",
       "tags": [
         "VCV Rack",
-        "Feedback Loop",
+        "Field Recording",
         "Resampling"
       ],
       "hero": {
         "image": "assets/covers/listener.png",
         "image_alt": "Listener modular patch signal flow diagram with 249 modules in VCV Rack",
-        "caption": "The current VCV Rack patch for capturing, transforming, and returning room sound.",
+        "caption": "The VCV Rack patch used to capture and repeat selected sound fragments.",
         "video_url": ""
       },
-      "summary": "Listener records sounds from a room, transforms them, and plays them back into the same space—so each response becomes part of what the system hears next.",
-      "project_thesis": "What does it mean for a system to listen when the sounds it has already heard shape what it notices next? Listener explores this question through an evolving acoustic feedback loop.",
-      "visitor_experience": "A microphone picks up sounds already present in the space. Listener captures a brief fragment, reshapes it, and plays it back into the room. That response becomes part of the next listening moment, allowing the sound environment to change over time. Field recordings are still in progress.",
+      "summary": "Listener is a listening project built from recordings made in Nanjing. A VCV Rack patch selectively captures and repeats fragments of sound, exploring how a place can remain in memory through a few recurring sounds.",
+      "project_thesis": "How does listening become remembering when some sounds repeat and others fall away?",
+      "visitor_experience": "Explore Yihe Road, Deji Plaza, Jiuhua Hill and New City Plaza through their available images and recordings. Move between source audio and VCV recordings at the same elapsed time.",
       "content_sections": [],
       "sound": {
         "audio_url": "",
@@ -168,6 +168,16 @@
         }
       ],
       "links": [
+        {
+          "label": "GitHub Repository",
+          "url": "https://github.com/Rex188/Listener",
+          "type": "github"
+        },
+        {
+          "label": "View the Soundmap",
+          "url": "projects/listener/index.html",
+          "type": "interactive_sound_work"
+        },
         {
           "label": "Current VCV Patch V0.1.10 NoCard",
           "url": "assets/docs/project3/Project_3-V0.1.10_NoCard.vcv",

@@ -39,6 +39,7 @@
     .project-head { position: relative; min-height: clamp(260px, 32vw, 440px); display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; padding: clamp(28px, 5vw, 68px) var(--page-pad); background: var(--title-field); }
     .project-head-machine { background:var(--machine-field); }
     .project-head-listener { background:var(--listener-field); }
+    .lab-report-cta.listener-recordings-cta { background:var(--listener-field); }
     .project-head-music-classifier { background: #e7e0f2; }
     .project-head-inner-landscape { background: #e7e7e2; }
     h1 { max-width: 1000px; margin: 0; font-size: clamp(48px, 8vw, 112px); font-weight: 400; line-height: .9; letter-spacing: -.075em; }
@@ -218,26 +219,21 @@
         credits: [["Principal investigator & system architect", "Rex Li"], ["Affective model fine-tuning", "Rex Li"], ["Modular sound design", "Rex Li"], ["Web laboratory frontend & visualizations", "Rex Li"]]
       },
       listener: {
-        title: "Listener", type: "Sound system", year: "2026", status: "In progress · Field recording pending",
-        subtitle: "An acoustic feedback system that listens to its environment",
+        title: "Listener", type: "Sound work", year: "2026", status: "Interactive recordings available · Author texts in progress",
+        subtitle: "Selective listening, repetition and place memory",
         image: "assets/covers/listener.png", alt: "Listener modular patch signal flow diagram in VCV Rack",
-        caption: "The current VCV Rack patch for capturing, transforming, and returning room sound.",
-        summary: "The last project in the portfolio \"The Communication\". Showed the process of \"listen\". Listener records sounds from a room, transforms them, and plays them back into the same space—so each response becomes part of what the system hears next.",
-        thesis: "What does it mean for a system to listen when the sounds it has already heard shape what it notices next? Listener explores this question through an evolving acoustic feedback loop.",
-        experience: "A microphone picks up sounds already present in the space. Listener captures a brief fragment, reshapes it, and plays it back into the room. That response becomes part of the next listening moment, allowing the sound environment to change over time. Field recordings are still in progress.",
-        tags: ["VCV Rack", "Feedback Loop", "Resampling"],
+        caption: "The VCV Rack patch used to capture and repeat selected sound fragments.",
+        summary: "Listener is a listening project built from recordings made in Nanjing. A VCV Rack patch selectively captures and repeats fragments of sound, exploring how a place can remain in memory through a few recurring sounds.",
+        thesis: "How does listening become remembering when some sounds repeat and others fall away?",
+        experience: "Explore Yihe Road, Deji Plaza, Jiuhua Hill and New City Plaza through their available images and recordings. Move between the source audio and VCV recordings at the same point in time, and return to moments where the sound changes.",
+        tags: ["VCV Rack", "Field Recording", "Resampling"],
         film: "", videoId: "",
         sections: [
-          { heading: "The room becomes the source", body: "Listener begins with sounds from its surroundings rather than a built-in tone. It captures short fragments from the room and uses them as the material for what it plays back." },
-          { heading: "Memory shapes attention", body: "The system uses traces of earlier sound to change how it responds to later sounds. Listening is therefore not a fresh start each time: the room's recent past helps shape what happens next." },
-          { heading: "A loop still taking shape", body: "The current working patch is Project_3-V0.1.10_NoCard.vcv. The next step is to record it in a real space and learn how the returning sound changes the environment over time." }
+          { heading: "Listening in a place", body: "Recordings from four places in Nanjing provide the material for the work." },
+          { heading: "Selection and repetition", body: "The patch captures selected fragments and repeats them rather than retaining every sound." },
+          { heading: "Return to a sound", body: "A progress line calculated from each recording suggests moments of acoustic change. Its peaks are listening cues, not confirmed new sound sources." }
         ],
-        resources: [
-          ["Current VCV Patch V0.1.10 NoCard", "assets/docs/project3/Project_3-V0.1.10_NoCard.vcv"],
-          ["Patch Reverse Engineering Audit", "assets/docs/project3/project3_review.md"],
-          ["Historical V0.2 Changelog (retired)", "assets/docs/project3/V0.2_changelog.md"],
-          ["Nanjing Sound Map", "projects/listener/index.html"]
-        ],
+        resources: [["GitHub Repository", "https://github.com/Rex188/Listener"]],
         credits: [["Concept, modular patch architecture & sound design", "Rex Li"], ["Artistic influences", "Pauline Oliveros; Alvin Lucier"]]
       },
       "music-classifier": {
@@ -296,9 +292,9 @@
           <div class="overview-meta">${projectId === "robin" ? `<h2 class="overview-label" id="overview-title">Performance</h2><p class="overview-date">September, 2026</p>` : `<h2 class="overview-label" id="overview-title">${projectId === "a-machine-for-misunderstanding" ? "Experiment" : "Project"}</h2><p class="overview-date">${escapeHTML(project.year)}</p>`}</div>
           <div class="overview-copy"><p>${escapeHTML(project.summary)}</p><p>${escapeHTML(project.thesis)}</p><p>${escapeHTML(project.experience)}</p></div>
         </section>
-        ${projectId === "inner-landscape" ? "" : projectId === "a-machine-for-misunderstanding" ? `<section class="lab-report-cta" aria-label="Lab report and experiment process"><a href="machine-lab-report.html"><strong>View Lab Report and Experiment Process</strong></a></section>` : projectId === "music-classifier" ? `<section class="lab-report-cta" aria-label="Model evaluation report"><a href="assets/docs/music-classifier/final_report.html"><strong>View Model Evaluation Report</strong></a></section>` : `<section class="project-video" aria-labelledby="video-title"><div class="video-heading"><h2 id="video-title">Video</h2><span>${project.videoId ? "Project film" : "Documentation in progress"}</span></div>${project.videoId ? `${location.protocol === "file:" ? `<a class="video-local" href="${escapeHTML(project.film)}" target="_blank" rel="noreferrer"><span>Play project film on YouTube</span></a>` : `<iframe class="video-frame" src="https://www.youtube.com/embed/${encodeURIComponent(project.videoId)}" title="${escapeHTML(project.title)} project video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><a class="video-watch-link" href="${escapeHTML(project.film)}" target="_blank" rel="noreferrer">Open on YouTube</a>`}` : `<div class="video-pending">Field recording in progress</div>`}</section>`}
-        <section class="project-resources ${projectId === "listener" ? "project-resources-single" : ""}" aria-label="Project links and credits">
-          ${projectId === "robin" ? `<div><h2>Project Links</h2><p class="project-links"><a href="https://github.com/Rex188/Robin" target="_blank" rel="noreferrer">Patches Repository</a></p></div>` : projectId === "a-machine-for-misunderstanding" || projectId === "music-classifier" || projectId === "inner-landscape" ? `<div><h2>Project Links</h2><ul class="resource-list">${project.resources.map(([label, href]) => `<li><a href="${escapeHTML(href)}" ${/^https?:/.test(href) ? 'target="_blank" rel="noreferrer"' : ''}>${escapeHTML(label)}</a></li>`).join("")}</ul></div>` : ""}
+        ${projectId === "listener" ? `<section class="lab-report-cta listener-recordings-cta" aria-label="Listener recordings"><a href="projects/listener/index.html"><strong>View the Soundmap</strong></a></section>` : projectId === "inner-landscape" ? "" : projectId === "a-machine-for-misunderstanding" ? `<section class="lab-report-cta" aria-label="Lab report and experiment process"><a href="machine-lab-report.html"><strong>View Lab Report and Experiment Process</strong></a></section>` : projectId === "music-classifier" ? `<section class="lab-report-cta" aria-label="Model evaluation report"><a href="assets/docs/music-classifier/final_report.html"><strong>View Model Evaluation Report</strong></a></section>` : `<section class="project-video" aria-labelledby="video-title"><div class="video-heading"><h2 id="video-title">Video</h2><span>${project.videoId ? "Project film" : "Documentation in progress"}</span></div>${project.videoId ? `${location.protocol === "file:" ? `<a class="video-local" href="${escapeHTML(project.film)}" target="_blank" rel="noreferrer"><span>Play project film on YouTube</span></a>` : `<iframe class="video-frame" src="https://www.youtube.com/embed/${encodeURIComponent(project.videoId)}" title="${escapeHTML(project.title)} project video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><a class="video-watch-link" href="${escapeHTML(project.film)}" target="_blank" rel="noreferrer">Open on YouTube</a>`}` : `<div class="video-pending">Field recording in progress</div>`}</section>`}
+        <section class="project-resources" aria-label="Project links and credits">
+          ${projectId === "robin" ? `<div><h2>Project Links</h2><p class="project-links"><a href="https://github.com/Rex188/Robin" target="_blank" rel="noreferrer">Patches Repository</a></p></div>` : projectId === "a-machine-for-misunderstanding" || projectId === "music-classifier" || projectId === "inner-landscape" || projectId === "listener" ? `<div><h2>Project Links</h2><ul class="resource-list">${project.resources.map(([label, href]) => `<li><a href="${escapeHTML(href)}" ${/^https?:/.test(href) ? 'target="_blank" rel="noreferrer"' : ''}>${escapeHTML(label)}</a></li>`).join("")}</ul></div>` : ""}
           <div><h2>Credits</h2>${projectId === "a-machine-for-misunderstanding" ? `<p class="credits-note">All created by Rex Li</p>` : projectId === "music-classifier" ? `<p class="credits-note">NYU Shanghai summer school project</p>` : projectId === "inner-landscape" ? `<p class="credits-note">Research concept and prototype in progress</p>` : `<ul class="credit-list">${project.credits.map(([role, name]) => `<li><span>${escapeHTML(role)}</span><span class="credit-name">${escapeHTML(name)}</span></li>`).join("")}</ul>`}</div>
         </section>
         <a class="next-project" href="project-detail.html?project=${encodeURIComponent(nextId)}"><span>Next project</span><strong>${escapeHTML(nextProject.title)}</strong></a>`;

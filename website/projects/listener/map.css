@@ -1,0 +1,32 @@
+:root{color-scheme:dark;font-family:Arial,"PingFang SC",sans-serif;background:#171916;color:#f4f3ee;font-synthesis:none}
+*{box-sizing:border-box}
+body{margin:0;min-height:100svh;overflow:hidden}
+#map{position:fixed;inset:0;background:#171916}
+header{position:fixed;z-index:5;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:32px 40px;background:linear-gradient(#171916c9,transparent);pointer-events:none;font-size:15px}
+header>*{pointer-events:auto}
+.city{font-size:12px;margin-left:10px;color:#d3d4ca}
+nav{display:flex;align-items:center;gap:28px}
+a,button{color:inherit;font:inherit;text-decoration:none}
+button{border:0;background:none;padding:8px 0;cursor:pointer}
+header nav{font-size:12px}
+a:hover,button:hover{opacity:.75}
+a:focus-visible,button:focus-visible{outline:1px solid #fff;outline-offset:6px}
+.pin{position:absolute;display:block;width:28px;height:28px;color:#f4f3ee}
+.pin-dot{position:absolute;left:9px;top:9px;width:10px;height:10px;border:1px solid #f4f3ee;border-radius:50%;background:#171916;box-shadow:0 0 0 4px #17191666}
+.pin:hover .pin-dot,.pin:focus-visible .pin-dot{background:#f4f3ee}
+.pin-name{position:absolute;left:14px;transform:translateX(-50%);font-size:13px;font-weight:400;white-space:nowrap;line-height:1.4;text-shadow:0 1px 5px #171916,0 0 14px #171916;background:#171916b3;padding:3px 6px}
+.pin.north .pin-name{bottom:28px}
+.pin.south .pin-name{top:28px}
+#mapStatus{position:fixed;bottom:30px;left:40px;z-index:4;font-size:11px;color:#d3d4ca}
+#mapStatus[hidden]{display:none}
+.fallback{position:fixed;left:40px;top:25%;right:40px;z-index:4;display:flex;flex-direction:column;align-items:flex-start;gap:28px;font-size:20px}
+.fallback[hidden]{display:none}
+.maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib{font:9px Arial,sans-serif;color:#d3d4ca;background:#171916b3;padding:3px 8px}
+.maplibregl-ctrl-attrib a{color:inherit}
+.maplibregl-ctrl-top-left{top:auto;bottom:28px;left:30px}
+.maplibregl-ctrl-group{background:#20221d;border-radius:0;box-shadow:none;border:1px solid #ffffff30}
+.maplibregl-ctrl-group button{width:30px;height:30px}
+.maplibregl-ctrl-group button+button{border-top:1px solid #ffffff30}
+.maplibregl-ctrl-icon{filter:invert(1)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:600px){header{padding:20px;font-size:13px}.city{font-size:10px;margin-left:5px}header nav{font-size:11px;gap:18px}.pin-name{font-size:11px}#mapStatus{left:20px;bottom:70px}.fallback{left:24px;right:24px;font-size:19px}.maplibregl-ctrl-top-left{left:10px;bottom:30px}.maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib{font-size:8px}}

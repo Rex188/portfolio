@@ -1,117 +1,58 @@
 [
   {
-    "id": "new-city-plaza",
+    "id": "new-city",
     "name": {
       "en": "New City Plaza",
       "zh": "新城市广场"
     },
-    "shortName": {
-      "en": "NEW CITY PLAZA",
-      "zh": "新城市广场"
-    },
-    "area": {
-      "en": "LONGJIANG · GULOU",
-      "zh": "龙江 · 鼓楼"
-    },
-    "story": {
-      "en": "A familiar commercial corner in Longjiang. Add the memory and the sounds you associate with this place.",
-      "zh": "龙江熟悉的商业街角。在这里补充你与这个地点有关的记忆和声音。"
-    },
+    "href": "new-city/",
     "coordinates": {
-      "lat": 32.0581,
-      "lng": 118.73592
-    }
+      "lng": 118.73592,
+      "lat": 32.0581
+    },
+    "label": "south",
+    "source": "Retained project map pin; not a verified recording GPS position."
   },
   {
-    "id": "olympic-sports-centre",
+    "id": "yihe",
     "name": {
-      "en": "Nanjing Olympic Sports Centre Gym",
-      "zh": "南京奥体体育馆"
+      "en": "Yihe Road",
+      "zh": "颐和路"
     },
-    "shortName": {
-      "en": "OLYMPIC SPORTS CENTRE",
-      "zh": "南京奥体体育馆"
-    },
-    "area": {
-      "en": "AOTI · JIAN YE",
-      "zh": "奥体 · 建邺"
-    },
-    "story": {
-      "en": "The scale of the arena meets the everyday city around it. Add your own reason for choosing this stop and what you hear here.",
-      "zh": "体育馆的尺度与周边日常城市交汇。在这里补充你选择此处的原因，以及你听见的声音。"
-    },
+    "href": "yihe/",
     "coordinates": {
-      "lat": 32.008016,
-      "lng": 118.719206
-    }
+      "lng": 118.7595,
+      "lat": 32.0637
+    },
+    "label": "north",
+    "source": "GPS metadata from supplied field time-lapse IMG_1380.MOV, read during source inspection."
   },
   {
-    "id": "nfl-south-new-city",
+    "id": "deji",
     "name": {
-      "en": "Nanjing Foreign Language School · South New City Campus",
-      "zh": "南京外国语学校南部新城校区"
+      "en": "Deji Plaza",
+      "zh": "德基广场"
     },
-    "shortName": {
-      "en": "NFLS SOUTH NEW CITY",
-      "zh": "南外南部新城校区"
-    },
-    "area": {
-      "en": "SOUTH NEW CITY · QINHUAI",
-      "zh": "南部新城 · 秦淮"
-    },
-    "story": {
-      "en": "A campus at the edge of the new district. Add your personal connection and listening notes for this location.",
-      "zh": "位于新城区一隅的校园。在这里补充你与这个地点的个人联系和聆听笔记。"
-    },
+    "href": "deji/",
     "coordinates": {
-      "lat": 31.9938,
-      "lng": 118.8288
-    }
+      "lng": 118.77996,
+      "lat": 32.04702
+    },
+    "label": "south",
+    "source": "Retained project map pin; not a verified recording GPS position."
   },
   {
-    "id": "deji-plaza",
+    "id": "jiuhua",
     "name": {
-      "en": "Deji Plaza · Xinjiekou",
-      "zh": "新街口德基广场"
+      "en": "Jiuhua Hill",
+      "zh": "九华山"
     },
-    "shortName": {
-      "en": "DEJI PLAZA",
-      "zh": "新街口德基"
-    },
-    "area": {
-      "en": "XINJIEKOU · XUANWU",
-      "zh": "新街口 · 玄武"
-    },
-    "story": {
-      "en": "A dense crossing of shopping, transit, and city life. Add the moments and sounds that make this place yours.",
-      "zh": "商业、交通与城市生活交叠的密集街区。在这里补充让这个地点对你有意义的瞬间与声音。"
-    },
+    "href": "jiuhua/",
     "coordinates": {
-      "lat": 32.04702,
-      "lng": 118.77996
-    }
-  },
-  {
-    "id": "sun-yat-sen-mausoleum",
-    "name": {
-      "en": "Sun Yat-sen Mausoleum",
-      "zh": "中山陵"
+      "lng": 118.80166666666666,
+      "lat": 32.06155
     },
-    "shortName": {
-      "en": "SUN YAT-SEN MAUSOLEUM",
-      "zh": "中山陵"
-    },
-    "area": {
-      "en": "PURPLE MOUNTAIN · XUANWU",
-      "zh": "紫金山 · 玄武"
-    },
-    "story": {
-      "en": "The long approach through the trees opens toward the mausoleum. Add the sounds, pauses, and memories you encountered along the way.",
-      "zh": "穿过林荫的长路逐渐通向陵寝。在这里补充你沿途听见的声音、停留的片刻与记忆。"
-    },
-    "coordinates": {
-      "lat": 32.0644167,
-      "lng": 118.8482694
-    }
+    "label": "north",
+    "source": "GPS EXIF of IMG_1373.HEIC preserved in its converted JPEG; photographed park entrance."
   }
 ]
