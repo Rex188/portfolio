@@ -1,16 +1,7 @@
 // Our text → interpretation → VADC narrative, independent of the demo model's tour.
 (() => {
-  const view = document.querySelector('.animation-view');
-  const caption = document.createElement('section');
-  caption.className = 'amfm-caption';
-  caption.setAttribute('aria-label','Text to VADC workflow');
-  const heading = document.createElement('div'); heading.className = 'amfm-caption-heading';
-  const stage = document.createElement('strong');
-  const source = document.createElement('span'); source.className = 'caption-source';
-  heading.append(stage,source);
-  const text = document.createElement('p');
-  const vector = document.createElement('div'); vector.className = 'caption-vadc';
-  caption.append(heading,text,vector); view.append(caption);
+  const terminal = document.getElementById('process-log');
+  terminal.setAttribute('aria-label','Text to VADC terminal');
   const idleSteps = [
     ['01 / TEXT INPUT','A sentence enters the machine. Its meaning must be interpreted before it can become sound.'],
     ['02 / INTERPRETATION','The model interprets the emotional tone of the text. Ambiguity and context can change how the same words are understood.'],
@@ -19,21 +10,10 @@
   ];
   let idleIndex = 0, live = false, inputText = '', lastReasoning = '', lastVector = null;
   function render(title,body,mode,vadc = null) {
-    const changed = stage.textContent !== title;
-    stage.textContent = title; source.textContent = mode;
-    text.textContent = body;
-    vector.replaceChildren();
-    if (vadc) for (const key of ['valence','arousal','dominance','confidence']) {
-      const cell = document.createElement('span');
-      const number = vadc[key];
-      cell.textContent = key[0].toUpperCase() + ' ' + (typeof number === 'number' ? number.toFixed(2) : '—');
-      vector.append(cell);
-    }
-    vector.hidden = !vadc;
-    if (changed) {
-      text.scrollTop = 0;
-      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) caption.animate([{opacity:.45,transform:'translateY(5px)'},{opacity:1,transform:'translateY(0)'}],{duration:280,easing:'ease-out'});
-    }
+    const lines = ['$ interpret --stdin', '['+mode+'] '+title, body];
+    if (vadc) lines.push('[VADC] '+['valence','arousal','dominance','confidence'].map(key=>key+'='+ (typeof vadc[key] === 'number' ? vadc[key].toFixed(2) : '—')).join('  '));
+    terminal.textContent = lines.join('\n');
+    terminal.scrollTop = 0;
   }
   function showIdle() { const [title,body] = idleSteps[idleIndex]; render(title,body,'WORKFLOW'); }
   function reset() { live = false; idleIndex = 0; inputText = ''; lastReasoning = ''; lastVector = null; showIdle(); }

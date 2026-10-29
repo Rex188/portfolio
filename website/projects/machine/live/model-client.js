@@ -76,7 +76,6 @@ function receiveJob(job, run) {
   document.body.classList.toggle('is-interpreting', job.state === 'interpreting');
   $('system-state').textContent = job.state || 'Online';
   $('output-state').textContent = '×× '+String(job.state || 'WAITING').toUpperCase()+' ××';
-  $('process-log').textContent = '[job] '+activeModelJob+'\n[state] '+job.state+(job.reasoning?'\n'+job.reasoning:'')+(job.vadc?'\n'+JSON.stringify(job.vadc):'');
   if (job.state === 'completed' || job.state === 'failed') {
     modelEvents?.close(); clearTimeout(modelPoll); setModelBusy(false);
     sessionStorage.removeItem('amfm-live-job');
