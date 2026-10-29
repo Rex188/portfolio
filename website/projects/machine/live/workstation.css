@@ -108,7 +108,7 @@ body.workstation{width:100%;height:100dvh;zoom:1;margin:0;padding:18px 76px 18px
 @media(prefers-reduced-motion:reduce){body.workstation,.workstation .workspace{transition:none}}
 
 /* Portfolio navigation remains reachable on narrow screens and with docks open. */
-.portfolio-nav{display:flex;gap:18px;align-items:center;margin:0 100px 10px 0;font:12px/1.3 "Doto",monospace;color:#aaa}
+.portfolio-nav{display:flex;gap:18px;align-items:center;margin:0 100px 10px 0;font:12px/1.3 "Ubuntu Mono",monospace;color:#aaa}
 .portfolio-nav a{text-decoration:none;white-space:nowrap}.portfolio-nav a:hover{color:var(--green)}
 a:focus-visible,button:focus-visible{outline:2px solid var(--green);outline-offset:3px}
 @media(max-width:720px){.portfolio-nav{gap:12px;font-size:10px;margin-right:0;margin-bottom:8px}.workstation .version-link{top:auto;bottom:3px}.workstation h1{font-size:19px;max-width:100%}.workstation .command{font-size:7px}}
@@ -122,8 +122,8 @@ body.workstation{grid-template-rows:max-content minmax(0,1fr);row-gap:12px}
 .workstation .command{grid-column:1/-1;line-height:1.5}
 @media(max-width:720px){.workstation .masthead{gap:7px 8px}.workstation .portfolio-nav{gap:6px 12px}}
 
-.accepted-notice{position:fixed;z-index:100;top:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:18px;width:max-content;max-width:calc(100vw - 28px);padding:14px 16px;border:1px solid var(--green);border-radius:8px;background:#161b16;color:#e8f5e6;box-shadow:0 10px 35px #0009;font:14px/1.5 "Doto",monospace}
-.accepted-notice[hidden]{display:none}.accepted-notice button{flex-shrink:0;border:0;background:transparent;color:var(--green);font:24px/1 "Doto",monospace;padding:4px;cursor:pointer}
+.accepted-notice{position:fixed;z-index:100;top:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:18px;width:max-content;max-width:calc(100vw - 28px);padding:14px 16px;border:1px solid var(--green);border-radius:8px;background:#161b16;color:#e8f5e6;box-shadow:0 10px 35px #0009;font:14px/1.5 "Ubuntu Mono",monospace}
+.accepted-notice[hidden]{display:none}.accepted-notice button{flex-shrink:0;border:0;background:transparent;color:var(--green);font:24px/1 monospace;padding:4px;cursor:pointer}
 @media(max-width:720px){.accepted-notice{top:12px;font-size:13px;gap:10px}}
 
 /* Restore the original Process composition, with its explanation in the terminal below. */
@@ -139,8 +139,7 @@ body.workstation{grid-template-rows:max-content minmax(0,1fr);row-gap:12px}
 .console-bottom #process-log{display:block;flex:0 0 clamp(76px,10vh,110px);min-height:76px;max-height:110px;overflow:auto;margin:0 8px 8px;padding:10px;font:12px/1.5 "Doto",monospace;color:#aaa;background:#101010;white-space:pre-wrap;overflow-wrap:anywhere}
 @media(max-width:720px){.console-bottom .process-grid{gap:6px;height:auto}.console-bottom>.process>h2{font-size:12px;padding-inline:8px}.console-bottom>.process>h2 span{font-size:8px}.console-bottom .process-side{gap:6px}.console-bottom .model-caption{font-size:7px}.console-bottom #process-log{font-size:11px}.console-bottom .process-caption{font-size:7px}}
 
-/* Use the project's Doto typeface consistently throughout the live interface. */
-.workstation,.workstation button,.workstation textarea,.workstation pre,.workstation .manifesto,.workstation .purpose strong,.workstation .controls button{font-family:"Doto",monospace}
+/* Keep the original mixed typography; Doto is scoped to the Process terminal above. */
 
 /* The wider green window control expands only the animation area. */
 .workstation .animation-expand{position:absolute;z-index:4;top:0;right:2px;left:auto;width:38px;height:28px;display:flex;align-items:center;justify-content:center;padding:0;border:0;background:transparent;cursor:pointer;border-radius:5px}
