@@ -71,3 +71,23 @@ window.addEventListener('amfm:model-stage',event=>{
 $('close').addEventListener('click',dismissAcceptedNotice);
 $('new-session').addEventListener('click',dismissAcceptedNotice);
 window.addEventListener('pagehide',dismissAcceptedNotice);
+
+// Enlarge the existing iframe in place; keep playback and terminal state intact.
+const animationExpand = $('animation-expand');
+const processSide = $('process-side');
+function setAnimationExpanded(expanded) {
+  processPanel.classList.toggle('is-animation-expanded',expanded);
+  processSide.inert = expanded;
+  processSide.setAttribute('aria-hidden',String(expanded));
+  animationExpand.setAttribute('aria-expanded',String(expanded));
+  const label = expanded ? 'Restore animation layout' : 'Expand animation';
+  animationExpand.setAttribute('aria-label',label);
+  animationExpand.title = label;
+}
+animationExpand.addEventListener('click',()=>setAnimationExpanded(animationExpand.getAttribute('aria-expanded') !== 'true'));
+processPanel.addEventListener('keydown',event=>{
+  if (event.key === 'Escape' && animationExpand.getAttribute('aria-expanded') === 'true') {
+    setAnimationExpanded(false);
+    animationExpand.focus();
+  }
+});
