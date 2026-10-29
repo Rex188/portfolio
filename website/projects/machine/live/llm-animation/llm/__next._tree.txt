@@ -1,3 +1,3 @@
-:HL["/llm-animation/_next/static/chunks/44903e_rvrbas.css","style"]
-:HL["/llm-animation/_next/static/chunks/1z-viek1miw4c.css","style"]
+:HL["/projects/machine/live/llm-animation/_next/static/chunks/44903e_rvrbas.css","style"]
+:HL["/projects/machine/live/llm-animation/_next/static/chunks/1z-viek1miw4c.css","style"]
 0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"llm","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"90Vg8K8QA8y10z3-QIZhJ"}

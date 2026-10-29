@@ -1,13 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "outputDirectory": "website",
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/machine/:path*",
-      "destination": "/api/machine?path=:path*"
+      "src": "/api/machine/(.*)",
+      "dest": "/api/machine?path=$1"
     },
     {
-      "source": "/project-detail.html",
+      "src": "/project-detail\\.html",
       "has": [
         {
           "type": "query",
@@ -15,7 +15,10 @@
           "value": "a-machine-for-misunderstanding"
         }
       ],
-      "destination": "/projects/machine/live/index.html"
+      "dest": "/projects/machine/live/index.html"
+    },
+    {
+      "handle": "filesystem"
     }
   ]
 }
