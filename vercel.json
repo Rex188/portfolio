@@ -1,4 +1,21 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "outputDirectory": "website"
+  "outputDirectory": "website",
+  "rewrites": [
+    {
+      "source": "/api/machine/:path*",
+      "destination": "/api/machine?path=:path*"
+    },
+    {
+      "source": "/project-detail.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "project",
+          "value": "a-machine-for-misunderstanding"
+        }
+      ],
+      "destination": "/projects/machine/live/index.html"
+    }
+  ]
 }

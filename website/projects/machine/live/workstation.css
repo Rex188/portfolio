@@ -1,0 +1,114 @@
+/* V2: one viewport, persistent controls, independent reading/log scroll areas. */
+html{height:100%;overflow:hidden}
+body.workstation{width:100%;height:100dvh;zoom:1;margin:0;padding:18px 76px 18px 28px;display:grid;grid-template-rows:80px minmax(0,1fr);overflow:hidden;font-size:14px}
+.workstation .ghost{position:fixed;max-height:100dvh;font-size:32px;z-index:-1}
+.workstation .masthead,.workstation.is-rtc-expanded .masthead{height:auto;min-height:0;max-width:1400px;width:100%;margin:0 auto;position:relative}
+.workstation .eyebrow{font-size:9px;letter-spacing:1.6px;margin:0 0 10px}
+.workstation h1{font-size:clamp(22px,2.45vw,38px);line-height:1.1;letter-spacing:0;margin:0 0 8px;white-space:nowrap}
+.workstation .command{font-size:9px;letter-spacing:1.4px}
+.version-link{position:absolute;right:0;top:0;color:#777;font-size:9px;letter-spacing:1px;text-decoration:none}.version-link:hover{color:var(--green)}
+.workstation .workspace{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:18px;min-height:0;width:100%;max-width:1400px;margin:0 auto;align-items:stretch}
+.workstation .left-column{display:flex;gap:0;min-height:0;min-width:0;overflow:hidden}
+.workstation .center-column{display:grid;grid-template-rows:clamp(146px,23vh,186px) clamp(150px,23vh,180px) minmax(0,1fr);gap:12px;min-height:0;min-width:0;overflow:hidden}
+.workstation h2{font-size:17px;line-height:22px;min-height:32px;padding:5px 12px;flex-shrink:0}.workstation h2 span{font-size:13px}
+.workstation .introduction{height:100%;min-height:0;display:flex;flex-direction:column;width:100%}
+.workstation #introduction-content{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#595354 transparent}
+.workstation .intro-toggle{width:32px;height:22px}
+.workstation .opening,.workstation .essay{font-size:14px;line-height:1.5}.workstation .essay{padding:0 22px 14px}
+.workstation .essay p{margin:10px 0 18px}.workstation .essay .purpose{padding:10px 0 5px}.workstation .purpose strong{font-size:21px;line-height:1.2}
+.workstation .manifesto{font-size:14px;line-height:1.4}.workstation .small-quote{font-size:10px;line-height:1.25}.workstation .slashes{font-size:12px}
+.workstation .intro-body{padding:10px 12px}.workstation .file-label{font-size:10px}.workstation .highlight{font-size:12px}
+.workstation .status{display:flex;flex-direction:column;min-height:0}
+.workstation .status-body{flex:1;min-height:0;grid-template-columns:31% 69%;padding-top:4px}
+.workstation .identity{display:grid;grid-template-columns:49px minmax(0,1fr);grid-template-rows:1fr auto auto;gap:3px 5px;padding:0 6px;align-items:center}
+.workstation .identity>img{grid-column:1;grid-row:1;width:49px;height:55px;margin:0;border-radius:11px}
+.workstation .identity-label{grid-column:2;grid-row:1;padding:0;font-size:9px;line-height:1.35}
+.workstation .session-id{grid-column:1/-1;padding:3px 0;margin:0;font-size:9px;overflow:hidden}
+.workstation .port{grid-column:1/-1;font-size:8px;white-space:nowrap;text-align:left;padding:0}
+.workstation .online{grid-column:1/-1;font-size:11px;margin:2px 0 0}
+.workstation .vadc{display:flex;flex-direction:column;padding-left:6px;min-height:0}
+.workstation .machine-title{flex-shrink:0;max-width:240px;width:100%;margin:0 0 2px}.workstation .machine-title img{width:100%;max-height:27px;object-fit:contain;object-position:left}
+.workstation .range-label{font-size:8px;padding:0 2px 3px;flex-shrink:0}
+.workstation .metrics{flex:1;min-height:0;border-radius:0 14px 0 14px;padding:4px 7px}
+.workstation .metrics>div{padding:0 4px}.workstation .metrics>div:nth-child(n+3){padding-top:3px}
+.workstation .metrics label{font-size:8px}.workstation .metrics output{font-size:clamp(23px,2.1vw,33px);line-height:1;letter-spacing:-1px;margin:3px 0 2px}
+.workstation .status-footer{margin-top:4px;padding:3px 4px;font-size:7px;gap:6px}
+.workstation .input-panel{display:flex;flex-direction:column;min-height:0}
+.workstation .input-body{display:flex;flex-direction:column;gap:4px;padding:8px 10px;flex:1;min-height:0}
+.workstation .shell{font-size:8px;margin:0}.workstation form{height:auto;min-height:40px;flex:1}
+.workstation textarea{font-size:13px;line-height:1.4;padding:7px 10px;resize:none;padding-right:72px}
+.workstation .send{font-size:10px;padding:6px 9px;bottom:7px;right:7px}
+.workstation .hint{font-size:7px;line-height:1.3;margin:0}
+.workstation .controls{gap:6px}.workstation .controls button{min-width:65px;font-size:17px;padding:3px 8px}.workstation #play-state{font-size:8px}
+.console-bottom{display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.console-tabs{display:flex;align-items:center;gap:0;padding:0 8px;border-bottom:1px solid #444;background:#121212;min-height:36px;flex-shrink:0}
+.console-tabs [role=tab]{font:600 14px "Doto",monospace;color:#777;background:none;border:0;border-bottom:2px solid transparent;padding:9px 10px 7px;white-space:nowrap}
+.console-tabs [role=tab]:hover{color:#ddd}.console-tabs [aria-selected=true]{color:#ddd;border-bottom-color:var(--green)}
+.workspace-caption{font-size:8px;color:#777;margin-left:auto;white-space:nowrap}
+.log-activity{display:inline-block;width:5px;height:5px;border-radius:50%;background:#555;vertical-align:middle;margin-left:4px}.has-activity .log-activity{background:var(--green);box-shadow:0 0 7px #65ff5370}
+.console-bottom>.process,.console-bottom>.log-panel{flex:1;min-height:0;overflow:hidden;border-radius:0;display:flex;flex-direction:column;margin:0;padding:0}
+.console-bottom>[hidden]{display:none!important}.console-bottom>.process>h2,.console-bottom>.log-panel>h2{display:none}
+.console-bottom .process-grid{flex:1;display:block;min-height:0;padding:8px;height:auto}
+.console-bottom .process-grid>.model-view{height:100%;min-height:0;border-width:4px}
+.console-bottom .process-side,.console-bottom .process-caption,.console-bottom #process-log{display:none}
+.console-bottom .terminal{flex:1;min-height:0;display:flex;flex-direction:column;padding:8px 10px;gap:5px}
+.console-bottom .terminal>.muted{font-size:9px;line-height:1.3}
+.console-bottom .log-label{margin:0;padding:2px 5px;font-size:10px;min-width:0;width:max-content}
+.console-bottom #model-log{flex:1;min-height:0;height:auto;overflow:auto;font-size:12px;line-height:1.5;padding:7px}
+.workstation .rack.live-rack.is-minimized{zoom:1;right:16px}
+.workstation.is-rtc-expanded{padding-left:78px;padding-right:24px}
+.workstation.is-rtc-expanded .workspace{grid-template-columns:minmax(350px,.85fr) minmax(0,1.35fr);gap:18px;margin:0 auto;max-width:none;align-items:stretch}
+.workstation.is-rtc-expanded .left-column{zoom:1;display:flex;overflow:visible;left:14px}
+.workstation.is-rtc-expanded .left-column>.introduction{height:auto;min-height:0;display:none;max-height:80dvh}
+.workstation.is-rtc-expanded.intro-dock-open .left-column>.introduction{display:flex;flex-direction:column;max-height:80dvh;height:80dvh}
+.workstation.is-rtc-expanded .rack.live-rack{height:100%;min-height:0;position:relative;top:0;display:flex;flex-direction:column;zoom:1;overflow:hidden;animation:none}
+.workstation #vcv-dock-content{flex:1;min-height:0;display:flex;flex-direction:column}
+.workstation .is-minimized #vcv-dock-content{display:none}
+.workstation .vcv-dock-toggle{height:30px;flex-shrink:0;font-size:10px}
+.workstation .is-minimized .vcv-dock-toggle{height:190px;font-size:12px}
+.workstation .vcv-stage{flex:1;min-height:0;aspect-ratio:auto}
+.workstation .vcv-toolbar{padding:9px;gap:6px;flex-shrink:0}.workstation .vcv-toolbar button,.workstation .vcv-toolbar a{font-size:11px;padding:6px 9px}
+.workstation .vcv-footer{font-size:8px;padding:7px 10px;flex-shrink:0}.workstation .vcv-hint{font-size:10px;line-height:1.4;margin:8px 10px 10px;flex-shrink:0}
+.workstation .live-rack:fullscreen{height:100dvh;width:100vw;position:fixed;inset:0}
+@media(max-height:650px){body.workstation{padding-top:10px;padding-bottom:10px;grid-template-rows:68px minmax(0,1fr)}.workstation .center-column{grid-template-rows:136px 144px minmax(0,1fr);gap:8px}.workstation .machine-title img{max-height:20px}.workstation .metrics output{font-size:23px}.workstation .identity>img{height:38px}.workstation .identity-label{font-size:8px}.workstation .eyebrow{margin-bottom:7px}.workstation h1{font-size:25px}.workstation .console-tabs{min-height:30px}.console-tabs [role=tab]{padding-top:6px;padding-bottom:5px}}
+@media(max-width:1000px){body.workstation{padding-left:18px;padding-right:65px}.workstation .workspace{grid-template-columns:minmax(0,.7fr) minmax(0,1fr);gap:12px}.workstation .workspace-caption{display:none}.workstation.is-rtc-expanded{padding-left:65px;padding-right:15px}.workstation.is-rtc-expanded .workspace{grid-template-columns:minmax(320px,1fr) minmax(0,1fr);gap:12px}.workstation .identity-label{font-size:8px}.workstation .session-id{font-size:8px}.workstation .status-footer{font-size:6px}}
+@media(max-width:720px){body.workstation{padding:12px 56px 12px 12px;grid-template-rows:76px minmax(0,1fr)}.workstation .workspace{grid-template-columns:1fr;display:grid;margin:0;gap:0}.workstation .left-column{display:none}.workstation h1{font-size:clamp(19px,4.4vw,30px);white-space:normal;max-width:90%;margin-bottom:6px}.workstation .version-link{font-size:7px}.workstation .center-column{display:grid;width:100%;grid-template-rows:150px 164px minmax(0,1fr);gap:9px}.workstation .metrics output{font-size:27px}.workstation .machine-title img{max-height:24px}.workstation .opening,.workstation .essay{font-size:13px}.workstation .hint{font-size:6px}.workstation .workspace-caption{display:none}.workstation.is-rtc-expanded{padding-left:12px;padding-right:56px}.workstation.is-rtc-expanded .workspace{display:grid;grid-template-columns:1fr;margin:0}.workstation.is-rtc-expanded .left-column{display:none}.workstation.is-rtc-expanded .rack.live-rack{position:fixed;inset:90px 12px 12px;width:auto;height:auto;z-index:50}.workstation.is-rtc-expanded .vcv-stage{aspect-ratio:auto}.workstation .rack.live-rack.is-minimized{right:9px;width:36px}.workstation .is-minimized .vcv-dock-toggle{width:36px;height:170px}.workstation .center-column>.console-bottom{order:initial}.workstation .console-tabs [role=tab]{font-size:12px}}
+
+@media(max-height:650px),(max-width:720px){.workstation .metrics{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:minmax(0,1fr);padding:4px}.workstation .metrics>div,.workstation .metrics>div:nth-child(n+3){border-bottom:0;border-right:1px solid #444;padding:3px 3px 0;min-height:0}.workstation .metrics>div:last-child{border-right:0}.workstation .metrics label{font-size:6px;letter-spacing:-.4px}.workstation .metrics output{font-size:22px;margin:6px 0 0;letter-spacing:-1px}}
+@media(max-width:720px){.workstation:not(.is-rtc-expanded){padding-left:49px;padding-right:49px}.workstation:not(.is-rtc-expanded) .left-column{display:flex;position:fixed;left:6px;top:50%;transform:translateY(-50%);width:32px;overflow:visible;z-index:60;zoom:1}.workstation:not(.is-rtc-expanded) .intro-dock-toggle{display:flex;width:32px;height:170px;flex-direction:column;font-size:9px}.workstation:not(.is-rtc-expanded) .left-column>.introduction{display:none}.workstation:not(.is-rtc-expanded).intro-dock-open .left-column>.introduction{display:flex;position:absolute;left:38px;top:calc(-40dvh + 85px);width:calc(100vw - 58px);height:80dvh;max-height:80dvh;background:#222d;backdrop-filter:blur(24px);border:1px solid #ffffff25;box-shadow:0 20px 60px #0008;z-index:65}.workstation .identity{grid-template-columns:1fr;gap:2px}.workstation .identity>img{display:none}.workstation .identity-label{grid-column:1;grid-row:auto;font-size:7px}.workstation .session-id{font-size:7px}.workstation .port{font-size:6px}.workstation .status-footer{font-size:5px}.workstation .hint{display:none}.workstation .controls button{min-width:53px;font-size:15px}.workstation .console-tabs{padding-inline:2px}.workstation .console-tabs [role=tab]{font-size:10px;padding-inline:5px}.workstation .version-link{top:0;right:0}.workstation .range-label{font-size:6px}.workstation .status-body{grid-template-columns:28% 72%}.workstation .metrics output{font-size:19px}.workstation .machine-title img{max-height:23px}}
+
+.workstation .center-column>.status{order:0}.workstation .center-column>.input-panel{order:1}.workstation .center-column>.console-bottom{order:2}
+
+.amfm-caption{position:absolute;z-index:3;left:10px;right:10px;bottom:10px;max-height:46%;display:flex;flex-direction:column;background:#111e;border:1px solid #ffffff20;color:#bbb;padding:9px 11px;box-shadow:0 5px 18px #0004;font-family:"Doto",monospace;pointer-events:auto}
+.amfm-caption-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:10px;flex-shrink:0}.amfm-caption-heading strong{color:var(--green);font-weight:700;letter-spacing:.5px}.caption-source{font-size:8px;color:#777;white-space:nowrap}
+.amfm-caption p{font-size:12px;line-height:1.5;margin:6px 0 0;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;white-space:pre-wrap;overflow-wrap:anywhere}
+.caption-vadc{display:flex;gap:12px;flex-wrap:wrap;font-size:10px;color:#ddd;flex-shrink:0;margin-top:7px}.caption-vadc[hidden]{display:none}
+@media(max-width:720px),(max-height:650px){.amfm-caption{left:5px;right:5px;bottom:5px;padding:6px 8px;max-height:48%}.amfm-caption-heading{font-size:8px}.amfm-caption p{font-size:10px;margin-top:4px}.caption-source{font-size:6px}.caption-vadc{font-size:9px;gap:7px;margin-top:4px}}
+
+/* Keep the same grid tracks in both modes so live video unfolds progressively. */
+@media(min-width:721px){
+ body.workstation{transition:padding-left 1050ms cubic-bezier(.4,0,.2,1),padding-right 1050ms cubic-bezier(.4,0,.2,1)}
+ .workstation .workspace{max-width:1600px;grid-template-columns:minmax(0,.85fr) minmax(0,1fr) minmax(0,0fr);transition:grid-template-columns 1050ms cubic-bezier(.4,0,.2,1)}
+ .workstation .left-column{grid-column:1;grid-row:1}
+ .workstation .center-column{grid-column:2;grid-row:1}
+ .workstation.is-rtc-expanded .workspace{max-width:1600px;grid-template-columns:minmax(0,0fr) minmax(0,.85fr) minmax(0,1.35fr)}
+ .workstation.is-rtc-expanded .rack.live-rack{grid-column:3;grid-row:1;min-width:0}
+ .workstation.is-rtc-expanded .vcv-toolbar,.workstation.is-rtc-expanded .vcv-footer,.workstation.is-rtc-expanded .vcv-hint{min-width:0}
+}
+/* Constrain the two metric rows to the actual status-panel height. */
+.workstation .metrics{grid-template-rows:repeat(2,minmax(0,1fr));min-height:0;padding:3px 7px}
+.workstation .metrics>div,.workstation .metrics>div:nth-child(n+3){display:grid;grid-template-rows:10px minmax(0,1fr);align-items:center;min-height:0;padding:1px 4px}
+.workstation .metrics label{line-height:1;font-size:8px}
+.workstation .metrics output{font-size:clamp(19px,2vw,27px);line-height:1;margin:0;letter-spacing:-1px;align-self:center}
+.workstation .status-footer{flex-shrink:0;line-height:1.2;min-height:14px;align-items:center}
+.workstation .identity{grid-template-rows:minmax(0,1fr) 16px 12px 16px;min-height:0}
+.workstation .identity>img{height:100%;max-height:48px;min-height:0;object-fit:cover}
+@media(max-height:650px),(max-width:720px){.workstation .metrics{grid-template-rows:minmax(0,1fr)}.workstation .metrics label{font-size:6px}.workstation .metrics output{font-size:clamp(18px,2.2vw,23px)}.workstation .metrics>div,.workstation .metrics>div:nth-child(n+3){grid-template-rows:10px minmax(0,1fr);padding:1px 3px}}
+@media(max-width:720px){.workstation .metrics output{font-size:18px}.workstation.is-rtc-expanded .rack.live-rack{animation:rtc-mobile-reveal 1050ms cubic-bezier(.4,0,.2,1)}@keyframes rtc-mobile-reveal{from{opacity:0;transform:translateX(70%)}to{opacity:1;transform:translateX(0)}}}
+@media(prefers-reduced-motion:reduce){body.workstation,.workstation .workspace{transition:none}}
+
+/* Portfolio navigation remains reachable on narrow screens and with docks open. */
+.portfolio-nav{display:flex;gap:18px;align-items:center;margin:0 100px 10px 0;font:12px/1.3 "Ubuntu Mono",monospace;color:#aaa}
+.portfolio-nav a{text-decoration:none;white-space:nowrap}.portfolio-nav a:hover{color:var(--green)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+@media(max-width:720px){.portfolio-nav{gap:12px;font-size:10px;margin-right:0;margin-bottom:8px}.workstation .version-link{top:auto;bottom:3px}.workstation h1{font-size:19px;max-width:100%}.workstation .command{font-size:7px}}
