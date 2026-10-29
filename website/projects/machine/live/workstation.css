@@ -128,13 +128,13 @@ body.workstation{grid-template-rows:max-content minmax(0,1fr);row-gap:12px}
 
 /* Restore the original Process composition, with its explanation in the terminal below. */
 .console-bottom>.process{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
-.console-bottom>.process>h2{display:flex;flex-shrink:0;margin:0 0 8px;font-size:15px;min-height:32px;line-height:20px}
+.console-bottom>.process>h2{display:none}
 .console-bottom>.process>h2 span{font-size:11px}
-.console-bottom .process-grid{display:grid;grid-template-columns:minmax(0,2.35fr) minmax(0,1fr);gap:10px;flex:0 0 auto;height:clamp(260px,34vh,436px);padding:0 8px;min-height:0}
+.console-bottom .process-grid{display:grid;grid-template-columns:minmax(0,2.35fr) minmax(0,1fr);gap:10px;flex:1 1 auto;height:auto;padding:8px 8px 0;min-height:80px}
 .console-bottom .process-grid>.model-view{height:100%;min-height:0}
-.console-bottom .process-side{display:grid;grid-template-rows:minmax(0,1fr) minmax(0,1fr) minmax(50px,.6fr);gap:8px;min-height:0;min-width:0}
+.console-bottom .process-side{display:grid;grid-template-rows:minmax(0,1fr) minmax(0,1fr) minmax(18px,.6fr);gap:8px;min-height:0;min-width:0}
 .console-bottom .process-side>.model-view{height:auto;min-height:0;border-width:4px}
 .console-bottom .model-caption{height:auto;min-height:0;font-size:8px;line-height:1.3;padding:6px;overflow:auto}
 .console-bottom .process-caption{display:flex;flex-shrink:0;padding:6px 10px;font-size:8px;gap:8px}
-.console-bottom #process-log{display:block;flex:0 0 auto;min-height:105px;max-height:180px;overflow:auto;margin:0 8px 8px;padding:10px;font:12px/1.5 "Ubuntu Mono",monospace;color:#aaa;background:#101010;white-space:pre-wrap;overflow-wrap:anywhere}
-@media(max-width:720px){.console-bottom .process-grid{gap:6px;height:280px}.console-bottom>.process>h2{font-size:12px;padding-inline:8px}.console-bottom>.process>h2 span{font-size:8px}.console-bottom .process-side{gap:6px}.console-bottom .model-caption{font-size:7px}.console-bottom #process-log{font-size:11px}.console-bottom .process-caption{font-size:7px}}
+.console-bottom #process-log{display:block;flex:0 0 clamp(76px,10vh,110px);min-height:76px;max-height:110px;overflow:auto;margin:0 8px 8px;padding:10px;font:12px/1.5 "Ubuntu Mono",monospace;color:#aaa;background:#101010;white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:720px){.console-bottom .process-grid{gap:6px;height:auto}.console-bottom>.process>h2{font-size:12px;padding-inline:8px}.console-bottom>.process>h2 span{font-size:8px}.console-bottom .process-side{gap:6px}.console-bottom .model-caption{font-size:7px}.console-bottom #process-log{font-size:11px}.console-bottom .process-caption{font-size:7px}}

@@ -6,7 +6,7 @@ consoleBottom.setAttribute('aria-label','Model workspace');
 consoleBottom.innerHTML = `<div class="console-tabs" role="tablist" aria-label="Model workspace">
   <button id="animation-tab" type="button" role="tab" aria-selected="true" aria-controls="animation-panel">Model.Process</button>
   <button id="log-tab" type="button" role="tab" aria-selected="false" aria-controls="log-panel" tabindex="-1">Model.Log <span class="log-activity" aria-hidden="true"></span></button>
-  <span class="workspace-caption">TRANSFORMER / LIVE</span>
+  <span class="workspace-caption">TRANSFORMER / VADC</span>
 </div>`;
 const processPanel = document.querySelector('.process');
 const logPanel = document.querySelector('.log-panel');
