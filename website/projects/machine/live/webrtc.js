@@ -139,6 +139,20 @@
     clearInterval(statsTimer); clearTimeout(startupTimer); frame.removeAttribute('src');
     placeholder.hidden = false; placeholder.textContent = 'Stream closed. Press Play or Reconnect.';
     setState('RECEIVER CLOSED'); audioUI();
+    setDockExpanded(false);
+    const introduction = document.querySelector('.introduction');
+    introduction.classList.remove('is-collapsed');
+    introduction.querySelectorAll('.intro-fold').forEach(section => { section.inert = false; });
+    const foldToggle = document.getElementById('intro-toggle');
+    foldToggle.setAttribute('aria-expanded','true');
+    foldToggle.setAttribute('aria-label','Collapse introduction');
+    foldToggle.title = '收起 Introduction';
+    document.getElementById('introduction-content').scrollTop = 0;
+    // On phones the introduction lives in a dock even with WebRTC minimized.
+    const useIntroDock = window.matchMedia('(max-width:720px)').matches;
+    document.body.classList.toggle('intro-dock-open',useIntroDock);
+    introToggle.setAttribute('aria-expanded',String(useIntroDock));
+    introToggle.setAttribute('aria-label',useIntroDock ? 'Close introduction dock' : 'Open introduction dock');
   }
   audioButton.addEventListener('click',toggleAudio); play.addEventListener('click',toggleAudio);
   document.getElementById('vcv-reconnect').addEventListener('click',async()=>{ stopped=false; if (viewURL) load(); await refresh(); });

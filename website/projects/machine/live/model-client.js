@@ -69,7 +69,7 @@ function receiveJob(job, run) {
   if (rank < currentRank) return;
   currentRank = rank;
   window.dispatchEvent(new CustomEvent('amfm:model-stage',{detail:{
-    state:job.state, reasoning:job.reasoning || '', vadc:job.vadc || null,
+    state:job.state, jobId:activeModelJob, oscSent:job.osc?.status === 'SENT', reasoning:job.reasoning || '', vadc:job.vadc || null,
     simulated:job.simulated, error:job.error || null,
     dataReady: !!job.vadc && ['timbre_v','frequency_v','amplitude_v','envelope_v','mode_v','chord_v','type_v','noise_v'].every(key=>typeof job.voltages?.[key] === 'number' && Number.isFinite(job.voltages[key]))
   }}));

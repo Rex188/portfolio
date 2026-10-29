@@ -41,3 +41,33 @@ new MutationObserver(()=>{
 }).observe($('model-log'),{attributes:true,attributeFilter:['data-streaming']});
 showConsoleTab('animation');
 // Keep the HTML's expanded introduction on startup; fold only on user input.
+
+// Confirm the actual VCV dispatch once per job, without blocking playback or input.
+const acceptedNotice = document.createElement('aside');
+acceptedNotice.className = 'accepted-notice';
+acceptedNotice.hidden = true;
+acceptedNotice.setAttribute('aria-label','Message confirmation');
+acceptedNotice.innerHTML = '<div role="status" aria-live="polite" aria-atomic="true"></div><button type="button" aria-label="Dismiss message confirmation">×</button>';
+document.body.append(acceptedNotice);
+let noticeTimer, notifiedJob;
+function dismissAcceptedNotice() {
+  clearTimeout(noticeTimer);
+  acceptedNotice.hidden = true;
+  acceptedNotice.querySelector('[role=status]').textContent = '';
+}
+acceptedNotice.querySelector('button').addEventListener('click',dismissAcceptedNotice);
+window.addEventListener('amfm:model-stage',event=>{
+  const job = event.detail;
+  if (job.state === 'submitting' || job.state === 'failed') {
+    dismissAcceptedNotice();
+    return;
+  }
+  if (!job.jobId || notifiedJob === job.jobId || !job.dataReady || !job.oscSent || job.error || job.simulated === true) return;
+  notifiedJob = job.jobId;
+  acceptedNotice.hidden = false;
+  acceptedNotice.querySelector('[role=status]').textContent = 'Message accepted. VCV is starting to change.';
+  noticeTimer = setTimeout(dismissAcceptedNotice,8000);
+});
+$('close').addEventListener('click',dismissAcceptedNotice);
+$('new-session').addEventListener('click',dismissAcceptedNotice);
+window.addEventListener('pagehide',dismissAcceptedNotice);

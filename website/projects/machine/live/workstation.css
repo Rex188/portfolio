@@ -121,3 +121,7 @@ body.workstation{grid-template-rows:max-content minmax(0,1fr);row-gap:12px}
 .workstation h1{grid-column:1/-1;white-space:normal;overflow-wrap:anywhere;max-width:100%;margin:0}
 .workstation .command{grid-column:1/-1;line-height:1.5}
 @media(max-width:720px){.workstation .masthead{gap:7px 8px}.workstation .portfolio-nav{gap:6px 12px}}
+
+.accepted-notice{position:fixed;z-index:100;top:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:18px;width:max-content;max-width:calc(100vw - 28px);padding:14px 16px;border:1px solid var(--green);border-radius:8px;background:#161b16;color:#e8f5e6;box-shadow:0 10px 35px #0009;font:14px/1.5 "Ubuntu Mono",monospace}
+.accepted-notice[hidden]{display:none}.accepted-notice button{flex-shrink:0;border:0;background:transparent;color:var(--green);font:24px/1 monospace;padding:4px;cursor:pointer}
+@media(max-width:720px){.accepted-notice{top:12px;font-size:13px;gap:10px}}
