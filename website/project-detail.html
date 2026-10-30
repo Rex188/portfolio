@@ -285,7 +285,8 @@
       document.title = `${project.title} — Rex Li`;
       const nextId = projectId === "robin" ? "a-machine-for-misunderstanding" : projectId === "a-machine-for-misunderstanding" ? "listener" : projectId === "listener" ? "music-classifier" : projectId === "music-classifier" ? "inner-landscape" : "robin";
       const nextProject = projects[nextId];
-      const projectVideo = `<section class="project-video" aria-labelledby="video-title"><div class="video-heading"><h2 id="video-title">Video</h2><span>${project.videoId ? "Project film" : "Documentation in progress"}</span></div>${project.videoId ? `${location.protocol === "file:" ? `<a class="video-local" href="${escapeHTML(project.film)}" target="_blank" rel="noreferrer"><span>Play project film on YouTube</span></a>` : `<iframe class="video-frame" src="https://www.youtube.com/embed/${encodeURIComponent(project.videoId)}" title="${escapeHTML(project.title)} project video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><a class="video-watch-link" href="${escapeHTML(project.film)}" target="_blank" rel="noreferrer">Open on YouTube</a>`}` : `<div class="video-pending">Field recording in progress</div>`}</section>`;
+      const startWithVideo = ["robin", "listener"].includes(projectId);
+      const projectVideo = `<section class="project-video" id="video" aria-labelledby="video-title"><div class="video-heading"><h2 id="video-title">Video</h2><span>${project.videoId ? "Project film" : "Documentation in progress"}</span></div>${project.videoId ? `${location.protocol === "file:" ? `<a class="video-local" href="${escapeHTML(project.film)}" target="_blank" rel="noreferrer"><span>Play project film on YouTube</span></a>` : `<iframe class="video-frame" src="https://www.youtube.com/embed/${encodeURIComponent(project.videoId)}${startWithVideo ? "?autoplay=1&playsinline=1" : ""}" title="${escapeHTML(project.title)} project video" loading="${startWithVideo ? "eager" : "lazy"}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><a class="video-watch-link" href="${escapeHTML(project.film)}" target="_blank" rel="noreferrer">Open on YouTube</a>`}` : `<div class="video-pending">Field recording in progress</div>`}</section>`;
       root.innerHTML = `
           <header class="project-head ${projectId === "a-machine-for-misunderstanding" ? "project-head-machine" : projectId === "listener" ? "project-head-listener" : projectId === "music-classifier" ? "project-head-music-classifier" : projectId === "inner-landscape" ? "project-head-inner-landscape" : ""}">
           <h1>${escapeHTML(project.title)}</h1>
@@ -305,6 +306,19 @@
           <div><h2>Credits</h2>${projectId === "a-machine-for-misunderstanding" ? `<p class="credits-note">All created by Rex Li</p>` : projectId === "music-classifier" ? `<p class="credits-note">NYU Shanghai summer school project</p>` : projectId === "inner-landscape" ? `<p class="credits-note">Research concept and prototype in progress</p>` : `<ul class="credit-list">${project.credits.map(([role, name]) => `<li><span>${escapeHTML(role)}</span><span class="credit-name">${escapeHTML(name)}</span></li>`).join("")}</ul>`}</div>
         </section>
         <a class="next-project" href="project-detail.html?project=${encodeURIComponent(nextId)}"><span>Next project</span><strong>${escapeHTML(nextProject.title)}</strong></a>`;
+      if (startWithVideo) {
+        const video = root.querySelector(".video-frame, .video-local");
+        if (video) {
+          const positionVideo = () => {
+            const top = video.getBoundingClientRect().top + window.scrollY;
+            const headerHeight = siteHeader.getBoundingClientRect().height;
+            window.scrollTo({ top: Math.max(0, top - headerHeight - 16), behavior: "instant" });
+          };
+          // Scroll immediately, then align again after the sticky header collapses.
+          requestAnimationFrame(positionVideo);
+          window.setTimeout(positionVideo, 380);
+        }
+      }
     }
   </script>
 </body>
