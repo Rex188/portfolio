@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Music by Rex Li. Four recordings, available to listen without an account.">
+<title>Music — Rex Li</title><link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
+</head>
+<body>
+<div class="page">
+<header><a class="wordmark" href="https://rexli.life/">RexLi</a><a class="back" href="https://rexli.life/">Home <svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M10 5h9v9"/></svg></a></header>
+<main>
+<section aria-labelledby="music-title"><div class="heading"><div><h1 id="music-title">Music</h1><p class="subtitle">Four recordings by Rex Li.</p></div><button id="play-all" class="play-all">Play all <svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M10 5h9v9"/></svg></button></div>
+<ol id="track-list" class="tracks"></ol>
+</section>
+<section class="player" aria-label="Music player">
+<div class="player-top"><div class="now-playing"><span id="player-kicker">READY TO LISTEN</span><p id="current-title">Choose a recording</p></div><div class="transport"><button id="previous" aria-label="Previous track">‹</button><button id="toggle" class="toggle" aria-label="Play">▶</button><button id="next" aria-label="Next track">›</button></div></div>
+<div class="timeline"><span id="elapsed">0:00</span><label class="sr-only" for="seek">Playback position</label><input id="seek" type="range" min="0" max="100" step="0.1" value="0" disabled><span id="duration">0:00</span><button id="mute" aria-label="Mute" aria-pressed="false">♪</button></div>
+<p id="status" class="sr-only" role="status" aria-live="polite"></p>
+</section>
+</main>
+
+</div><audio id="audio" preload="metadata"></audio>
+</body>
+</html>

@@ -203,6 +203,13 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
     }
+
+    @media (max-width: 400px) {
+      .nav-row { gap: 0 4px; }
+      .nav-trigger { font-size: clamp(10px, 2.7vw, 12px); white-space: nowrap; }
+      .search-wrap { width: 28px; flex-basis: 28px; }
+      .search-toggle { width: 28px; }
+    }
   </style>
 </head>
 <body>
@@ -214,6 +221,7 @@
       <button class="nav-trigger" type="button" data-panel="projects" aria-expanded="false" aria-controls="menu-panel">Projects</button>
       <button class="nav-trigger" type="button" data-panel="researches" aria-expanded="false" aria-controls="menu-panel">Researches</button>
       <button class="nav-trigger" type="button" data-panel="gallery" aria-expanded="false" aria-controls="menu-panel">Gallery</button>
+      <a class="nav-trigger nav-anchor" href="/music/">Music</a>
       <a class="nav-trigger nav-anchor" href="#about-section">About</a>
       <form class="search-wrap" id="searchForm" role="search">
         <button class="search-toggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="siteSearch"><svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6" fill="none" stroke="currentColor" stroke-width="2.1"/><path d="m16 16 5 5" fill="none" stroke="currentColor" stroke-width="2.1"/></svg></button>
@@ -319,6 +327,7 @@
           <a href="#projects-section">Projects</a>
           <a href="#research-section">Researches</a>
           <a href="#gallery-section">Gallery</a>
+          <a href="/music/">Music</a>
           <a href="#about-section">About</a>
         </nav>
         <div class="footer-contact">
@@ -431,6 +440,7 @@
       { title: 'Inner Landscape', category: 'Project · 2025', text: 'Music-self, self-reflection, playlist sharing, visual room, privacy', href: '#inner-landscape' },
       { title: 'A Structural Spectrum of Contingency', category: 'Research · 2026', text: 'Gesture based musical instruments, expressive movement, nonlinear patterns, spectral analysis', href: '#research-contingency' },
       { title: 'Discipline Without a Subject', category: 'Research · 2026', text: 'AI alignment, Foucault, discipline, preference training, linguistic diversity', href: '#research-discipline' },
+      { title: 'Music', category: 'Recordings', text: 'i should say i enjoy this existential crisis, break, get lost, well farewell, songs', href: '/music/' },
       { title: 'About Rex Li', category: 'About', text: 'Artist, music technology, independent research, music and systems', href: '#about-section' },
     ];
     searchToggle.addEventListener('click', () => {

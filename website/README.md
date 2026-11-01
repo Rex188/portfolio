@@ -29,3 +29,7 @@ To add a place, reuse the approved Listener Sound Place template and read `proje
 The existing `project-detail.html?project=a-machine-for-misunderstanding` URL now serves `projects/machine/live/index.html` through a query-scoped Vercel rewrite. Other project detail pages keep their existing renderer. The source is Rex’s `project2/new_present_page/dist`; its V1 archive and animation license are retained. Home returns to `index.html#projects-section`; Lab Report remains reachable from the workstation header.
 
 `api/machine.js` forwards only status, interpretation, job polling, and job-filtered SSE to the existing Windows backend. Vercel is required for these live API routes; a basic static preview server supports layout and navigation only. The Windows installation and VDO.Ninja stream must be online for live sound.
+
+## Music recordings
+
+`music/` contains four owner-supplied M4A recordings and the approved minimal player. Home navigation, footer navigation, and site search link to `/music/`. Playback is independent of NetEase and requires no account. Order: i should say i enjoy this existential crisis → break → get lost → well, farewell.
