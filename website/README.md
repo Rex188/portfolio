@@ -33,3 +33,5 @@ The existing `project-detail.html?project=a-machine-for-misunderstanding` URL no
 ## Music recordings
 
 `music/` contains four owner-supplied M4A recordings and the approved minimal player. Home navigation, footer navigation, and site search link to `/music/`. Playback is independent of NetEase and requires no account. Order: i should say i enjoy this existential crisis → break → get lost → well, farewell.
+
+The Music page also includes Rex’s supplied bass drum performance below the audio player. Its original HEVC recording was converted to H.264/AAC for browser compatibility; the poster comes from the matching local video thumbnail. Audio and video pause each other to prevent overlapping playback.

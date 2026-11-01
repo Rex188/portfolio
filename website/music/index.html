@@ -17,6 +17,11 @@
 <div class="timeline"><span id="elapsed">0:00</span><label class="sr-only" for="seek">Playback position</label><input id="seek" type="range" min="0" max="100" step="0.1" value="0" disabled><span id="duration">0:00</span><button id="mute" aria-label="Mute" aria-pressed="false">♪</button></div>
 <p id="status" class="sr-only" role="status" aria-live="polite"></p>
 </section>
+<section class="performance" aria-labelledby="performance-title">
+<h2 id="performance-title">Bass drum performance</h2>
+<video id="performance-video" controls playsinline preload="metadata" poster="media/bass-drum-poster.jpg" aria-label="Rex Li bass drum performance"><source src="media/bass-drum-performance.mp4" type="video/mp4">Your browser does not support this video. <a href="media/bass-drum-performance.mp4">Open the performance video</a>.</video>
+<p id="video-error" class="video-error" role="status" hidden>This video could not be loaded. <a href="media/bass-drum-performance.mp4">Open the video directly</a>.</p>
+</section>
 </main>
 
 </div><audio id="audio" preload="metadata"></audio>

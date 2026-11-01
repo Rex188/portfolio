@@ -63,4 +63,13 @@ seek.addEventListener('input', () => { if (Number.isFinite(audio.duration)) audi
 audio.addEventListener('ended', () => { if (current < tracks.length - 1) select(current + 1); else { sync(); document.querySelector('#player-kicker').textContent = 'END OF RECORDINGS'; status.textContent = 'All four recordings have finished.'; } });
 audio.addEventListener('error', () => { status.textContent = 'This recording could not be loaded. Please try another track.'; document.querySelector('#player-kicker').textContent = 'RECORDING UNAVAILABLE'; });
 document.querySelector('#mute').addEventListener('click', event => { audio.muted = !audio.muted; event.currentTarget.textContent = audio.muted ? '×' : '♪'; event.currentTarget.setAttribute('aria-label', audio.muted ? 'Unmute' : 'Mute'); event.currentTarget.setAttribute('aria-pressed', String(audio.muted)); });
-document.addEventListener('keydown', event => { if (event.code === 'Space' && !event.repeat && !['INPUT','BUTTON','A','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) { event.preventDefault(); togglePlayback(); } });
+document.addEventListener('keydown', event => { if (event.code === 'Space' && !event.repeat && !['INPUT','BUTTON','A','TEXTAREA','SELECT','VIDEO'].includes(document.activeElement.tagName)) { event.preventDefault(); togglePlayback(); } });
+
+// Play one recording or performance at a time.
+const performanceVideo = document.querySelector('#performance-video');
+if (performanceVideo) {
+  performanceVideo.addEventListener('play', () => { if (!performanceVideo.paused) { ++playRequest; audio.pause(); } });
+  audio.addEventListener('play', () => { if (!audio.paused) performanceVideo.pause(); });
+  performanceVideo.addEventListener('error', () => { document.querySelector('#video-error').hidden = false; });
+  performanceVideo.querySelector('source').addEventListener('error', () => { document.querySelector('#video-error').hidden = false; });
+}
