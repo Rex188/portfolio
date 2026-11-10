@@ -13,3 +13,19 @@
 .detailtask .starbtn{margin-left:auto}
 .detailtask.starred>span{font-weight:600}
 .starcount{display:flex!important;gap:4px;align-items:center;color:#b0852c!important;font-weight:600}
+.board{position:fixed;right:24px;bottom:24px;width:320px;max-width:calc(100vw - 32px);z-index:30;background:#fffdf6;border:1px solid #eadfbf;border-radius:12px;box-shadow:0 12px 40px #1c302722;color:var(--ink)}
+.boardhead{display:flex;align-items:center;gap:8px;padding:11px 12px 11px 15px;color:#8a6a1f}
+.boardhead b{font-size:12px;font-weight:600}
+.boardhead small{color:#b3a37c;font-size:10px}
+.boardhead button{border:0;background:transparent;padding:4px;display:inline-flex;color:#9a8550;cursor:pointer}
+.boardhead button:first-of-type{margin-left:auto}
+.boardhead button:hover{color:var(--ink);background:transparent}
+.boardbody{padding:0 15px 14px}
+.boardbody p{margin:0;font-size:12px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;max-height:40vh;overflow:auto}
+.boardbody .boardempty{color:#b3a37c}
+.boardbody textarea{width:100%;box-sizing:border-box;font:inherit;font-size:12px;line-height:1.6;padding:9px;border:1px solid #e4dcc4;border-radius:8px;background:#fff;resize:vertical}
+.boardactions{display:flex;justify-content:flex-end;gap:8px;margin-top:9px}
+.boardactions button{font-size:11px;padding:6px 12px;display:inline-flex;gap:5px;align-items:center}
+.boarderror{color:#a33c2f!important;margin-top:6px!important}
+.board.min{width:auto}
+@media(max-width:760px){.board{right:16px;left:16px;bottom:16px;width:auto}.board.min{left:auto}}
