@@ -4,3 +4,12 @@
 .loginpage{margin:0;width:100%;min-height:100vh;display:grid;place-items:center;padding:24px;background:#f1f4ed}.loginbox{width:400px;max-width:100%;padding:40px;background:#fff;border:1px solid #e0e6d9;border-radius:14px;box-shadow:0 18px 70px #334c3b0b}.loginbox .brandmark{margin-bottom:30px}.loginbox h1{font-size:26px;margin-top:12px}.loginbox p{color:#8a977e;font-size:12px;line-height:1.9}.loginbox label{display:block;margin:28px 0 9px;font-size:11px;color:#7d8f70}.loginbox input{width:100%;padding:13px;font-size:15px}.loginbox button{width:100%;padding:13px;margin:18px 0 22px;justify-content:space-between}.loginbox small{display:block;color:#a0ab96;font-size:9px}.loginbox .loginerror{color:#ae6b55;margin-bottom:0}@media(max-width:480px){.loginbox{padding:30px}}
 
 .mailsync{display:flex;gap:14px;align-items:center;border:1px solid #dbe5d4;background:#f1f6ed;border-radius:9px;padding:18px 22px;margin-bottom:22px}.mailicon{font-size:25px;color:#67835a}.mailsync b{font-size:12px;font-weight:500}.mailsync p{font-size:10px;color:#7b906e;margin:7px 0}.mailsync small{font-size:9px;color:#9aa88f}.mailsync button{margin-left:auto;white-space:nowrap;font-size:10px;background:transparent}.provenance{display:block;font-size:8px;color:#9ca98f;margin-top:7px}.manualcontrol{display:flex!important;flex-direction:row!important;align-items:flex-start;gap:10px!important;background:#f4f6ef;padding:14px;border-radius:7px;line-height:1.8}.manualcontrol small{display:block;font-size:10px;color:#9aa78c}@media(max-width:760px){.mailsync{padding:15px;flex-wrap:wrap}.mailsync>div:nth-child(2){flex:1;min-width:220px}.mailsync button{margin-left:37px}.mailsync p{line-height:1.8}}
+.starbtn{border:0;background:transparent;padding:4px;display:inline-flex;align-items:center;color:#c3cabb;cursor:pointer;flex:none}
+.starbtn:hover{color:#b98a2e;background:transparent}
+.starbtn.on{color:#c9932a}
+.starbtn.on svg{fill:currentColor}
+.taskrow.starred{background:#fbf6ea}
+.taskrow.starred strong{font-weight:600}
+.detailtask .starbtn{margin-left:auto}
+.detailtask.starred>span{font-weight:600}
+.starcount{display:flex!important;gap:4px;align-items:center;color:#b0852c!important;font-weight:600}

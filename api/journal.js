@@ -25,7 +25,7 @@ function valid(records){
   for(const k of ['id','school','short','region','program','round','deadline','deadlineNote','status','portfolio','supplement','portal','result','note','review','updated'])if(typeof r[k]!=='string'||r[k].length>50000)return false;
   if(r.manualLock!==undefined&&typeof r.manualLock!=='boolean')return false;
   if(![1,2,3].includes(r.priority)||!Array.isArray(r.tasks)||r.tasks.length>500||!Array.isArray(r.evidence)||r.evidence.length>500||!Array.isArray(r.history)||r.history.length>5000)return false;
-  for(const t of r.tasks)if(typeof t.text!=='string'||typeof t.done!=='boolean'||t.text.length>5000)return false;
+  for(const t of r.tasks)if(typeof t.text!=='string'||typeof t.done!=='boolean'||t.text.length>5000||(t.star!==undefined&&typeof t.star!=='boolean'))return false;
   for(const h of r.history)if(typeof h.date!=='string'||typeof h.text!=='string')return false;
   for(const e of r.evidence){try{if(typeof e.title!=='string'||!['https:','http:'].includes(new URL(e.url).protocol))return false;}catch{return false;}}
  }
