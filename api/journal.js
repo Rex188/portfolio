@@ -42,6 +42,18 @@ async function current(blob){try{
  }catch(e){if(e instanceof blob.BlobNotFoundError)return {records:[],revision:1,etag:null};throw e;}}
 // Up to three pinned notices; an older single `notice` is read as the first one.
 function noticesOf(state){if(Array.isArray(state.notices))return state.notices;return state.notice?.text?[{id:'n1',text:state.notice.text,updatedAt:state.notice.updatedAt||''}]:[];}
+// Portal shortcuts: links only. Anything that looks like an email, username or password is refused.
+const secretLike=/[\w.+-]+@[\w-]+\.[\w.]+|密码|口令|用户名|password|passwd|username|\bpin\b|computing id/i;
+function validPortals(list){
+ if(!Array.isArray(list)||list.length>100)return false;
+ for(const p of list){
+  if(!p||typeof p!=='object')return false;
+  for(const k of ['school','portal','region','note'])if(typeof p[k]!=='string'||p[k].length>2000||secretLike.test(p[k]))return false;
+  if(!Array.isArray(p.links)||p.links.length>10)return false;
+  for(const l of p.links){if(!l||typeof l.label!=='string'||l.label.length>200||secretLike.test(l.label))return false;try{const u=new URL(l.url);if(u.protocol!=='https:'&&u.protocol!=='http:'||u.username||u.password||/[?&](password|pwd|pin|token)=/i.test(u.search))return false;}catch{return false;}}
+ }
+ return true;
+}
 module.exports=async function handler(req,res){
  res.setHeader('Cache-Control','private, no-store, max-age=0');res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');
  const reply=(code,data)=>res.status(code).json(data);
@@ -64,7 +76,13 @@ module.exports=async function handler(req,res){
  if(!signedIn(req))return reply(401,{error:'请先输入密码登录。'});
  try{
   const blob=await import('@vercel/blob');const state=await current(blob);
-  if(req.method==='GET')return reply(200,{records:state.records,revision:state.revision,sync:state.sync||null,notices:noticesOf(state)});
+  if(req.method==='GET')return reply(200,{records:state.records,revision:state.revision,sync:state.sync||null,notices:noticesOf(state),portals:state.portals||[],portalsSyncedAt:state.portalsSyncedAt||''});
+  if(req.method==='POST'&&action==='portals'){
+   if(!validPortals(body?.portals))return reply(400,{error:'Portal 链接格式无效，或包含疑似账号密码的内容'});
+   const {etag,...rest}=state;const portalsSyncedAt=new Date().toISOString();
+   await blob.put(FILE,JSON.stringify({...rest,portals:body.portals,portalsSyncedAt}),{token:process.env.BLOB_READ_WRITE_TOKEN,access:'private',addRandomSuffix:false,allowOverwrite:!!state.etag,...(state.etag?{ifMatch:state.etag}:{}),contentType:'application/json',cacheControlMaxAge:60});
+   return reply(200,{count:body.portals.length,portalsSyncedAt});
+  }
   if(req.method==='POST'&&action==='notice'){
    // Notices are saved on their own: records, revision and sync stay untouched, and the canonical ETag guards the write.
    const list=body?.notices;
@@ -84,7 +102,7 @@ module.exports=async function handler(req,res){
   if(req.method==='PUT'){
    if(!body||!valid(body.records)||!Number.isInteger(body.revision)||JSON.stringify(body).length>1000000)return reply(400,{error:'记录格式无效'});
    if(body.revision!==state.revision)return reply(409,{error:'其他页面已更新记录。请先导出当前修改，再刷新。'});
-   const next={records:manualRecords(state.records,body.records),revision:state.revision+1,...(state.sync?{sync:state.sync}:{}),...(state.notices?{notices:state.notices}:{}),...(state.notice?{notice:state.notice}:{})};
+   const {etag:_e,...kept}=state;const next={...kept,records:manualRecords(state.records,body.records),revision:state.revision+1};
    await blob.put(FILE,JSON.stringify(next),{token:process.env.BLOB_READ_WRITE_TOKEN,access:'private',addRandomSuffix:false,allowOverwrite:!!state.etag,...(state.etag?{ifMatch:state.etag}:{}),contentType:'application/json',cacheControlMaxAge:60});return reply(200,{revision:next.revision,records:next.records});
   }
   return reply(405,{error:'不支持此操作'});
