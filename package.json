@@ -1,0 +1,16 @@
+{
+  "name": "rex-personal-website",
+  "private": true,
+  "dependencies": {
+    "@vercel/blob": "2.9.0"
+  },
+  "devDependencies": {
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "lucide-react": "1.31.0",
+    "esbuild": "0.28.0"
+  },
+  "scripts": {
+    "build:journal": "esbuild tools/journal/entry.tsx --bundle --minify --jsx=automatic --define:process.env.NODE_ENV=\\\"production\\\" --outfile=website/journal.js"
+  }
+}

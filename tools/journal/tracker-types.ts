@@ -1,0 +1,6 @@
+export type Task={text:string;done:boolean;date?:string};
+export type RecordItem={id:string;school:string;short:string;region:string;program:string;round:string;deadline:string;deadlineNote:string;status:string;portfolio:string;supplement:string;portal:string;result:string;priority:number;note:string;tasks:Task[];evidence:{title:string;url:string}[];history:{date:string;text:string}[];review:string;updated:string};
+export const statuses=['待准备','准备中','已提交但待确认','材料已确认','等待结果','初筛未通过','获得面试/试音邀请','候补','录取','有条件录取','未录取','撤回'];
+export const materials=['待核对','待准备','进行中','已提交待确认','已确认接收','不适用'];
+export const results=['未公布','初筛未通过','面试/试音邀请','候补','录取','有条件录取','未录取','撤回'];
+export const seed:RecordItem[]=[];
