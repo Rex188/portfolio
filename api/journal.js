@@ -40,6 +40,8 @@ async function current(blob){try{
  if(!result)return {records:[],revision:1,etag:null};
  const state=JSON.parse(await new Response(result.stream).text());return {...state,etag:metadata.etag};
  }catch(e){if(e instanceof blob.BlobNotFoundError)return {records:[],revision:1,etag:null};throw e;}}
+// Up to three pinned notices; an older single `notice` is read as the first one.
+function noticesOf(state){if(Array.isArray(state.notices))return state.notices;return state.notice?.text?[{id:'n1',text:state.notice.text,updatedAt:state.notice.updatedAt||''}]:[];}
 module.exports=async function handler(req,res){
  res.setHeader('Cache-Control','private, no-store, max-age=0');res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');
  const reply=(code,data)=>res.status(code).json(data);
@@ -62,13 +64,16 @@ module.exports=async function handler(req,res){
  if(!signedIn(req))return reply(401,{error:'请先输入密码登录。'});
  try{
   const blob=await import('@vercel/blob');const state=await current(blob);
-  if(req.method==='GET')return reply(200,{records:state.records,revision:state.revision,sync:state.sync||null,notice:state.notice||null});
+  if(req.method==='GET')return reply(200,{records:state.records,revision:state.revision,sync:state.sync||null,notices:noticesOf(state)});
   if(req.method==='POST'&&action==='notice'){
-   // The pinned notice is saved on its own: it keeps records, revision and sync untouched, and the canonical ETag guards the write.
-   if(typeof body?.text!=='string'||body.text.length>5000)return reply(400,{error:'公告最多 5000 字'});
-   const {etag,...rest}=state;const notice={text:body.text,updatedAt:new Date().toISOString()};
-   await blob.put(FILE,JSON.stringify({...rest,notice}),{token:process.env.BLOB_READ_WRITE_TOKEN,access:'private',addRandomSuffix:false,allowOverwrite:!!state.etag,...(state.etag?{ifMatch:state.etag}:{}),contentType:'application/json',cacheControlMaxAge:60});
-   return reply(200,{notice});
+   // Notices are saved on their own: records, revision and sync stay untouched, and the canonical ETag guards the write.
+   const list=body?.notices;
+   if(!Array.isArray(list)||list.length>3||!list.every(n=>n&&typeof n.id==='string'&&/^[A-Za-z0-9_-]{1,64}$/.test(n.id)&&typeof n.text==='string'&&n.text.length<=5000)||new Set(list.map(n=>n.id)).size!==list.length)return reply(400,{error:'最多三条公告，每条最多 5000 字'});
+   const prev=noticesOf(state),now=new Date().toISOString();
+   const notices=list.filter(n=>n.text.trim()).map(n=>{const old=prev.find(p=>p.id===n.id);return {id:n.id,text:n.text,updatedAt:old&&old.text===n.text?old.updatedAt:now};});
+   const {etag,notice:_old,...rest}=state;
+   await blob.put(FILE,JSON.stringify({...rest,notices}),{token:process.env.BLOB_READ_WRITE_TOKEN,access:'private',addRandomSuffix:false,allowOverwrite:!!state.etag,...(state.etag?{ifMatch:state.etag}:{}),contentType:'application/json',cacheControlMaxAge:60});
+   return reply(200,{notices});
   }
   if(req.method==='POST'&&action==='sync'){
    if(!validPlan(body)||JSON.stringify(body).length>1000000)return reply(400,{error:'邮件核对计划格式无效'});
@@ -79,7 +84,7 @@ module.exports=async function handler(req,res){
   if(req.method==='PUT'){
    if(!body||!valid(body.records)||!Number.isInteger(body.revision)||JSON.stringify(body).length>1000000)return reply(400,{error:'记录格式无效'});
    if(body.revision!==state.revision)return reply(409,{error:'其他页面已更新记录。请先导出当前修改，再刷新。'});
-   const next={records:manualRecords(state.records,body.records),revision:state.revision+1,...(state.sync?{sync:state.sync}:{}),...(state.notice?{notice:state.notice}:{})};
+   const next={records:manualRecords(state.records,body.records),revision:state.revision+1,...(state.sync?{sync:state.sync}:{}),...(state.notices?{notices:state.notices}:{}),...(state.notice?{notice:state.notice}:{})};
    await blob.put(FILE,JSON.stringify(next),{token:process.env.BLOB_READ_WRITE_TOKEN,access:'private',addRandomSuffix:false,allowOverwrite:!!state.etag,...(state.etag?{ifMatch:state.etag}:{}),contentType:'application/json',cacheControlMaxAge:60});return reply(200,{revision:next.revision,records:next.records});
   }
   return reply(405,{error:'不支持此操作'});
