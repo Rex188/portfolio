@@ -60,6 +60,6 @@ module.exports=async function handler(req,res){
    await blob.put(FILE,JSON.stringify(next),{access:'private',addRandomSuffix:false,allowOverwrite:!!state.etag,...(state.etag?{ifMatch:state.etag}:{}),contentType:'application/json',cacheControlMaxAge:60});return reply(200,{revision:next.revision});
   }
   return reply(405,{error:'不支持此操作'});
- }catch(e){if(['BlobPreconditionFailedError','BlobAlreadyExistsError'].includes(e.name))return reply(409,{error:'记录已更新，请先导出修改，再刷新。'});console.error('Journal storage operation failed:',e.name);return reply(503,{error:'暂时无法读取或保存私人记录，修改仍在当前页面，请稍后重试。'});}
+ }catch(e){if(['BlobPreconditionFailedError','BlobAlreadyExistsError'].includes(e.name))return reply(409,{error:'记录已更新，请先导出修改，再刷新。'});console.error('Journal storage operation failed:',e.name,String(e.message).replace(/vercel_blob_rw_[A-Za-z0-9_]+/g,'[redacted]'));return reply(503,{error:'暂时无法读取或保存私人记录，修改仍在当前页面，请稍后重试。'});}
 };
 module.exports._test={valid,signedIn,mac,cookie};
