@@ -29,7 +29,15 @@ function valid(records){
  }
  return true;
 }
-async function current(blob){try{const result=await blob.get(FILE,{access:'private',useCache:false});if(!result)return {records:[],revision:1,etag:null};const state=JSON.parse(await new Response(result.stream).text());return {...state,etag:result.blob.etag};}catch(e){if(e.name==='BlobNotFoundError')return {records:[],revision:1,etag:null};throw e;}}
+async function current(blob){try{
+ // Read canonical write metadata before reading content. The download response
+ // can carry a compression-specific ETag, which cannot guard an object write.
+ const options={token:process.env.BLOB_READ_WRITE_TOKEN};
+ const metadata=await blob.head(FILE,options);
+ const result=await blob.get(FILE,{...options,access:'private',useCache:false});
+ if(!result)return {records:[],revision:1,etag:null};
+ const state=JSON.parse(await new Response(result.stream).text());return {...state,etag:metadata.etag};
+ }catch(e){if(e instanceof blob.BlobNotFoundError)return {records:[],revision:1,etag:null};throw e;}}
 module.exports=async function handler(req,res){
  res.setHeader('Cache-Control','private, no-store, max-age=0');res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');
  const reply=(code,data)=>res.status(code).json(data);
@@ -57,9 +65,9 @@ module.exports=async function handler(req,res){
    if(!body||!valid(body.records)||!Number.isInteger(body.revision)||JSON.stringify(body).length>1000000)return reply(400,{error:'记录格式无效'});
    if(body.revision!==state.revision)return reply(409,{error:'其他页面已更新记录。请先导出当前修改，再刷新。'});
    const next={records:body.records,revision:state.revision+1};
-   await blob.put(FILE,JSON.stringify(next),{access:'private',addRandomSuffix:false,allowOverwrite:!!state.etag,...(state.etag?{ifMatch:state.etag}:{}),contentType:'application/json',cacheControlMaxAge:60});return reply(200,{revision:next.revision});
+   await blob.put(FILE,JSON.stringify(next),{token:process.env.BLOB_READ_WRITE_TOKEN,access:'private',addRandomSuffix:false,allowOverwrite:!!state.etag,...(state.etag?{ifMatch:state.etag}:{}),contentType:'application/json',cacheControlMaxAge:60});return reply(200,{revision:next.revision});
   }
   return reply(405,{error:'不支持此操作'});
- }catch(e){if(['BlobPreconditionFailedError','BlobAlreadyExistsError'].includes(e.name))return reply(409,{error:'记录已更新，请先导出修改，再刷新。'});console.error('Journal storage operation failed:',e.name,String(e.message).replace(/vercel_blob_rw_[A-Za-z0-9_]+/g,'[redacted]'));return reply(503,{error:'暂时无法读取或保存私人记录，修改仍在当前页面，请稍后重试。'});}
+ }catch(e){if(['BlobPreconditionFailedError','BlobAlreadyExistsError'].includes(e.constructor?.name))return reply(409,{error:'记录已更新，请先导出修改，再刷新。'});console.error('Journal storage operation failed:',e.name,String(e.message).replace(/vercel_blob_rw_[A-Za-z0-9_]+/g,'[redacted]'));return reply(503,{error:'暂时无法读取或保存私人记录，修改仍在当前页面，请稍后重试。'});}
 };
 module.exports._test={valid,signedIn,mac,cookie};
