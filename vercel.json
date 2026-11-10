@@ -12,7 +12,7 @@
       }
     },
     {
-      "src": "/journal-8891f572595846a3/?",
+      "src": "/tracker/?",
       "dest": "/journal.html",
       "headers": {
         "X-Robots-Tag": "noindex, nofollow, noarchive",
