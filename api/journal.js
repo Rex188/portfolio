@@ -3,6 +3,7 @@ const crypto = require('node:crypto');
 const {promisify} = require('node:util');
 const pbkdf2 = promisify(crypto.pbkdf2);
 const verifier = require('../auth-config.json');
+const {validPlan,applyPlan,manualRecords}=require('../lib/journal-sync.cjs');
 const COOKIE = '__Host-rex_journal';
 const FILE = 'journal-state.json';
 const attempts = new Map();
@@ -22,6 +23,7 @@ function valid(records){
  for(const r of records){
   if(!r||typeof r!=='object'||typeof r.id!=='string'||ids.has(r.id))return false;ids.add(r.id);
   for(const k of ['id','school','short','region','program','round','deadline','deadlineNote','status','portfolio','supplement','portal','result','note','review','updated'])if(typeof r[k]!=='string'||r[k].length>50000)return false;
+  if(r.manualLock!==undefined&&typeof r.manualLock!=='boolean')return false;
   if(![1,2,3].includes(r.priority)||!Array.isArray(r.tasks)||r.tasks.length>500||!Array.isArray(r.evidence)||r.evidence.length>500||!Array.isArray(r.history)||r.history.length>5000)return false;
   for(const t of r.tasks)if(typeof t.text!=='string'||typeof t.done!=='boolean'||t.text.length>5000)return false;
   for(const h of r.history)if(typeof h.date!=='string'||typeof h.text!=='string')return false;
@@ -60,12 +62,18 @@ module.exports=async function handler(req,res){
  if(!signedIn(req))return reply(401,{error:'请先输入密码登录。'});
  try{
   const blob=await import('@vercel/blob');const state=await current(blob);
-  if(req.method==='GET')return reply(200,{records:state.records,revision:state.revision});
+  if(req.method==='GET')return reply(200,{records:state.records,revision:state.revision,sync:state.sync||null});
+  if(req.method==='POST'&&action==='sync'){
+   if(!validPlan(body)||JSON.stringify(body).length>1000000)return reply(400,{error:'邮件核对计划格式无效'});
+   const merged=applyPlan(state,body);
+   await blob.put(FILE,JSON.stringify(merged.state),{token:process.env.BLOB_READ_WRITE_TOKEN,access:'private',addRandomSuffix:false,allowOverwrite:!!state.etag,...(state.etag?{ifMatch:state.etag}:{}),contentType:'application/json',cacheControlMaxAge:60});
+   return reply(200,{revision:merged.state.revision,report:merged.report,sync:merged.state.sync});
+  }
   if(req.method==='PUT'){
    if(!body||!valid(body.records)||!Number.isInteger(body.revision)||JSON.stringify(body).length>1000000)return reply(400,{error:'记录格式无效'});
    if(body.revision!==state.revision)return reply(409,{error:'其他页面已更新记录。请先导出当前修改，再刷新。'});
-   const next={records:body.records,revision:state.revision+1};
-   await blob.put(FILE,JSON.stringify(next),{token:process.env.BLOB_READ_WRITE_TOKEN,access:'private',addRandomSuffix:false,allowOverwrite:!!state.etag,...(state.etag?{ifMatch:state.etag}:{}),contentType:'application/json',cacheControlMaxAge:60});return reply(200,{revision:next.revision});
+   const next={records:manualRecords(state.records,body.records),revision:state.revision+1,...(state.sync?{sync:state.sync}:{})};
+   await blob.put(FILE,JSON.stringify(next),{token:process.env.BLOB_READ_WRITE_TOKEN,access:'private',addRandomSuffix:false,allowOverwrite:!!state.etag,...(state.etag?{ifMatch:state.etag}:{}),contentType:'application/json',cacheControlMaxAge:60});return reply(200,{revision:next.revision,records:next.records});
   }
   return reply(405,{error:'不支持此操作'});
  }catch(e){if(['BlobPreconditionFailedError','BlobAlreadyExistsError'].includes(e.constructor?.name))return reply(409,{error:'记录已更新，请先导出修改，再刷新。'});console.error('Journal storage operation failed:',e.name,String(e.message).replace(/vercel_blob_rw_[A-Za-z0-9_]+/g,'[redacted]'));return reply(503,{error:'暂时无法读取或保存私人记录，修改仍在当前页面，请稍后重试。'});}
